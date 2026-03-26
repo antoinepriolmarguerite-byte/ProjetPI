@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 
 namespace ProjetAutoEcoleS4.Services
 {
@@ -16,10 +15,10 @@ namespace ProjetAutoEcoleS4.Services
         private IEleveService view;
         private EleveDAO bdd_Eleve;
 
-        public EleveService(string port,string password)
+        public EleveService()
         {
-            list_eleve = bdd_Eleve.GetAll(port,password);
-            this.view = new IEleveService(port,password);
+            list_eleve = new List<Eleve>();
+            this.view = new IEleveService();
             this.bdd_Eleve = new EleveDAO();
         }
 
@@ -36,15 +35,5 @@ namespace ProjetAutoEcoleS4.Services
             Eleve e = new Eleve(codeneph);
             return e;
         }
-        public void SupprimerEleve(Eleve e,string port, string password)
-        {
-            for(int i = 0; i < list_eleve.Count(); i++)
-            {
-                if(e==list_eleve[i]) {list_eleve.RemoveAt(i);break;}
-            }
-            Console.WriteLine("Eleve supprimé avec succès ! ");
-            bdd_Eleve.Supprimer(e.CodeNEPH,port,password);
-        }
-
     }
 }

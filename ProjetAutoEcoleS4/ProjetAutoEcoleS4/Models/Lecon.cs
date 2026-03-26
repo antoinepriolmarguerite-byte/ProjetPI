@@ -71,7 +71,7 @@ namespace ProjetAutoEcoleS4.Models
 
         public void Ajouterleçon(Lecon l,string port,string password)
         {
-            EleveService clientservices = new EleveService(port,password);
+            EleveService clientservices = new EleveService();
             Lecon_DAO lecondao = new Lecon_DAO(port,password);
 
             Console.WriteLine("Donnez la date de la leçon : ");

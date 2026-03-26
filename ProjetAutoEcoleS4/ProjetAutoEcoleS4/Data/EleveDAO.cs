@@ -28,9 +28,9 @@ namespace ProjetAutoEcoleS4.Data
             }
         }
 
-        public List<Eleve> GetAll(string port, string password)
+        public List<Eleve> GetAll()
         {
-            Database conn = new Database(port,password);
+            Database conn = new Database("3312","");//Ronan changera
             List<Eleve> liste = new List<Eleve>();
             using (MySqlConnection cn = conn.GetConnection())
             {
@@ -52,9 +52,9 @@ namespace ProjetAutoEcoleS4.Data
             return liste;
         }
 
-        public void Supprimer(string id,string port, string password)
+        public void Supprimer(int id)
         {
-            Database conn = new Database(port,password);
+            Database conn = new Database("3312","");
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
