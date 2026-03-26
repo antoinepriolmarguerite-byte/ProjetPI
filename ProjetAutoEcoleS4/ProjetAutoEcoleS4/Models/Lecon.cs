@@ -1,6 +1,5 @@
 using MySql.Data.MySqlClient;
 using ProjetAutoEcoleS4.Data;
-using ProjetAutoEcoleS4.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,15 +10,15 @@ namespace ProjetAutoEcoleS4.Models
     internal class Lecon
     {
         private static int idCounter = 1; // Compteur pour générer des ID uniques
-        public int id_Lecon { get; set; } //Clé primaire
+        public int id_Lecon  { get; set; }//Clé primaire
         public DateTime date { get; set; }
         public Eleve eleve { get; set; } //Auto ou manuelle
         public string moniteur { get; set; }
         public string vehicule { get; set; }
         public double montantFacture { get; set; }
-
+        
         public int Id_Lecon
-        {
+        {             
             get { return id_Lecon; }
             set { id_Lecon = value; }
         }
@@ -57,7 +56,7 @@ namespace ProjetAutoEcoleS4.Models
             this.moniteur = moniteur;
             this.vehicule = vehicule;
             this.montantFacture = montantFacture;
-        }
+        }   
         public Lecon()
         {
             id_Lecon = idCounter;
@@ -69,98 +68,66 @@ namespace ProjetAutoEcoleS4.Models
             montantFacture = 0;
         }
 
-        public void Ajouterleçon(Lecon l,string port,string password)
+        public void Ajouterleçon(Lecon l)
         {
-            EleveService clientservices = new EleveService(port,password);
-            Lecon_DAO lecondao = new Lecon_DAO(port,password);
+            Lecon_DAO lecondao = new Lecon_DAO();
 
-            Console.WriteLine("Donnez la date de la leçon : ");
+            Console.WriteLine("Donnez la date de la leçon ?");
             DateTime date;
             do
             {
-
+    
                 if (!DateTime.TryParse(Console.ReadLine(), out date))
                 {
-                    Console.Write("Veuillez entrer une date valide (jj/mm/aaaa) :");
+                    Console.WriteLine("Veuillez entrer une date valide (format: jj/mm/aaaa) :");
                 }
             } while (date == default(DateTime));
             l.Date = date;  
-            Console.WriteLine("Donnez le code NEPH de l'élève : ");
+            Console.WriteLine("Donnez le code NEPH de l'élève ?");
             string codeNeph;
-            /*do
+            do
             {
                 codeNeph = Console.ReadLine();
                 if (string.IsNullOrWhiteSpace(codeNeph))
                 {
-                    Console.Write("Le code NEPH de l'élève ne peut pas être vide. Veuillez réessayer : ");
+                    Console.WriteLine("Le nom de l'élève ne peut pas être vide. Veuillez réessayer :");
                 }
-            } while (string.IsNullOrWhiteSpace(codeNeph));*/
-            l.Eleve=clientservices.CreerEleve(port,password);
-            clientservices.AjouterEleve(l.Eleve,port,password);
-
-            //l.Eleve = eleve;
-            Console.WriteLine("Donnez le nom du moniteur : ");
+            } while (string.IsNullOrWhiteSpace(codeNeph));
+            Eleve eleve = new Eleve(codeNeph);
+            l.Eleve = eleve;
+            Console.WriteLine("Donnez le nom du moniteur ?");
             string moniteur;
             do
             {
-                moniteur = Console.ReadLine().ToUpper();
+                moniteur = Console.ReadLine();
                 if (string.IsNullOrWhiteSpace(moniteur))
                 {
-                    Console.Write("Le nom du moniteur ne peut pas être vide. Veuillez réessayer : ");
+                    Console.WriteLine("Le nom du moniteur ne peut pas être vide. Veuillez réessayer :");
                 }
             } while (string.IsNullOrWhiteSpace(moniteur));
             l.Moniteur = moniteur;
-            Console.WriteLine("Donnez l'immatricule du véhicule pour la leçon : ");
+            Console.WriteLine("Donnez l'imatricule du véhicule pour la leçon ?");
             string vehicule;
             do
             {
-                vehicule = Console.ReadLine().ToUpper();
+                vehicule = Console.ReadLine();
                 if (string.IsNullOrWhiteSpace(vehicule))
                 {
-                    Console.WriteLine("L'immatricule du véhicule ne peut pas être vide. Veuillez réessayer : ");
+                    Console.WriteLine("L'immatricule du véhicule ne peut pas être vide. Veuillez réessayer :");
                 }
             } while (string.IsNullOrWhiteSpace(vehicule));
             l.Vehicule = vehicule;
-            Console.WriteLine("Donnez le montant de la facture pour la leçon : ");
+            Console.WriteLine("Donnez le montant de la facture pour la leçon ?");
             double montantFacture;
             do
             {
                 if (!double.TryParse(Console.ReadLine(), out montantFacture) || montantFacture < 0)
                 {
-                    Console.Write("Veuillez entrer un montant valide : ");
+                    Console.WriteLine("Veuillez entrer un montant valide :");
                 }
             } while (montantFacture < 0);
             l.MontantFacture = montantFacture;
-
             lecondao.AjouterLecon_DAO(l);
-        }
-
-        public void SupprimerLeçon(string port, string password)
-        {
-            Lecon_DAO lecondao = new Lecon_DAO(port,password);
-            Console.Write("Donnez la date de la leçon : ");
-            DateTime date;
-            do
-            {
-
-                if (!DateTime.TryParse(Console.ReadLine(), out date))
-                {
-                    Console.Write("Veuillez entrer une date valide (jj/mm/aaaa) :");
-                }
-            } while (date == default(DateTime));
-
-            Console.Write("Donnez le code NEPH de l'élève : ");
-            string codeNeph;
-            do
-            {
-                codeNeph = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(codeNeph))
-                {
-                    Console.Write("Le code NEPH de l'élève ne peut pas être vide. Veuillez réessayer : ");
-                }
-            } while (string.IsNullOrWhiteSpace(codeNeph));
-
-            lecondao.SupprimerLecon_DAO(codeNeph, date);
         }
     }
 }

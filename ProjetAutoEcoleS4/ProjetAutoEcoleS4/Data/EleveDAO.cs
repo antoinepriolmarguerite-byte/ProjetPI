@@ -11,27 +11,28 @@ namespace ProjetAutoEcoleS4.Data
 {
     internal class EleveDAO
     {
-        public void Ajouter(Eleve e,string port, string password) //MON GROS CACA respectez ce commentaire, c'est le 1er push de Bastien
+        public void Ajouter(Eleve e) //MON GROS CACA
         {
-            Database conn = new Database(port,password);
+            Database conn = new Database("3312","");
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                string sql = "INSERT INTO ELEVE(CodeNEPH) VALUES (@n)";
+                string sql = "INSERT INTO ELEVE(nom, prenom, date_naissance, telephone) VALUES (@n,@p,@d,@t)";
                 MySqlCommand cmd = new MySqlCommand(sql, cn);
-                cmd.Parameters.AddWithValue("@n", e.CodeNEPH);
-                //cmd.Parameters.AddWithValue("@p", e.Prenom);
-                //cmd.Parameters.AddWithValue("@d", e.DateNaissance);
-                //cmd.Parameters.AddWithValue("@t", e.Tel);
-                //cmd.Parameters.AddWithValue("@t", e.Tel);
+                cmd.Parameters.AddWithValue("@n", e.Nom);
+                cmd.Parameters.AddWithValue("@p", e.Prenom);
+                cmd.Parameters.AddWithValue("@d", e.DateNaissance);
+                cmd.Parameters.AddWithValue("@t", e.Tel);
+                cmd.Parameters.AddWithValue("@t", e.Tel);
                 cmd.ExecuteNonQuery();
             }
         }
 
-        public List<Eleve> GetAll(string port, string password)
+        public List<Eleve> GetAll()
         {
-            Database conn = new Database(port,password);
+            Database conn = new Database("3312","");
             List<Eleve> liste = new List<Eleve>();
+            //using (MySqlConnection cn = conn.GetConnection())
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
@@ -52,9 +53,10 @@ namespace ProjetAutoEcoleS4.Data
             return liste;
         }
 
-        public void Supprimer(string id,string port, string password)
+        public void Supprimer(int id)
         {
-            Database conn = new Database(port,password);
+            Database conn = new Database("3312","");
+            //using (MySqlConnection cn = conn.GetConnection())
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();

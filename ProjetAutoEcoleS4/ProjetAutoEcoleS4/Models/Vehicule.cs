@@ -8,12 +8,12 @@ namespace ProjetAutoEcoleS4.Models
 {
     internal class Vehicule
     {
-        private string immatriculation { get; set; } //Clé primaire
-        private string typevehicule { get; set; }
-        private bool boitevitesse { get; set; } //Auto (1) ou manuelle (0)
-        private string historique { get; set; }
-        private int coutAssurance { get; set; }
-        private string marque { get; set; }
-        private string modele { get; set; }
+        private string immatriculation;//Clé primaire
+        private string typevehicule;
+        private bool boitevitesse; //Auto ou manuelle
+        private string historique;
+        private int coutAssurance;
+        private string marque;
+        private string modele;
     }
 }
