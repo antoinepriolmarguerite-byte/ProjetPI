@@ -1,0 +1,73 @@
+﻿using MySql.Data.MySqlClient;
+using ProjetAutoEcoleS4.Models;
+using ProjetAutoEcoleS4.Data;
+using ProjetAutoEcoleS4.Interfaces;
+using ProjetAutoEcoleS4.Services;
+
+Console.WriteLine("========== CONFIGURATION BDD ===========");
+Console.Write("Port (3306 par défaut) : ");
+string port = Console.ReadLine();
+port = string.IsNullOrEmpty(port) ? "3306" : port;
+
+Console.Write("Mot de passe SQL : ");
+string pwd = Console.ReadLine();
+
+Database db = new Database(port, pwd);
+Console.WriteLine(db.TestConnection());
+Console.WriteLine("========================================\n");
+
+Console.WriteLine("==== Projet 2026 Auto-Ecole ====");
+bool continuer = true;
+while (continuer)
+{
+    AfficherMenu();
+    Console.Write("\nVotre choix (1-9) : ");
+    string choix = Console.ReadLine();
+
+    switch (choix)
+    {
+        case "1":
+            Lecon lecon1 = new Lecon();
+            lecon1.Ajouterleçon(new Lecon(),port,pwd);
+            Console.Clear();
+            break;
+        case "2":
+            Lecon lecon2 = new Lecon();
+            lecon2.SupprimerLeçon(port,pwd);
+            Console.Clear();
+            break;
+        case "3":
+            Console.WriteLine("Affichage du planning...");
+            Console.Clear();
+            break;
+        case "4":
+            Console.WriteLine("Calcul du montant à régler...");
+            Console.Clear();
+            break;
+        case "7":
+            Console.WriteLine("Chiffre d'affaires mensuel...");
+            Console.Clear();
+            break;
+        case "9":
+            continuer = false;
+            Console.Clear();
+            break;
+        default:
+            Console.WriteLine("Option invalide, veuillez réessayer.");
+            break;
+    }
+}
+
+void AfficherMenu()
+{
+    Console.Clear();
+    Console.WriteLine("\n========== MENU PRINCIPAL ==========");
+    Console.WriteLine("1 - Ajouter une leçon");
+    Console.WriteLine("2 - Supprimer une leçon");
+    Console.WriteLine("3 - Voir le planning");
+    Console.WriteLine("4 - Voir le montant à régler");
+    Console.WriteLine("5 - Kilométrage véhicule");
+    Console.WriteLine("6 - Heures élève/moniteur");
+    Console.WriteLine("7 - Chiffre mensuel");
+    Console.WriteLine("9 - Quitter");
+}
