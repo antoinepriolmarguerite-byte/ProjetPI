@@ -21,7 +21,7 @@ namespace ProjetAutoEcoleS4.Interfaces
         }
         public string[] AjouterEleve()
         {
-            string[] retour = new string[13];
+            string[] retour = new string[12];
 
             Console.WriteLine("Veuillez écrire votre CodeNEPH : ");
             string CodeNEPH = Console.ReadLine();
@@ -30,6 +30,7 @@ namespace ProjetAutoEcoleS4.Interfaces
                 Console.WriteLine("Veuillez raccourcir le CodeNEPH : ");
                 Console.ReadLine();
             }
+            retour[0] = CodeNEPH;
 
             Console.WriteLine("Veuillez écrire votre nom : ");
             string nom = Console.ReadLine();
@@ -38,6 +39,8 @@ namespace ProjetAutoEcoleS4.Interfaces
                 Console.WriteLine("Veuillez raccourcir le nom : ");
                 Console.ReadLine();
             }
+            retour[1] = nom;
+
 
             Console.WriteLine("Veuillez écrire votre Prenom : ");
             string prenom = Console.ReadLine();
@@ -46,6 +49,7 @@ namespace ProjetAutoEcoleS4.Interfaces
                 Console.WriteLine("Veuillez raccourcir le prénom : ");
                 Console.ReadLine();
             }
+            retour[2] = prenom;
 
             Console.WriteLine("Veuillez écrire votre tel : ");
             string tel = Console.ReadLine();
@@ -54,6 +58,7 @@ namespace ProjetAutoEcoleS4.Interfaces
                 Console.WriteLine("Veuillez raccourcir le tel : ");
                 Console.ReadLine();
             }
+            retour[3] = tel;
 
             Console.WriteLine("Veuillez écrire votre Mail : ");
             string Mail = Console.ReadLine();
@@ -62,6 +67,7 @@ namespace ProjetAutoEcoleS4.Interfaces
                 Console.WriteLine("Veuillez raccourcir le Mail : ");
                 Console.ReadLine();
             }
+            retour[4] = Mail;
 
             Console.WriteLine("Veuillez écrire l'Adresse de l'élève : ");
             string adresse = Console.ReadLine();
@@ -69,7 +75,8 @@ namespace ProjetAutoEcoleS4.Interfaces
             {
                 Console.WriteLine("Veuillez raccourcir l'adresse : ");
                 Console.ReadLine();
-            }   
+            } 
+            retour[5] = adresse;  
 
             Console.WriteLine("Veuillez écrire le RIB de l'élève : ");
             string rib = Console.ReadLine();
@@ -77,7 +84,8 @@ namespace ProjetAutoEcoleS4.Interfaces
             {
                 Console.WriteLine("Veuillez raccourcir le rib : ");
                 Console.ReadLine();
-            }         
+            }
+            retour[6] = rib;         
 
             Console.WriteLine("Veuillez écrire la date de naissance de l'élève : ");
             string DateNaissance = Console.ReadLine();
@@ -85,7 +93,8 @@ namespace ProjetAutoEcoleS4.Interfaces
             {
                 Console.WriteLine("Veuillez raccourcir la DateNaissance : ");
                 Console.ReadLine();
-            }  
+            } 
+            retour[7] = DateNaissance; 
 
             Console.WriteLine("Veuillez écrire le Permis de l'élève : ");
             string Permis = Console.ReadLine();
@@ -94,14 +103,16 @@ namespace ProjetAutoEcoleS4.Interfaces
                 Console.WriteLine("Veuillez raccourcir la Permis : ");
                 Console.ReadLine();
             }   
+            retour[8] = Permis;
 
             Console.WriteLine("Veuillez écrire EstBoiteManuelle de l'élève (true/false) : ");
-            string EstBoiteManuelle = Console.ReadLine();
-            while (string.IsNullOrWhiteSpace(EstBoiteManuelle)|| EstBoiteManuelle.Length >= 5 ) 
+            string EstBoiteManuelle = Console.ReadLine().ToLower();
+            while (string.IsNullOrWhiteSpace(EstBoiteManuelle)|| EstBoiteManuelle != "true" || EstBoiteManuelle != "false") 
             {
                 Console.WriteLine("Veuillez raccourcir la EstBoiteManuelle : ");
                 Console.ReadLine();
-            }    
+            }   
+            retour[9] = EstBoiteManuelle; 
 
             Console.WriteLine("Veuillez écrire le nom du moniteur de l'élève (true/false) : ");
             string MoniteurTitre = Console.ReadLine();
@@ -110,8 +121,13 @@ namespace ProjetAutoEcoleS4.Interfaces
                 Console.WriteLine("Veuillez raccourcir le nom du moniteur : ");
                 Console.ReadLine();
             }    
+            retour[10] = MoniteurTitre;
 
-            string NbHeureARegler = "0";   
+            string NbHeureARegler = "0"; 
+            retour[11] = NbHeureARegler;
+
+            return retour;
+
 
 
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjetAutoEcoleS4.Data;
+using ProjetAutoEcoleS4.Interfaces;
 namespace ProjetAutoEcoleS4.Models
 {
     internal class Eleve
@@ -38,21 +39,22 @@ namespace ProjetAutoEcoleS4.Models
             NbHeureARegler = 0;
             //Console.WriteLine("Client construit avec succès ! NE PAS SORTIR DE SON CONTEXTE");
         }
-        public Eleve(string CodeNEPH,string Nom,string Prenom,string Tel,string Mail,string TypeEleve,string Adresse,string Rib,DateTime DateNaissance,string Permis, bool EstBoiteManuelle, string MoniteurTitre ,int NbHeureARegler)
+        public Eleve(IEleveService view)
         {
-            this.CodeNEPH = CodeNEPH;
-            this.Nom = Nom;
-            this.Prenom = Prenom;
-            this.Tel = Tel;
-            this.Mail = Mail;
-            this.TypeEleve = TypeEleve;
-            this.Adresse = Adresse;
-            this.Rib = Rib;
-            this.DateNaissance = DateNaissance;
-            this.Permis = Permis;
-            this.EstBoiteManuelle = EstBoiteManuelle;
-            this.MoniteurTitre = MoniteurTitre;
-            this.NbHeureARegler = NbHeureARegler;
+            string[] attributs = view.AjouterEleve();
+            this.CodeNEPH = attributs[0];
+            this.Nom = attributs[1];
+            this.Prenom = attributs[2];
+            this.Tel = attributs[3];
+            this.Mail = attributs[4];
+            this.TypeEleve = attributs[5];
+            this.Adresse = attributs[6];
+            this.Rib = attributs[7];
+            this.DateNaissance = DateTime.Parse(attributs[8]);
+            this.Permis = attributs[9];
+            this.EstBoiteManuelle = bool.Parse(attributs[9]);
+            this.MoniteurTitre = attributs[10];
+            this.NbHeureARegler = 0;
         }
         public Eleve()
         {
