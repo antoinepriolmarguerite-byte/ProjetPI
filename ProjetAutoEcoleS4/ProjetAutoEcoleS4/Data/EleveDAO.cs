@@ -28,9 +28,9 @@ namespace ProjetAutoEcoleS4.Data
             }
         }
 
-        public List<Eleve> GetAll()
+        public List<Eleve> GetAll(string port,string password)
         {
-            Database conn = new Database("3312","");//Ronan changera
+            Database conn = new Database(port,password);//Ronan changera
             List<Eleve> liste = new List<Eleve>();
             using (MySqlConnection cn = conn.GetConnection())
             {
@@ -41,20 +41,20 @@ namespace ProjetAutoEcoleS4.Data
                 {
                     liste.Add(new Eleve
                     {
-                        CodeNEPH = dr.GetString("id_eleve"),
+                        CodeNEPH = dr.GetString("CodeNEPH"),
                         Nom = dr.GetString("nom"),
                         Prenom = dr.GetString("prenom"),
-                        DateNaissance = dr.GetDateTime("date_naissance"),
-                        Tel = dr.GetString("telephone")
+                        //DateNaissance = dr.GetDateTime("date_naissance"),
+                        //Tel = dr.GetString("telephone")
                     });
                 }
             }
             return liste;
         }
 
-        public void Supprimer(int id)
+        public void Supprimer(int id,string port,string password)
         {
-            Database conn = new Database("3312","");
+            Database conn = new Database(port,password);
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();

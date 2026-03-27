@@ -1,6 +1,7 @@
 using MySql.Data.MySqlClient;
 using ProjetAutoEcoleS4.Data;
 using ProjetAutoEcoleS4.Services;
+//using ProjetAutoEcoleS4.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -72,7 +73,7 @@ namespace ProjetAutoEcoleS4.Models
         public void Ajouterleçon(Lecon l,string port,string password)
         {
             EleveService clientservices = new EleveService(port,password);
-            Lecon_DAO lecondao = new Lecon_DAO(port,password);
+            LeconDAO lecondao = new LeconDAO(port,password);
 
             Console.WriteLine("Donnez la date de la leçon : ");
             DateTime date;
@@ -137,7 +138,7 @@ namespace ProjetAutoEcoleS4.Models
 
         public void SupprimerLeçon(string port, string password)
         {
-            Lecon_DAO lecondao = new Lecon_DAO(port,password);
+            LeconDAO lecondao = new LeconDAO(port,password);
             Console.Write("Donnez la date de la leçon : ");
             DateTime date;
             do
