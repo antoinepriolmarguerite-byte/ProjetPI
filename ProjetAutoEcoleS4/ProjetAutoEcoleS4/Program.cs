@@ -1,4 +1,4 @@
-﻿using MySql.Data.MySqlClient;
+using MySql.Data.MySqlClient;
 using ProjetAutoEcoleS4.Models;
 using ProjetAutoEcoleS4.Data;
 using ProjetAutoEcoleS4.Interfaces;
@@ -16,14 +16,6 @@ Database db = new Database(port, pwd);
 Console.WriteLine(db.TestConnection());
 Console.WriteLine("========================================\n");
 
-Console.WriteLine("========== ZONE DE TESTE ===========\n");
-
-IEleveService view = new IEleveService("3306","root");
-Console.WriteLine(view.AjouterEleve());
-Console.WriteLine("====================================\n");
-
-
-
 Console.WriteLine("==== Projet 2026 Auto-Ecole ====");
 bool continuer = true;
 while (continuer)
@@ -35,17 +27,18 @@ while (continuer)
     switch (choix)
     {
         case "1":
-            Lecon lecon1 = new Lecon();
-            lecon1.Ajouterleçon(new Lecon(),port,pwd);
+            LeconServices lecon1 = new LeconServices(port, pwd);
+            lecon1.Ajouterleçon(new Lecon());
             Console.Clear();
             break;
         case "2":
-            Lecon lecon2 = new Lecon();
-            lecon2.SupprimerLeçon(port,pwd);
+            LeconServices lecon2 = new LeconServices(port, pwd);
+            lecon2.SupprimerLeçon();
             Console.Clear();
             break;
         case "3":
-            Console.WriteLine("Affichage du planning...");
+            PlanningService planning = new PlanningService(port, pwd);
+            planning.AfficherPlanning();
             Console.Clear();
             break;
         case "4":
