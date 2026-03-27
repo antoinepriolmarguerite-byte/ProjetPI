@@ -1,4 +1,4 @@
-﻿using MySql.Data.MySqlClient;
+using MySql.Data.MySqlClient;
 using ProjetAutoEcoleS4.Data;
 using ProjetAutoEcoleS4.Models;
 using ProjetAutoEcoleS4.Services;
@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace ProjetAutoEcoleS4.Data
 {
-    internal class Lecon_DAO
+    internal class LeconDAO
     {
         public Database conn;
-        public Lecon_DAO(string port, string password) 
+        public LeconDAO(string port, string password) 
         {
             conn = new Database(port, password);
         }
@@ -82,3 +82,4 @@ namespace ProjetAutoEcoleS4.Data
         }
     }
 }
+
