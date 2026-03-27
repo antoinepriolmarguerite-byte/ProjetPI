@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
-using ProjetAutoEcoleS4.Models;
 using ProjetAutoEcoleS4.Data;
+using ProjetAutoEcoleS4.Models;
+using ProjetAutoEcoleS4.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,58 +10,74 @@ using System.Threading.Tasks;
 
 namespace ProjetAutoEcoleS4.Data
 {
-    internal class EleveDAO
+    internal class LeconDAO
     {
-        public void Ajouter(Eleve e,string port, string password) //MON GROS CACA respectez ce commentaire, c'est le 1er push de Bastien
+        public Database conn;
+        public LeconDAO(string port, string password) 
         {
-            Database conn = new Database(port,password);
+            conn = new Database(port, password);
+        }
+        public void AjouterLecon_DAO(Lecon c)
+        {
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                string sql = "INSERT INTO ELEVE(CodeNEPH) VALUES (@n)";
-                MySqlCommand cmd = new MySqlCommand(sql, cn);
-                cmd.Parameters.AddWithValue("@n", e.CodeNEPH);
-                //cmd.Parameters.AddWithValue("@p", e.Prenom);
-                //cmd.Parameters.AddWithValue("@d", e.DateNaissance);
-                //cmd.Parameters.AddWithValue("@t", e.Tel);
-                //cmd.Parameters.AddWithValue("@t", e.Tel);
-                cmd.ExecuteNonQuery();
+                string insertTable = "insert into Lecon(id_Lecon,date,eleve,moniteur,vehicule,montantFacture) Values (" + c.id_Lecon + "," + c.date + "," + c.eleve + "," + c.moniteur + "," + c.vehicule + "," + c.montantFacture + ");";
+                MySqlCommand con = new MySqlCommand(insertTable, cn);
+
+                Console.WriteLine("Insertion réalisée");
+
+                cn.Dispose();
             }
         }
 
-        public List<Eleve> GetAll(string port, string password)
+        public int Id_LeconFromDateAndEleve(string codeNEPH, DateTime dateLecon)
         {
-            Database conn = new Database(port,password);
-            List<Eleve> liste = new List<Eleve>();
+            int id_lecon = 0;
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                MySqlCommand cmd = new MySqlCommand("SELECT * FROM ELEVE", cn);
-                MySqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
+                string sql = "SELECT ID_Lecon FROM Lecon " +
+                             "JOIN Eleve ON Lecon.Eleve = Eleve.CodeNEPH " +
+                             "WHERE Eleve.CodeNEPH = @neph AND Lecon.Date_ = @date";
+
+                MySqlCommand cmd = new MySqlCommand(sql, cn);
+                cmd.Parameters.AddWithValue("@neph", codeNEPH);
+                cmd.Parameters.AddWithValue("@date", dateLecon);
+
+                object result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
                 {
-                    liste.Add(new Eleve
-                    {
-                        CodeNEPH = dr.GetString("id_eleve"),
-                        Nom = dr.GetString("nom"),
-                        Prenom = dr.GetString("prenom"),
-                        DateNaissance = dr.GetDateTime("date_naissance"),
-                        Tel = dr.GetString("telephone")
-                    });
+                    id_lecon = Convert.ToInt32(result);
                 }
             }
-            return liste;
+            return id_lecon;
         }
 
-        public void Supprimer(string id,string port, string password)
+        public void SupprimerLecon_DAO(string codeNEPH, DateTime dateLecon)
         {
-            Database conn = new Database(port,password);
+            int idLecon = Id_LeconFromDateAndEleve(codeNEPH, dateLecon);
+
+            if (idLecon <= 0)
+            {
+                Console.WriteLine("Erreur : ID de leçon invalide.");
+                return;
+            }
+
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                MySqlCommand cmd = new MySqlCommand("DELETE FROM ELEVE WHERE id_eleve=@id", cn);
-                cmd.Parameters.AddWithValue("@id", id);
-                cmd.ExecuteNonQuery();
+                string sql = "DELETE FROM Lecon WHERE id_Lecon = @id";
+
+                MySqlCommand cmd = new MySqlCommand(sql, cn);
+                cmd.Parameters.AddWithValue("@id", idLecon);
+
+                int rows = cmd.ExecuteNonQuery();
+
+                if (rows > 0)
+                    Console.WriteLine("Suppression réalisée avec succès.");
+                else
+                    Console.WriteLine("Aucune leçon trouvée avec cet ID.");
             }
         }
     }
