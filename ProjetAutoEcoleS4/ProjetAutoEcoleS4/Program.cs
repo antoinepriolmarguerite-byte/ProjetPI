@@ -16,6 +16,14 @@ Database db = new Database(port, pwd);
 Console.WriteLine(db.TestConnection());
 Console.WriteLine("========================================\n");
 
+Console.WriteLine("========== ZONE DE TESTE ===========\n");
+
+IEleveService view = new IEleveService("3306","root");
+Console.WriteLine(view.AjouterEleve());
+Console.WriteLine("====================================\n");
+
+
+
 Console.WriteLine("==== Projet 2026 Auto-Ecole ====");
 bool continuer = true;
 while (continuer)

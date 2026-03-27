@@ -16,19 +16,19 @@ namespace ProjetAutoEcoleS4.Interfaces
         
         public IEleveService(string port,string password)
         {
-            this.list_eleve = bdd_Eleve.GetAll(port,password);
             this.bdd_Eleve = new EleveDAO();
+            this.list_eleve = bdd_Eleve.GetAll(port,password);//Comment ça Derefence bordel
         }
         public string[] AjouterEleve()
         {
             string[] retour = new string[12];
 
             Console.WriteLine("Veuillez écrire votre CodeNEPH : ");
-            string CodeNEPH = Console.ReadLine();
-            while (string.IsNullOrWhiteSpace(CodeNEPH)|| CodeNEPH.Length >= 50 ) 
+            string CodeNEPH = Console.ReadLine(); long intNEPH;
+            while (string.IsNullOrWhiteSpace(CodeNEPH)|| CodeNEPH.Length != 12 || !long.TryParse(CodeNEPH, out intNEPH))
             {
-                Console.WriteLine("Veuillez raccourcir le CodeNEPH : ");
-                Console.ReadLine();
+                Console.WriteLine("Mauvais format ! Veuillez recommencer : ");
+                CodeNEPH = Console.ReadLine();
             }
             retour[0] = CodeNEPH;
 
@@ -37,7 +37,7 @@ namespace ProjetAutoEcoleS4.Interfaces
             while (string.IsNullOrWhiteSpace(nom)|| nom.Length >= 50 ) 
             {
                 Console.WriteLine("Veuillez raccourcir le nom : ");
-                Console.ReadLine();
+                nom = Console.ReadLine();
             }
             retour[1] = nom;
 
@@ -47,16 +47,16 @@ namespace ProjetAutoEcoleS4.Interfaces
             while (string.IsNullOrWhiteSpace(prenom)|| prenom.Length >= 50 ) 
             {
                 Console.WriteLine("Veuillez raccourcir le prénom : ");
-                Console.ReadLine();
+                prenom = Console.ReadLine();
             }
             retour[2] = prenom;
 
             Console.WriteLine("Veuillez écrire votre tel : ");
-            string tel = Console.ReadLine();
-            while (string.IsNullOrWhiteSpace(tel)|| tel.Length >= 50 ) 
+            string tel = Console.ReadLine(); int telInt;
+            while (string.IsNullOrWhiteSpace(tel)|| tel.Length != 10 ||!int.TryParse(tel, out telInt )) 
             {
-                Console.WriteLine("Veuillez raccourcir le tel : ");
-                Console.ReadLine();
+                Console.WriteLine("Mauvais format ! Veuillez recommencer : ");
+                tel = Console.ReadLine();
             }
             retour[3] = tel;
 
@@ -65,7 +65,7 @@ namespace ProjetAutoEcoleS4.Interfaces
             while (string.IsNullOrWhiteSpace(Mail)|| Mail.Length >= 50 ) 
             {
                 Console.WriteLine("Veuillez raccourcir le Mail : ");
-                Console.ReadLine();
+                Mail = Console.ReadLine();
             }
             retour[4] = Mail;
 
@@ -74,7 +74,7 @@ namespace ProjetAutoEcoleS4.Interfaces
             while (string.IsNullOrWhiteSpace(adresse)|| adresse.Length >= 50 ) 
             {
                 Console.WriteLine("Veuillez raccourcir l'adresse : ");
-                Console.ReadLine();
+                adresse = Console.ReadLine();
             } 
             retour[5] = adresse;  
 
@@ -83,16 +83,16 @@ namespace ProjetAutoEcoleS4.Interfaces
             while (string.IsNullOrWhiteSpace(rib)|| rib.Length >= 50 ) 
             {
                 Console.WriteLine("Veuillez raccourcir le rib : ");
-                Console.ReadLine();
+                rib = Console.ReadLine();
             }
             retour[6] = rib;         
 
             Console.WriteLine("Veuillez écrire la date de naissance de l'élève : ");
-            string DateNaissance = Console.ReadLine();
-            while (string.IsNullOrWhiteSpace(DateNaissance)|| DateNaissance.Length >= 50 ) 
+            string DateNaissance = Console.ReadLine();DateTime Date;
+            while (string.IsNullOrWhiteSpace(DateNaissance)|| DateNaissance.Length >= 50 || !DateTime.TryParse(DateNaissance, out Date))
             {
-                Console.WriteLine("Veuillez raccourcir la DateNaissance : ");
-                Console.ReadLine();
+                Console.WriteLine("Veuillez raccourcir la DateNaissance(format : jj/mm/aaaa) : ");
+                DateNaissance = Console.ReadLine();
             } 
             retour[7] = DateNaissance; 
 
@@ -101,25 +101,25 @@ namespace ProjetAutoEcoleS4.Interfaces
             while (string.IsNullOrWhiteSpace(Permis)|| Permis.Length >= 50 ) 
             {
                 Console.WriteLine("Veuillez raccourcir la Permis : ");
-                Console.ReadLine();
+                Permis = Console.ReadLine();
             }   
             retour[8] = Permis;
 
             Console.WriteLine("Veuillez écrire EstBoiteManuelle de l'élève (true/false) : ");
             string EstBoiteManuelle = Console.ReadLine().ToLower();
-            while (string.IsNullOrWhiteSpace(EstBoiteManuelle)|| EstBoiteManuelle != "true" || EstBoiteManuelle != "false") 
+            while (string.IsNullOrWhiteSpace(EstBoiteManuelle)|| EstBoiteManuelle != "true" && EstBoiteManuelle != "false") 
             {
-                Console.WriteLine("Veuillez raccourcir la EstBoiteManuelle : ");
-                Console.ReadLine();
+                Console.WriteLine(EstBoiteManuelle);
+                EstBoiteManuelle = Console.ReadLine();
             }   
             retour[9] = EstBoiteManuelle; 
 
             Console.WriteLine("Veuillez écrire le nom du moniteur de l'élève (true/false) : ");
             string MoniteurTitre = Console.ReadLine();
-            while (string.IsNullOrWhiteSpace(MoniteurTitre)|| MoniteurTitre.Length >= 5 ) 
+            while (string.IsNullOrWhiteSpace(MoniteurTitre)|| MoniteurTitre.Length > 50 ) 
             {
                 Console.WriteLine("Veuillez raccourcir le nom du moniteur : ");
-                Console.ReadLine();
+                MoniteurTitre = Console.ReadLine();
             }    
             retour[10] = MoniteurTitre;
 
