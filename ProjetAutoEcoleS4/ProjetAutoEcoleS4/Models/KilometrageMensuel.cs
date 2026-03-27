@@ -10,6 +10,6 @@ namespace ProjetAutoEcoleS4.Models
     {
         private string immatriculation;
         private Mois annee_mois;
-        private double NbKilometre; //chepa
+        private double NbKilometre; 
     }
 }
