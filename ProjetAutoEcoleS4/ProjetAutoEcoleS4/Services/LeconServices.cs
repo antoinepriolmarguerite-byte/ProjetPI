@@ -37,7 +37,7 @@ namespace ProjetAutoEcoleS4.Data
                     Console.Write("Veuillez entrer une date valide (jj/mm/aaaa) :");
                 }
             } while (date == default(DateTime));
-            l.Date = date;
+            l.date = date;
             Console.WriteLine("Donnez le code NEPH de l'élève : ");
             string codeNeph;
             do
@@ -48,10 +48,10 @@ namespace ProjetAutoEcoleS4.Data
                     Console.Write("Le code NEPH de l'élève ne peut pas être vide. Veuillez réessayer : ");
                 }
             } while (string.IsNullOrWhiteSpace(codeNeph));
-            l.Eleve = clientservices.CreerEleve(port, password);
-            clientservices.AjouterEleve(l.Eleve, port, password);
+            l.eleve = clientservices.CreerEleve(port, password);
+            clientservices.AjouterEleve(l.eleve, port, password);
 
-            l.Eleve = eleve;
+            l.eleve = eleve;
             Console.WriteLine("Donnez le nom du moniteur : ");
             string moniteur;
             do
@@ -62,7 +62,7 @@ namespace ProjetAutoEcoleS4.Data
                     Console.Write("Le nom du moniteur ne peut pas être vide. Veuillez réessayer : ");
                 }
             } while (string.IsNullOrWhiteSpace(moniteur));
-            l.Moniteur = moniteur;
+            l.moniteur = moniteur;
             Console.WriteLine("Donnez l'immatricule du véhicule pour la leçon : ");
             string vehicule;
             do
@@ -73,7 +73,7 @@ namespace ProjetAutoEcoleS4.Data
                     Console.WriteLine("L'immatricule du véhicule ne peut pas être vide. Veuillez réessayer : ");
                 }
             } while (string.IsNullOrWhiteSpace(vehicule));
-            l.Vehicule = vehicule;
+            l.vehicule = vehicule;
             Console.WriteLine("Donnez le montant de la facture pour la leçon : ");
             double montantFacture;
             do
@@ -83,7 +83,7 @@ namespace ProjetAutoEcoleS4.Data
                     Console.Write("Veuillez entrer un montant valide : ");
                 }
             } while (montantFacture < 0);
-            l.MontantFacture = montantFacture;
+            l.montantFacture = montantFacture;
 
             lecondao.AjouterLecon_DAO(l);
         }

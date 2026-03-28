@@ -49,6 +49,10 @@ while (continuer)
             Console.WriteLine("Chiffre d'affaires mensuel...");
             Console.Clear();
             break;
+        case "8":
+            Console.WriteLine("Chiffre d'affaires mensuel...");
+            Console.Clear();
+            break;
         case "9":
             continuer = false;
             Console.Clear();
@@ -70,5 +74,6 @@ void AfficherMenu()
     Console.WriteLine("5 - Kilométrage véhicule");
     Console.WriteLine("6 - Heures élève/moniteur");
     Console.WriteLine("7 - Chiffre mensuel");
+    Console.WriteLine("8 - Ajoutez Eleve");
     Console.WriteLine("9 - Quitter");
 }

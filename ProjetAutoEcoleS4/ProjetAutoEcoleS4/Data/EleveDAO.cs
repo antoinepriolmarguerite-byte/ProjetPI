@@ -58,7 +58,7 @@ namespace ProjetAutoEcoleS4.Data
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                MySqlCommand cmd = new MySqlCommand("DELETE FROM ELEVE WHERE id_eleve=@id", cn);
+                MySqlCommand cmd = new MySqlCommand("DELETE FROM ELEVE WHERE CodeNEPH=@id", cn);
                 cmd.Parameters.AddWithValue("@id", id);
                 cmd.ExecuteNonQuery();
             }
