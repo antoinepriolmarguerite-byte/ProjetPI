@@ -2,7 +2,7 @@ USE AutoEcole;
 -- ================================
 -- TABLE : Eleve
 -- ================================
-INSERT INTO Eleve (CodeNEPH, Nom, Prénom, Tel, Mail, Type_élève, Adresse, RIB, DateNaissance, Permis, Boite, MoniteurTitre, NbHeuresAPayer, MontantReglementRestant)
+INSERT INTO Eleve (CodeNEPH, Nom, Prenom, Tel, Mail, Type_eleve, Adresse, RIB, DateNaissance, Permis, Boite, MoniteurTitre, NbHeuresAPayer, MontantReglementRestant)
 VALUES
 ('NEPH001', 'Dupont', 'Jean', '0601020304', 'jean.dupont@email.com', 'Initial', '12 rue des Fleurs, Paris', 'FR7612345', '2005-05-15', 'B', 'Manuelle', 'MONIT01', 5, 250),
 ('NEPH002', 'Martin', 'Sophie', '0611223344', 's.martin@email.com', 'AAC', '45 avenue de Lyon, Lyon', 'FR7698765', '2008-10-20', 'B', 'Automatique', 'MONIT02', 2, 100),
@@ -20,7 +20,7 @@ VALUES
 -- ================================
 -- TABLE : Véhicule
 -- ================================
-INSERT INTO Vehicule (Immatriculation, TypeVehicule, Boite, Historique, CoûtAssurance, Marque, Modele)
+INSERT INTO Vehicule (Immatriculation, TypeVehicule, Boite, Historique, CoutAssurance, Marque, Modele)
 VALUES
 ('AA-123-BB', 'Voiture', 0, 'Révision faite en Janvier 2026', 800, 'Peugeot', '208'),
 ('CC-456-DD', 'Voiture', 1, 'Neuve - Boite Auto', 950, 'Renault', 'Clio 5'),
@@ -46,7 +46,7 @@ VALUES
 -- ================================
 -- TABLE : Facture
 -- ================================
-INSERT INTO Facture (ID_Facture, Destinataire, Elève, Montant, DeadlineReglement, DateSéance, TypeReglement, CodeNEPH)
+INSERT INTO Facture (ID_Facture, Destinataire, Eleve, Montant, DeadlineReglement, DateSeance, TypeReglement, CodeNEPH)
 VALUES
 ('FAC001', 'Jean Dupont', 'Jean Dupont', 50, '2026-03-20', '2026-03-10', 'CB', 'NEPH001'),
 ('FAC002', 'Sophie Martin', 'Sophie Martin', 55, '2026-03-25', '2026-03-10', 'Virement', 'NEPH002');

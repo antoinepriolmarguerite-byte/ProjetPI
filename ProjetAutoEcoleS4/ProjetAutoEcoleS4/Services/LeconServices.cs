@@ -88,6 +88,49 @@ namespace ProjetAutoEcoleS4.Data
             lecondao.AjouterLecon_DAO(l);
         }
 
+        public void AjouterLeconAEleve(Lecon l,Eleve e)
+        {
+            EleveService clientservices = new EleveService(port,password);
+            LeconDAO lecondao = new LeconDAO(port, password);
+
+            l.eleve = e;
+            Console.WriteLine("Donnez le nom du moniteur : ");
+            string moniteur;
+            do
+            {
+                moniteur = Console.ReadLine().ToUpper();
+                if (string.IsNullOrWhiteSpace(moniteur))
+                {
+                    Console.Write("Le nom du moniteur ne peut pas être vide. Veuillez réessayer : ");
+                }
+            } while (string.IsNullOrWhiteSpace(moniteur));
+            l.moniteur = moniteur;
+            Console.WriteLine("Donnez l'immatricule du véhicule pour la leçon : ");
+            string vehicule;
+            do
+            {
+                vehicule = Console.ReadLine().ToUpper();
+                if (string.IsNullOrWhiteSpace(vehicule))
+                {
+                    Console.WriteLine("L'immatricule du véhicule ne peut pas être vide. Veuillez réessayer : ");
+                }
+            } while (string.IsNullOrWhiteSpace(vehicule));
+            l.vehicule = vehicule;
+            Console.WriteLine("Donnez le montant de la facture pour la leçon : ");
+            double montantFacture;
+            do
+            {
+                if (!double.TryParse(Console.ReadLine(), out montantFacture) || montantFacture < 0)
+                {
+                    Console.Write("Veuillez entrer un montant valide : ");
+                }
+            } while (montantFacture < 0);
+            l.montantFacture = montantFacture;
+            e.NbHeureARegler++;
+
+            lecondao.AjouterLecon_DAO(l);
+        }
+
         public void SupprimerLeçon()
         {
             LeconDAO lecondao = new LeconDAO(port, password);
