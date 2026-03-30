@@ -37,7 +37,7 @@ namespace ProjetAutoEcoleS4.Models
             eleve = new Eleve();
             moniteur = "";
             vehicule = "";
-            montantFacture = 0;
+            montantFacture = 0; //bonjour
         }
     }
 }
