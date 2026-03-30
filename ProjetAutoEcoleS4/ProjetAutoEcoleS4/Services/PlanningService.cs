@@ -35,6 +35,7 @@ namespace ProjetAutoEcoleS4.Data
                 }
             }
             Console.WriteLine("--------------------------------\n");
+            System.Threading.Thread.Sleep(10000);
         }
     }
 }
