@@ -17,7 +17,7 @@ namespace ProjetAutoEcoleS4.Models
         public Eleve eleve { get; set; } //Auto ou manuelle
         public string moniteur { get; set; }
         public string vehicule { get; set; }
-        public double montantFacture { get; set; }
+        public double montantFacture { get; set; }//ça fout quoi là?
 
         public Lecon(DateTime date, Eleve eleve, string moniteur, string vehicule, double montantFacture)
         {
