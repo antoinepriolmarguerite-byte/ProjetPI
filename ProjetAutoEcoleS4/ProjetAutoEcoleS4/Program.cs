@@ -42,8 +42,39 @@ while (continuer)
             Console.Clear();
             break;
         case "4":
-            Console.WriteLine("Calcul du montant à régler...");
-            Console.Clear();
+            Eleve eleve = new Eleve();
+            EleveDAO dao = new EleveDAO();
+            eleve.afficheralleleve(port, pwd);
+
+            List<Eleve> liste = dao.GetAll(port, pwd);
+            Console.WriteLine("Chosisissez le numéro de l'élève que vous souhaitez connaitre le montant à régler");
+            int id;
+            do
+            {
+                if (!int.TryParse(Console.ReadLine(), out id) || id < 0)
+                {
+                    Console.WriteLine("Veuillez entrer un montant valide :");
+                }
+            } while (id < 0 && id > liste.Count);
+            eleve = liste[id - 1];
+            Console.WriteLine("Le montant à régler pour l'élève " + eleve.Nom + " est de : " + eleve.MontantReglementRestant + "€");
+            break;
+        case "5":
+            Vehicule vehicule = new Vehicule();
+            VehiculeDAO vehiculeDAO = new VehiculeDAO();
+            vehicule.afficherallvehicule(port, pwd);
+            List<Vehicule> listeVehicules = vehiculeDAO.GetAll(port, pwd);
+            Console.WriteLine("Chosisissez le numéro du véhicule que vous souhaitez connaitre le kilométrage");
+            int idv;
+            do
+            {
+                if (!int.TryParse(Console.ReadLine(), out idv) || idv < 0)
+                {
+                    Console.WriteLine("Veuillez entrer un montant valide :");
+                }
+            } while (idv < 0 && idv > listeVehicules.Count);
+            vehicule = listeVehicules[idv - 1];
+            Console.WriteLine("Le kilométrage du véhicule " + vehicule.marque + " " + vehicule.modele + " est de : " + 0 + "km");
             break;
         case "7":
             Console.WriteLine("Chiffre d'affaires mensuel...");
