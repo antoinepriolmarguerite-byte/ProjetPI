@@ -43,6 +43,7 @@ while (continuer)
             break;
         case "4":
             Console.WriteLine("Calcul du montant à régler...");
+            FactureService facture = new FactureService();
             Console.Clear();
             break;
         case "7":
@@ -51,6 +52,8 @@ while (continuer)
             break;
         case "8":
             Console.WriteLine("Ajout d'un élève ...");
+            EleveService eleve = new EleveService(port,pwd);
+            eleve.CreerEleve(port,pwd);
             Console.Clear();
             break;
         case "9":
