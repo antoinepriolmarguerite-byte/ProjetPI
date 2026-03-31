@@ -10,7 +10,7 @@ namespace ProjetAutoEcoleS4.Models
     {
         private string id_Moniteur;//Clé primaire
         private string nom;
-        private string prenom;
+        private string prenom; //Auto ou manuelle
         private string permis_moniteur;
         private int salaire_Moniteur;
     }
