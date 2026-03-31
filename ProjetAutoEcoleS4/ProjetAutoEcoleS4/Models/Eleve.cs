@@ -9,6 +9,9 @@ namespace ProjetAutoEcoleS4.Models
 {
     internal class Eleve
     {
+        private static int autoincr = 0;
+        public int id_eleve { get; set; } //idEleve
+
         public string CodeNEPH { get; set; } //idEleve
         public string Nom { get; set; }
         public string Prenom { get; set; }
@@ -23,8 +26,9 @@ namespace ProjetAutoEcoleS4.Models
         public string MoniteurTitre { get; set; }
         public int NbHeureARegler { get; set; }
         public double MontantReglementRestant { get; set; }
-        public Eleve(string CodeNEPH)
+                public Eleve(string CodeNEPH)
         {
+            this.id_eleve = autoincr++;
             this.CodeNEPH = CodeNEPH;
             Nom = "";
             Prenom = "";
@@ -57,6 +61,10 @@ namespace ProjetAutoEcoleS4.Models
             this.EstBoiteManuelle = bool.Parse(attributs[9]);
             this.MoniteurTitre = attributs[10];
             this.NbHeureARegler = 0;
+        }
+        public override string ToString()
+        {
+            return $"{id_eleve} | Code NEPH: {CodeNEPH} | Nom: {Nom} | Prénom: {Prenom}";
         }
         public Eleve()
         {
