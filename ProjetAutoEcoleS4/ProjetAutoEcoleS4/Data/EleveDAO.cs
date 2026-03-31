@@ -11,28 +11,27 @@ namespace ProjetAutoEcoleS4.Data
 {
     internal class EleveDAO
     {
-        public void Ajouter(Eleve e) //MON GROS CACA
+        public void Ajouter(Eleve e, string port, string password) //MON GROS CACA respectez ce commentaire, c'est le 1er push de Bastien
         {
-            Database conn = new Database("3312","");
+            Database conn = new Database(port, password);
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                string sql = "INSERT INTO ELEVE(nom, prenom, date_naissance, telephone) VALUES (@n,@p,@d,@t)";
+                string sql = "INSERT INTO ELEVE(CodeNEPH) VALUES (@n)";
                 MySqlCommand cmd = new MySqlCommand(sql, cn);
-                cmd.Parameters.AddWithValue("@n", e.Nom);
-                cmd.Parameters.AddWithValue("@p", e.Prenom);
-                cmd.Parameters.AddWithValue("@d", e.DateNaissance);
-                cmd.Parameters.AddWithValue("@t", e.Tel);
-                cmd.Parameters.AddWithValue("@t", e.Tel);
+                cmd.Parameters.AddWithValue("@n", e.CodeNEPH);
+                //cmd.Parameters.AddWithValue("@p", e.Prenom);
+                //cmd.Parameters.AddWithValue("@d", e.DateNaissance);
+                //cmd.Parameters.AddWithValue("@t", e.Tel);
+                //cmd.Parameters.AddWithValue("@t", e.Tel);
                 cmd.ExecuteNonQuery();
             }
         }
 
-        public List<Eleve> GetAll()
+        public List<Eleve> GetAll(string port, string password)
         {
-            Database conn = new Database("3312","");
+            Database conn = new Database(port, password);//Ronan changera
             List<Eleve> liste = new List<Eleve>();
-            //using (MySqlConnection cn = conn.GetConnection())
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
@@ -42,25 +41,24 @@ namespace ProjetAutoEcoleS4.Data
                 {
                     liste.Add(new Eleve
                     {
-                        CodeNEPH = dr.GetString("id_eleve"),
+                        CodeNEPH = dr.GetString("CodeNEPH"),
                         Nom = dr.GetString("nom"),
                         Prenom = dr.GetString("prenom"),
-                        DateNaissance = dr.GetDateTime("date_naissance"),
-                        Tel = dr.GetString("telephone")
+                        //DateNaissance = dr.GetDateTime("date_naissance"),
+                        //Tel = dr.GetString("telephone")
                     });
                 }
             }
             return liste;
         }
 
-        public void Supprimer(int id)
+        public void Supprimer(int id, string port, string password)
         {
-            Database conn = new Database("3312","");
-            //using (MySqlConnection cn = conn.GetConnection())
+            Database conn = new Database(port, password);
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                MySqlCommand cmd = new MySqlCommand("DELETE FROM ELEVE WHERE id_eleve=@id", cn);
+                MySqlCommand cmd = new MySqlCommand("DELETE FROM ELEVE WHERE CodeNEPH=@id", cn);
                 cmd.Parameters.AddWithValue("@id", id);
                 cmd.ExecuteNonQuery();
             }

@@ -1,55 +1,80 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-//using MySqlX.XDevAPI;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using ProjetAutoEcoleS4.Models;
 using ProjetAutoEcoleS4.Data;
 using ProjetAutoEcoleS4.Interfaces;
 using ProjetAutoEcoleS4.Services;
 
-//==========UTILITÉ FONCTIONNEMENT===========
-Console.WriteLine("==========UTILITÉ FONCTIONNEMENT===========");
-Console.Write("Veuillez entrer votre port (par defaut, 3306) : ");
+Console.WriteLine("========== CONFIGURATION BDD ===========");
+Console.Write("Port (3306 par défaut) : ");
 string port = Console.ReadLine();
-Console.Write("\nVeuillez entrer votre mot de passe (SQL hein) : ");
-string sql = Console.ReadLine();
-Database db = new Database(port,sql);
+port = string.IsNullOrEmpty(port) ? "3306" : port;
+
+Console.Write("Mot de passe SQL : ");
+string pwd = Console.ReadLine();
+
+Database db = new Database(port, pwd);
 Console.WriteLine(db.TestConnection());
-Console.WriteLine("\n==========UTILITÉ FONCTIONNEMENT===========");
-//==========UTILITÉ FONCTIONNEMENT===========
+Console.WriteLine("========================================\n");
 
-Eleve bonjour = new Eleve("Salut");
-Console.WriteLine("================ Projet 2026 AutoEcole ================");
-string a;
-Console.WriteLine("\n\n");
-Console.WriteLine("1 - Ajouter une leçon");
-Console.WriteLine("1 - Suprimer une leçon");
-Console.WriteLine("2 - Voir le planing");
-Console.WriteLine("3 - Voir le montant à régler");
-Console.WriteLine("4 - Voir le kilométrage d'un véhicule");
-Console.WriteLine("5 - Voir le nombre d'heure d'un élève ou d'un moniteur");
-Console.WriteLine("6 - Chiffre mensuel de l'auto-école");
-do
+Console.WriteLine("==== Projet 2026 Auto-Ecole ====");
+bool continuer = true;
+while (continuer)
 {
-    a = Console.ReadLine();
-    if (a != "1" && a != "2" && a != "3" && a != "4" && a != "5" && a != "6" && a != "7" && a != "8" && a != "9") { Console.WriteLine("Veuillez entrer un chiffre entre 1 et 9"); }
-} while(a!="1" && a !="2" && a !="3" && a !="4" && a !="5" && a !="6" && a !="7" && a !="8" && a !="9");
-switch (a)
-{
-    case "1":
-        Lecon lecon = new Lecon();
-        lecon.Ajouterleçon(lecon);
-        break;
-    case "2":
+    AfficherMenu();
+    Console.Write("\nVotre choix (1-9) : ");
+    string choix = Console.ReadLine();
 
-        break;
-    case "3":
-        Console.WriteLine("Vous avez choisi l'option 3");
-        break;
-    case "4":
-        Console.WriteLine("Vous avez choisi l'option 4");
-        break;
+    switch (choix)
+    {
+        case "1":
+            LeconServices lecon1 = new LeconServices(port, pwd);
+            lecon1.Ajouterleçon(new Lecon());
+            Console.Clear();
+            break;
+        case "2":
+            LeconServices lecon2 = new LeconServices(port, pwd);
+            lecon2.SupprimerLeçon();
+            Console.Clear();
+            break;
+        case "3":
+            PlanningService planning = new PlanningService(port, pwd);
+            planning.AfficherPlanning();
+            Console.Clear();
+            break;
+        case "4":
+            Console.WriteLine("Calcul du montant à régler...");
+            Console.Clear();
+            break;
+        case "7":
+            Console.WriteLine("Chiffre d'affaires mensuel...");
+            Console.Clear();
+            break;
+        case "8":
+            Console.WriteLine("Ajout d'un élève ...");
+            Console.Clear();
+            break;
+        case "9":
+            continuer = false;
+            Console.Clear();
+            break;
+        default:
+            Console.WriteLine("Option invalide, veuillez réessayer.");
+            break;
+    }
 }
-//Database conn = new Database("3312","");//D'abord le port puis le mdp
-//Console.WriteLine(conn.TestConnection());
-Console.ReadKey();
+
+void AfficherMenu()
+{
+    Console.Clear();
+    Console.WriteLine("\n========== MENU PRINCIPAL ==========");
+    Console.WriteLine("1 - Ajouter une leçon");
+    Console.WriteLine("2 - Supprimer une leçon");
+    Console.WriteLine("3 - Voir le planning");
+    Console.WriteLine("4 - Voir le montant à régler");
+    Console.WriteLine("5 - Kilométrage véhicule");
+    Console.WriteLine("6 - Heures élève/moniteur");
+    Console.WriteLine("7 - Chiffre mensuel");
+    Console.WriteLine("8 - Ajoutez Eleve");
+    Console.WriteLine("9 - Quitter");
+}
+

@@ -8,6 +8,6 @@ namespace ProjetAutoEcoleS4.Models
 {
     internal class Mois
     {
-        private int annee_mois; //C'est tout?
+        private double annee_mois { get; set; } //Format AAAA MM
     }
 }
