@@ -10,7 +10,7 @@ namespace ProjetAutoEcoleS4.Models
     {
         private int id_Facture;//Clé primaire
         private string destinataire;
-        private string eleve; //Boite auto ou manuelle
+        private string eleve; //Auto ou manuelle
         private int montant;
         private DateTime deadtimeReglement;
         private DateTime dateseance;

@@ -50,7 +50,7 @@ while (continuer)
             Console.Clear();
             break;
         case "8":
-            Console.WriteLine("Chiffre d'affaires mensuel...");
+            Console.WriteLine("Ajout d'un élève ...");
             Console.Clear();
             break;
         case "9":

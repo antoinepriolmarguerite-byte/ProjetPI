@@ -1,3 +1,4 @@
+﻿
 ﻿using MySql.Data.MySqlClient;
 using ProjetAutoEcoleS4.Models;
 using ProjetAutoEcoleS4.Data;
