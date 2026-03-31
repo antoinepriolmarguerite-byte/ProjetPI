@@ -30,22 +30,23 @@ namespace ProjetAutoEcoleS4.Data
 
         public List<Eleve> GetAll(string port, string password)
         {
-            Database conn = new Database(port, password);//Ronan changera
+            Database conn = new Database(port, password);
             List<Eleve> liste = new List<Eleve>();
+            //using (MySqlConnection cn = conn.GetConnection())
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                MySqlCommand cmd = new MySqlCommand("SELECT * FROM ELEVE", cn);
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM ELEVE order by id_eleve", cn);
                 MySqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
                     liste.Add(new Eleve
                     {
-                        CodeNEPH = dr.GetString("CodeNEPH"),
+                        id_eleve = dr.GetInt32("id_eleve"),
                         Nom = dr.GetString("nom"),
                         Prenom = dr.GetString("prenom"),
-                        //DateNaissance = dr.GetDateTime("date_naissance"),
-                        //Tel = dr.GetString("telephone")
+                        DateNaissance = dr.GetDateTime("date_naissance"),
+                        Tel = dr.GetString("telephone")
                     });
                 }
             }
