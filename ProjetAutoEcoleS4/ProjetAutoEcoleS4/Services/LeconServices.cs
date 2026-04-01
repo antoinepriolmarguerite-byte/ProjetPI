@@ -4,6 +4,7 @@ using ProjetAutoEcoleS4.Models;
 using ProjetAutoEcoleS4.Services;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -89,11 +90,67 @@ namespace ProjetAutoEcoleS4.Data
 
         public void AjouterLeconAEleve(Lecon l,Eleve e)
         {
-            EleveService clientservices = new EleveService(port,password);
+            EleveService Eleveservice = new EleveService(port,password);
             LeconDAO lecondao = new LeconDAO(port, password);
+            MoniteurService MS = new MoniteurService();
+            MoniteurDAO bddMoniteur = new MoniteurDAO(port,password);
+            List<string> idMoniteur = new List<string>();
+            List<Moniteur> ListeMoniteur = bddMoniteur.GetAll(port, password);
 
             l.eleve = e;
-            Console.WriteLine("Donnez le nom du moniteur : ");
+
+            if (Eleveservice.EleveExiste(e))
+            {
+                Console.Write("Veuillez choisir un moniteur : ");
+                MS.AfficherAllMoniteur(port,password);
+                for(int i = 0; i < ListeMoniteur.Count(); i++)
+                {
+                    idMoniteur[i] = ListeMoniteur[i].id_Moniteur;
+                }
+                string entreeUtilisateur = Console.ReadLine()!;
+                while (!idMoniteur.Contains(entreeUtilisateur))
+                {
+                     Console.Write("Veuillez choisir l'id du moniteur (FORMAT : MONIT--) : ");
+                     entreeUtilisateur = Console.ReadLine()!; // Les ! permettent de caché les warnings
+                }
+                
+                Console.WriteLine("Donnez la date de la leçon : ");
+                DateTime date;
+                do
+                {
+
+                    if (!DateTime.TryParse(Console.ReadLine(), out date))
+                    {
+                        Console.Write("Veuillez entrer une date valide (jj/mm/aaaa) :");
+                    }
+                } while (date == default(DateTime));
+                l.date_Lecon = date;
+
+                Console.WriteLine("Donnez l'immatricule du véhicule pour la leçon : ");
+                string vehicule;
+                do
+                {
+                    vehicule = Console.ReadLine().ToUpper()!;
+                    if (string.IsNullOrWhiteSpace(vehicule))
+                    {
+                        Console.WriteLine("L'immatricule du véhicule ne peut pas être vide. Veuillez réessayer : ");
+                    }
+                } while (string.IsNullOrWhiteSpace(vehicule));
+                l.vehicule = vehicule;
+
+                double montantFacture;
+                do
+                {
+                    if (!double.TryParse(Console.ReadLine(), out montantFacture) || montantFacture < 0)
+                    {
+                        Console.Write("Veuillez entrer un montant valide : ");
+                    }
+                } while (montantFacture < 0);
+                l.montantFacture = montantFacture;
+                e.NbHeureARegler++;
+
+            }
+            /*Console.WriteLine("Donnez le nom du moniteur : ");
             string moniteur;
             do
             {
@@ -127,7 +184,7 @@ namespace ProjetAutoEcoleS4.Data
             l.montantFacture = montantFacture;
             e.NbHeureARegler++;
 
-            lecondao.AjouterLecon_DAO(l);
+            lecondao.AjouterLecon_DAO(l);*/
         }
 
         public void SupprimerLeçon()

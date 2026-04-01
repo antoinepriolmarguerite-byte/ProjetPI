@@ -36,6 +36,15 @@ namespace ProjetAutoEcoleS4.Services
             return e;
         }
 
+        public bool EleveExiste(Eleve e)
+        {
+            for(int i = 0; i < list_eleve.Count(); i++)
+            {
+                if(e==list_eleve[i]) return true;
+            }
+            return false;
+        }
+
         public void SupprimerEleve(Eleve e,string port, string password)
         {
             for(int i = 0; i < list_eleve.Count(); i++)
@@ -53,7 +62,6 @@ namespace ProjetAutoEcoleS4.Services
             {
                 Console.WriteLine(e.ToString());
             }
-
         }
     }
 }

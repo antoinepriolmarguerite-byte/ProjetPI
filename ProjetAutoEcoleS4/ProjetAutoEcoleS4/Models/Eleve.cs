@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Mysqlx.Expr;
 using ProjetAutoEcoleS4.Data;
 using ProjetAutoEcoleS4.Interfaces;
 namespace ProjetAutoEcoleS4.Models
@@ -65,6 +66,14 @@ namespace ProjetAutoEcoleS4.Models
         public override string ToString()
         {
             return $"{id_eleve} | Code NEPH: {CodeNEPH} | Nom: {Nom} | Prénom: {Prenom}";
+        }
+        static public bool operator  ==(Eleve e1,Eleve e2)
+        {
+            return e1.CodeNEPH==e2.CodeNEPH;
+        }
+        static public bool operator  !=(Eleve e1,Eleve e2)
+        {
+            return e1.CodeNEPH!=e2.CodeNEPH;
         }
         public Eleve()
         {

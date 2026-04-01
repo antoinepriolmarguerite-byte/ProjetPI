@@ -8,10 +8,19 @@ namespace ProjetAutoEcoleS4.Models
 {
     internal class Moniteur
     {
-        private string id_Moniteur;//Clé primaire
-        private string nom;
-        private string prenom; //Auto ou manuelle
-        private string permis_moniteur;
-        private int salaire_Moniteur;
+        public string id_Moniteur { get; set; }//Clé primaire
+        public string nom { get; set; }
+        public string prenom { get; set; } //Auto ou manuelle
+        public string permis_moniteur { get; set; }
+        public int salaire_Moniteur { get; set; }
+        
+        static public bool operator  ==(Moniteur e1,Moniteur e2)
+        {
+            return e1.id_Moniteur==e2.id_Moniteur;
+        }
+        static public bool operator  !=(Moniteur e1,Moniteur e2)
+        {
+            return e1.id_Moniteur!=e2.id_Moniteur;
+        }
     }
 }
