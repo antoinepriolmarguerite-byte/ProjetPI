@@ -47,7 +47,8 @@ namespace ProjetAutoEcoleS4.Data
                 {
                     Console.Write("Le code NEPH de l'élève ne peut pas être vide. Veuillez réessayer : ");
                 }
-            } while (string.IsNullOrWhiteSpace(codeNeph) && lecondao.VerifierLeconEleve(codeNeph, date));
+
+            } while (string.IsNullOrWhiteSpace(codeNeph) && !lecondao.VerifierLeconEleve(codeNeph, date));
             l.eleve = clientservices.CreerEleve(codeNeph, port, password);
             clientservices.AjouterEleve(l.eleve, port, password);
             l.eleve = eleve;
@@ -60,7 +61,7 @@ namespace ProjetAutoEcoleS4.Data
                 {
                     Console.Write("Le nom du moniteur ne peut pas être vide. Veuillez réessayer : ");
                 }
-            } while (string.IsNullOrWhiteSpace(moniteur) && lecondao.VerifierLeconMoniteur(moniteur, date));
+            } while (string.IsNullOrWhiteSpace(moniteur) && !lecondao.VerifierLeconMoniteur(moniteur, date));
             l.moniteur = moniteur;
             Console.WriteLine("Donnez l'immatricule du véhicule pour la leçon : ");
             string vehicule;
@@ -71,7 +72,7 @@ namespace ProjetAutoEcoleS4.Data
                 {
                     Console.WriteLine("L'immatricule du véhicule ne peut pas être vide. Veuillez réessayer : ");
                 }
-            } while (string.IsNullOrWhiteSpace(vehicule) && lecondao.VerifierLeconVehicule(vehicule, date));
+            } while (string.IsNullOrWhiteSpace(vehicule) && !lecondao.VerifierLeconVehicule(vehicule, date));
             l.vehicule = vehicule;
             Console.WriteLine("Donnez le montant de la facture pour la leçon : ");
             double montantFacture;
