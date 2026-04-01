@@ -45,6 +45,16 @@ namespace ProjetAutoEcoleS4.Services
             Console.WriteLine("Eleve supprimé avec succès ! ");
             bdd_Eleve.Supprimer(int.Parse(e.CodeNEPH),port,password);
         }
+        public void AfficherAllEleve(string port, string password)
+        {
+            EleveDAO elevedao = new EleveDAO();
+            List<Eleve> liste = elevedao.GetAll(port, password);
+            foreach (Eleve e in liste)
+            {
+                Console.WriteLine(e.ToString());
+            }
+
+        }
     }
 }
 

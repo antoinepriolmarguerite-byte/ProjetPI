@@ -33,7 +33,7 @@ CREATE TABLE Moniteur(
 CREATE TABLE Vehicule(
    Immatriculation VARCHAR(50),
    TypeVehicule VARCHAR(50) NOT NULL,
-   Boite BOOLEAN NOT NULL,
+   Boite BOOL NOT NULL,
    Historique TEXT,
    CoutAssurance INT,
    Marque VARCHAR(50),
@@ -43,7 +43,7 @@ CREATE TABLE Vehicule(
 
 CREATE TABLE Lecon(
    ID_Lecon VARCHAR(50),
-   Date_ DATETIME NOT NULL,
+   DateLecon DATETIME NOT NULL,
    Eleve VARCHAR(50) NOT NULL,
    Moniteur VARCHAR(50) NOT NULL,
    Vehicule VARCHAR(50) NOT NULL,
@@ -62,7 +62,7 @@ CREATE TABLE Planning(
    Immatriculation VARCHAR(50) NOT NULL,
    ID_Lecon VARCHAR(50) NOT NULL,
    ID_Moniteur VARCHAR(50) NOT NULL,
-   CodeNEPH VARCHAR(50) NOT NULL,
+   id_eleve INT, 
    PRIMARY KEY(ID_Planning),
    FOREIGN KEY(Immatriculation) REFERENCES Vehicule(Immatriculation),
    FOREIGN KEY(ID_Lecon) REFERENCES Lecon(ID_Lecon),
@@ -76,9 +76,9 @@ CREATE TABLE Facture(
    Eleve VARCHAR(50) NOT NULL,
    Montant INT NOT NULL,
    DeadlineReglement DATE NOT NULL,
-   DateSeance DATE NOT NULL,
+   DateSéance DATE NOT NULL,
    TypeReglement VARCHAR(50),
-   CodeNEPH VARCHAR(50) NOT NULL,
+   id_eleve INT, 
    PRIMARY KEY(ID_Facture),
    FOREIGN KEY(id_eleve) REFERENCES Eleve(id_eleve)
 );

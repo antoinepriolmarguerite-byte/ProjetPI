@@ -1,3 +1,4 @@
+﻿
 ﻿using MySql.Data.MySqlClient;
 using ProjetAutoEcoleS4.Models;
 using ProjetAutoEcoleS4.Data;
@@ -19,18 +20,18 @@ namespace ProjetAutoEcoleS4.Data
                 cn.Open();
                 string sql = "INSERT INTO ELEVE(CodeNEPH) VALUES (@n)";
                 MySqlCommand cmd = new MySqlCommand(sql, cn);
-                cmd.Parameters.AddWithValue("@n", e.CodeNEPH);
-                //cmd.Parameters.AddWithValue("@p", e.Prenom);
-                //cmd.Parameters.AddWithValue("@d", e.DateNaissance);
-                //cmd.Parameters.AddWithValue("@t", e.Tel);
-                //cmd.Parameters.AddWithValue("@t", e.Tel);
+                cmd.Parameters.AddWithValue("@nom", e.CodeNEPH);
+                cmd.Parameters.AddWithValue("@prenom", e.Prenom);
+                cmd.Parameters.AddWithValue("@DateNaissance", e.DateNaissance);
+                cmd.Parameters.AddWithValue("@Tel", e.Tel);
+                cmd.Parameters.AddWithValue("@Mail", e.Mail);
                 cmd.ExecuteNonQuery();
             }
         }
 
         public List<Eleve> GetAll(string port,string password)
         {
-            Database conn = new Database(port,password);//Ronan changera
+            Database conn = new Database(port,password); //Ronan changera
             List<Eleve> liste = new List<Eleve>();
             using (MySqlConnection cn = conn.GetConnection())
             {

@@ -1,5 +1,5 @@
 # Mini-Projet Auto-École 🚗
-Ce mini-projet a été développé par `Ronan`, `Bastien`, `Antoine` en 2026. Il a été implementé dans le cadre du cours de **Problèmes informatiques** à l'École supérieure d'ingénieurs Léonard-de-Vinci (ESILV
+Ce mini-projet a été développé par `Ronan`, `Bastien`, `Antoine` en 2026. Il a été implementé dans le cadre du cours de *Problèmes informatiques* à l'École supérieure d'ingénieurs Léonard-de-Vinci (ESILV
 <img src="https://www.itii-pdl.com/wp-content/uploads/2024/11/logo_esilv_couleur.jpg" width="15px"></img>)
 
 ## Langages 🌍

@@ -1,7 +1,6 @@
 using MySql.Data.MySqlClient;
 using ProjetAutoEcoleS4.Data;
 using ProjetAutoEcoleS4.Services;
-//using ProjetAutoEcoleS4.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +11,8 @@ namespace ProjetAutoEcoleS4.Models
     internal class Lecon
     {
         private static int idCounter = 1; // Compteur pour générer des ID uniques
-        public int id_Lecon { get; set; } //Clé primaire
-        public DateTime date { get; set; }
+        public int id_Lecon  { get; set; }//Clé primaire
+        public DateTime date_Lecon { get; set; }
         public Eleve eleve { get; set; } //Auto ou manuelle
         public string moniteur { get; set; }
         public string vehicule { get; set; }
@@ -23,21 +22,21 @@ namespace ProjetAutoEcoleS4.Models
         {
             id_Lecon = idCounter;
             idCounter++;
-            this.date = date;
+            this.date_Lecon = date;
             this.eleve = eleve;
             this.moniteur = moniteur;
             this.vehicule = vehicule;
             this.montantFacture = montantFacture;
-        }
+        }   
         public Lecon()
         {
             id_Lecon = idCounter;
             idCounter++;
-            date = new DateTime();
+            date_Lecon = new DateTime();
             eleve = new Eleve();
             moniteur = "";
             vehicule = "";
-            montantFacture = 0;
+            montantFacture = 0; 
         }
     }
 }

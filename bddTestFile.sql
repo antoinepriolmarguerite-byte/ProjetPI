@@ -20,16 +20,18 @@ VALUES
 -- ================================
 -- TABLE : Vehicule
 -- ================================
-INSERT INTO Vehicule (Immatriculation, TypeVehicule, Boite, Historique, CoutAssurance, Marque, Modele)
+INSERT INTO Vehicule (Immatriculation, TypeVehicule, Boite, Historique, Marque, Modele)
 VALUES
 ('AA-123-BB', 'Voiture', 0, 'Revision faite en Janvier 2026', 800, 'Peugeot', '208'),
 ('CC-456-DD', 'Voiture', 1, 'Neuve - Boite Auto', 950, 'Renault', 'Clio 5'),
 ('EE-789-FF', 'Moto', 0, 'Chaîne graissee', 600, 'Yamaha', 'MT-07');
 
+SELECT * FROM ELEVE;
+
 -- ================================
 -- TABLE : Leçon
 -- ================================
-INSERT INTO Lecon (ID_Lecon, Date_, Eleve, Moniteur, Vehicule, MontantFacture)
+INSERT INTO Lecon (ID_Lecon, Date_Lecon, Eleve, Moniteur, Vehicule, MontantFacture)
 VALUES
 ('LEC001', '2026-03-10 14:00:00', 'NEPH001', 'MONIT01', 'AA-123-BB', 50),
 ('LEC002', '2026-03-10 15:00:00', 'NEPH002', 'MONIT02', 'CC-456-DD', 55),

@@ -9,6 +9,9 @@ namespace ProjetAutoEcoleS4.Models
 {
     internal class Eleve
     {
+        private static int autoincr = 0;
+        public int id_eleve { get; set; } //idEleve
+
         public string CodeNEPH { get; set; } //idEleve
         public string Nom { get; set; }
         public string Prenom { get; set; }
@@ -22,8 +25,10 @@ namespace ProjetAutoEcoleS4.Models
         public bool EstBoiteManuelle { get; set; } //true => Boite manuelle
         public string MoniteurTitre { get; set; }
         public int NbHeureARegler { get; set; }
-        public Eleve(string CodeNEPH)
+        public double MontantReglementRestant { get; set; }
+                public Eleve(string CodeNEPH)
         {
+            this.id_eleve = autoincr++;
             this.CodeNEPH = CodeNEPH;
             Nom = "";
             Prenom = "";
@@ -37,6 +42,7 @@ namespace ProjetAutoEcoleS4.Models
             EstBoiteManuelle = false;
             MoniteurTitre = "";
             NbHeureARegler = 0;
+            MontantReglementRestant = 0;
             //Console.WriteLine("Client construit avec succès ! NE PAS SORTIR DE SON CONTEXTE");
         }
         public Eleve(IEleveService view)
@@ -56,6 +62,10 @@ namespace ProjetAutoEcoleS4.Models
             this.MoniteurTitre = attributs[10];
             this.NbHeureARegler = 0;
         }
+        public override string ToString()
+        {
+            return $"{id_eleve} | Code NEPH: {CodeNEPH} | Nom: {Nom} | Prénom: {Prenom}";
+        }
         public Eleve()
         {
             CodeNEPH = "";
@@ -71,15 +81,9 @@ namespace ProjetAutoEcoleS4.Models
             EstBoiteManuelle = false;
             MoniteurTitre = "";
             NbHeureARegler = 0;
+            MontantReglementRestant = 0;
             //Console.WriteLine("Client construit avec succès ! NE PAS SORTIR DE SON CONTEXTE"); 
         }
-        public static bool operator ==(Eleve e1, Eleve e2)
-        {
-            return e1.CodeNEPH==e2.CodeNEPH;
-        }
-        public static bool operator !=(Eleve e1, Eleve e2)
-        {
-            return e1.CodeNEPH!=e2.CodeNEPH;
-        }
+
     }
 }

@@ -42,8 +42,24 @@ while (continuer)
             Console.Clear();
             break;
         case "4":
-            Console.WriteLine("Calcul du montant à régler...");
-            Console.Clear();
+            EleveService eleve = new EleveService(port,pwd);
+            Eleve e = new Eleve();
+            EleveDAO dao = new EleveDAO();
+            eleve.AfficherAllEleve(port, pwd);
+
+            List<Eleve> liste = dao.GetAll(port, pwd);
+            Console.WriteLine("Chosisissez le numéro de l'élève que vous souhaitez connaitre le montant à régler");
+            int id;
+            do
+            {
+                if (!int.TryParse(Console.ReadLine(), out id) || id < 0)
+                {
+                    Console.WriteLine("Veuillez entrer un montant valide :");
+                }
+            } while (id < 0 && id > liste.Count);
+            e = liste[id];
+            Console.WriteLine("Le montant à régler pour l'élève " + e.Nom + " est de : " + e.MontantReglementRestant + "EUR");
+            System.Threading.Thread.Sleep(10000);
             break;
         case "7":
             Console.WriteLine("Chiffre d'affaires mensuel...");

@@ -21,16 +21,17 @@ public class Database
         {
             return new MySqlConnection(connectionString);
         }
-
         //Methode de test
         public string TestConnection()
         {
         try
         {
+
             var Connexion = new MySqlConnection(connectionString);
             Connexion.Open();
-                return "connextion établie";
-            }
+            return "bravo";
+            //Console.WriteLine("connextion établie");
+        }
         catch (MySqlException e)
         {switch (e.Number)
             {
@@ -44,7 +45,7 @@ public class Database
                     return(" ErreurConnexion : " + e.ToString());
                     break;
             }
-            return "Erreur de connexion";
+            return "chepa";
         }
         }
     }
