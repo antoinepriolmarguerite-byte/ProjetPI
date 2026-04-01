@@ -5,10 +5,10 @@ USE AutoEcole;
 CREATE TABLE Eleve( -- Client
    CodeNEPH VARCHAR(50),
    Nom VARCHAR(50) NOT NULL,
-   Prénom VARCHAR(50) NOT NULL,
+   Prenom VARCHAR(50) NOT NULL,
    Tel VARCHAR(50),
    Mail VARCHAR(50),
-   Type_élève VARCHAR(50), 
+   Type_eleve VARCHAR(50), 
    Adresse TEXT,
    RIB VARCHAR(50),
    DateNaissance DATE NOT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE Moniteur(
 CREATE TABLE Vehicule(
    Immatriculation VARCHAR(50),
    TypeVehicule VARCHAR(50) NOT NULL,
-   Boite LOGICAL NOT NULL,
+   Boite BOOL NOT NULL,
    Historique TEXT,
    CoûtAssurance INT,
    Marque VARCHAR(50),
@@ -41,13 +41,13 @@ CREATE TABLE Vehicule(
 );
 
 CREATE TABLE Lecon(
-   ID_Leçon VARCHAR(50),
-   Date_ DATETIME NOT NULL,
+   ID_Lecon VARCHAR(50),
+   DateLecon DATETIME NOT NULL,
    Eleve VARCHAR(50) NOT NULL,
    Moniteur VARCHAR(50) NOT NULL,
    Vehicule VARCHAR(50) NOT NULL,
    MontantFacture INT NOT NULL,
-   PRIMARY KEY(ID_Leçon)
+   PRIMARY KEY(ID_Lecon)
 );
 
 CREATE TABLE Planning(
@@ -56,20 +56,20 @@ CREATE TABLE Planning(
    DateHeureFin DATETIME NOT NULL,
    Formule VARCHAR(50),
    Immatriculation VARCHAR(50) NOT NULL,
-   ID_Leçon VARCHAR(50) NOT NULL,
+   ID_Lecon VARCHAR(50) NOT NULL,
    ID_Moniteur VARCHAR(50) NOT NULL,
    CodeNEPH VARCHAR(50) NOT NULL,
    PRIMARY KEY(ID_Planning),
    FOREIGN KEY(Immatriculation) REFERENCES Vehicule(Immatriculation),
-   FOREIGN KEY(ID_Leçon) REFERENCES Leçon(ID_Leçon),
+   FOREIGN KEY(ID_Lecon) REFERENCES Lecon(ID_Lecon),
    FOREIGN KEY(ID_Moniteur) REFERENCES Moniteur(ID_Moniteur),
-   FOREIGN KEY(CodeNEPH) REFERENCES Elève(CodeNEPH)
+   FOREIGN KEY(CodeNEPH) REFERENCES Eleve(CodeNEPH)
 );
 
 CREATE TABLE Facture(
    ID_Facture VARCHAR(50),
    Destinataire VARCHAR(50) NOT NULL,
-   Elève VARCHAR(50) NOT NULL,
+   Eleve VARCHAR(50) NOT NULL,
    Montant INT NOT NULL,
    DeadlineReglement DATE NOT NULL,
    DateSéance DATE NOT NULL,

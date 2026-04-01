@@ -15,7 +15,6 @@ namespace ProjetAutoEcoleS4.Data
         {
             Database conn = new Database(port, password);
             List<Vehicule> liste = new List<Vehicule>();
-            //using (MySqlConnection cn = conn.GetConnection())
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();

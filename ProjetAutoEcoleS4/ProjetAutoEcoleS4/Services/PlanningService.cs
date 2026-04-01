@@ -16,7 +16,7 @@ namespace ProjetAutoEcoleS4.Data
             this.port = port;
             this.password = password;
         }
-        public void AfficherPlanning() //Fonctionne pas
+        public void AfficherPlanning()
         {
             Console.Clear();
             Console.WriteLine("\n--- PLANNING DE L'AUTO-ÉCOLE ---");
