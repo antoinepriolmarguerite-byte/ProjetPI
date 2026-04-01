@@ -17,8 +17,8 @@ CREATE TABLE Eleve( -- Client
    Boite VARCHAR(50) NOT NULL,
    MoniteurTitre VARCHAR(50),
    NbHeuresAPayer INT,
-   MontantReglementRestant INT NOT NULL,
-   PRIMARY KEY(id_eleve)
+   MontantReglementRestant INT NOT NULL
+   -- PRIMARY KEY(id_eleve)
 );
 
 CREATE TABLE Moniteur(
@@ -43,13 +43,13 @@ CREATE TABLE Vehicule(
 CREATE TABLE Lecon(
    ID_Lecon VARCHAR(50),
    Date_Lecon DATETIME NOT NULL,
-   Eleve VARCHAR(50) NOT NULL,
+   id_eleve int, -- BORDEL
    Moniteur VARCHAR(50) NOT NULL,
-   Vehicule VARCHAR(50) NOT NULL,
+   Immatriculation VARCHAR(50) NOT NULL,
    MontantFacture INT NOT NULL,
    PRIMARY KEY(ID_Lecon),
    FOREIGN KEY(Immatriculation) REFERENCES Vehicule(Immatriculation),
-   FOREIGN KEY(ID_Moniteur) REFERENCES Moniteur(ID_Moniteur),
+   FOREIGN KEY(Moniteur) REFERENCES Moniteur(ID_Moniteur),
    FOREIGN KEY(id_eleve) REFERENCES Eleve(id_eleve)
 );
 
