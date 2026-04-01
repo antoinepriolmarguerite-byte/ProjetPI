@@ -1,4 +1,4 @@
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using ProjetAutoEcoleS4.Models;
 using ProjetAutoEcoleS4.Data;
 using ProjetAutoEcoleS4.Interfaces;
@@ -78,6 +78,7 @@ while (continuer)
             break;
     }
 }
+
 
 void AfficherMenu()
 {
