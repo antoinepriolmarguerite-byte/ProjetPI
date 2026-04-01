@@ -3,6 +3,7 @@ CREATE DATABASE AutoEcole;
 USE AutoEcole;
 
 CREATE TABLE Eleve( -- Client
+   id_eleve INT AUTO_INCREMENT PRIMARY KEY,
    CodeNEPH VARCHAR(50),
    Nom VARCHAR(50) NOT NULL,
    Prenom VARCHAR(50) NOT NULL,
@@ -16,8 +17,8 @@ CREATE TABLE Eleve( -- Client
    Boite VARCHAR(50) NOT NULL,
    MoniteurTitre VARCHAR(50),
    NbHeuresAPayer INT,
-   MontantReglementRestant INT NOT NULL,
-   PRIMARY KEY(CodeNEPH)
+   MontantReglementRestant INT NOT NULL
+   -- PRIMARY KEY(CodeNEPH)
 );
 
 CREATE TABLE Moniteur(
@@ -34,7 +35,7 @@ CREATE TABLE Vehicule(
    TypeVehicule VARCHAR(50) NOT NULL,
    Boite BOOL NOT NULL,
    Historique TEXT,
-   CoûtAssurance INT,
+   CoutAssurance INT,
    Marque VARCHAR(50),
    Modele VARCHAR(50),
    PRIMARY KEY(Immatriculation)
@@ -58,12 +59,12 @@ CREATE TABLE Planning(
    Immatriculation VARCHAR(50) NOT NULL,
    ID_Lecon VARCHAR(50) NOT NULL,
    ID_Moniteur VARCHAR(50) NOT NULL,
-   CodeNEPH VARCHAR(50) NOT NULL,
+   id_eleve INT, 
    PRIMARY KEY(ID_Planning),
    FOREIGN KEY(Immatriculation) REFERENCES Vehicule(Immatriculation),
    FOREIGN KEY(ID_Lecon) REFERENCES Lecon(ID_Lecon),
    FOREIGN KEY(ID_Moniteur) REFERENCES Moniteur(ID_Moniteur),
-   FOREIGN KEY(CodeNEPH) REFERENCES Eleve(CodeNEPH)
+   FOREIGN KEY(id_eleve) REFERENCES Eleve(id_eleve)
 );
 
 CREATE TABLE Facture(
@@ -74,9 +75,9 @@ CREATE TABLE Facture(
    DeadlineReglement DATE NOT NULL,
    DateSéance DATE NOT NULL,
    TypeReglement VARCHAR(50),
-   CodeNEPH VARCHAR(50) NOT NULL,
+   id_eleve INT, 
    PRIMARY KEY(ID_Facture),
-   FOREIGN KEY(CodeNEPH) REFERENCES Eleve(CodeNEPH)
+   FOREIGN KEY(id_eleve) REFERENCES Eleve(id_eleve)
 );
 
 CREATE TABLE Mois(

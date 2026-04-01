@@ -26,6 +26,8 @@ VALUES
 ('CC-456-DD', 'Voiture', 1, 'Neuve - Boite Auto', 950, 'Renault', 'Clio 5'),
 ('EE-789-FF', 'Moto', 0, 'Chaîne graissee', 600, 'Yamaha', 'MT-07');
 
+SELECT * FROM ELEVE;
+
 -- ================================
 -- TABLE : Leçon
 -- ================================
