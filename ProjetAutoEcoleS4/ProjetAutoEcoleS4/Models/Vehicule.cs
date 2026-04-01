@@ -9,7 +9,7 @@ namespace ProjetAutoEcoleS4.Models
     {
         private static int autoincr = 0;
         public int id_vehicule { get; set; }
-        public string immatriculation { get; set; }//Clé primaire
+        public string immatriculation { get; set; } //Clé primaire
         public string typevehicule { get; set; }
         public bool boitevitesse { get; set; } //Auto ou manuelle
         public string historique { get; set; }

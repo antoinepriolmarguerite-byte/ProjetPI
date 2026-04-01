@@ -37,7 +37,7 @@ namespace ProjetAutoEcoleS4.Data
                     Console.Write("Veuillez entrer une date valide (jj/mm/aaaa) :");
                 }
             } while (date == default(DateTime));
-            l.date = date;
+            l.date_Lecon = date;
             Console.WriteLine("Donnez le code NEPH de l'élève : ");
             string codeNeph;
             do

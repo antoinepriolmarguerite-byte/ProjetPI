@@ -35,7 +35,6 @@ CREATE TABLE Vehicule(
    TypeVehicule VARCHAR(50) NOT NULL,
    Boite BOOL NOT NULL,
    Historique TEXT,
-   CoutAssurance INT,
    Marque VARCHAR(50),
    Modele VARCHAR(50),
    PRIMARY KEY(Immatriculation)
@@ -43,7 +42,7 @@ CREATE TABLE Vehicule(
 
 CREATE TABLE Lecon(
    ID_Lecon VARCHAR(50),
-   DateLecon DATETIME NOT NULL,
+   Date_Lecon DATETIME NOT NULL,
    Eleve VARCHAR(50) NOT NULL,
    Moniteur VARCHAR(50) NOT NULL,
    Vehicule VARCHAR(50) NOT NULL,

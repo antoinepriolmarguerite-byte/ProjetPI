@@ -22,11 +22,9 @@ VALUES
 -- ================================
 INSERT INTO Vehicule (Immatriculation, TypeVehicule, Boite, Historique, Marque, Modele)
 VALUES
-('AA-123-BB', 'Voiture', 0, 'Revision faite en Janvier 2026', 800, 'Peugeot', '208'),
-('CC-456-DD', 'Voiture', 1, 'Neuve - Boite Auto', 950, 'Renault', 'Clio 5'),
-('EE-789-FF', 'Moto', 0, 'Chaîne graissee', 600, 'Yamaha', 'MT-07');
-
-SELECT * FROM ELEVE;
+('AA-123-BB', 'Voiture', false, 'Revision faite en Janvier 2026', 'Peugeot', '208'),
+('CC-456-DD', 'Voiture', true, 'Neuve - Boite Auto', 'Renault', 'Clio 5'),
+('EE-789-FF', 'Moto', false, 'Chaîne graissee', 'Yamaha', 'MT-07');
 
 -- ================================
 -- TABLE : Leçon
@@ -40,10 +38,10 @@ VALUES
 -- ================================
 -- TABLE : Planning
 -- ================================
-INSERT INTO Planning (ID_Planning, DateHeureDebut, DateHeureFin, Formule, Immatriculation, ID_Lecon, ID_Moniteur, CodeNEPH)
+INSERT INTO Planning (ID_Planning, DateHeureDebut, DateHeureFin, Formule, Immatriculation, ID_Lecon, ID_Moniteur, id_eleve)
 VALUES
-('PLAN001', '2026-03-10 14:00:00', '2026-03-10 15:00:00', 'Heure Solo', 'AA-123-BB', 'LEC001', 'MONIT01', 'NEPH001'),
-('PLAN002', '2026-03-10 15:00:00', '2026-03-10 16:00:00', 'Heure Solo', 'CC-456-DD', 'LEC002', 'MONIT02', 'NEPH002');
+('PLAN001', '2026-03-10 14:00:00', '2026-03-10 15:00:00', 'Heure Solo', 'AA-123-BB', 'LEC001', 'MONIT01', 1),
+('PLAN002', '2026-03-10 15:00:00', '2026-03-10 16:00:00', 'Heure Solo', 'CC-456-DD', 'LEC002', 'MONIT02', 2);
 
 -- ================================
 -- TABLE : Facture
