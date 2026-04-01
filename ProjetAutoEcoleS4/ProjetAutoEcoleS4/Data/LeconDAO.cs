@@ -30,7 +30,69 @@ namespace ProjetAutoEcoleS4.Data
                 cn.Dispose();
             }
         }
-
+        public bool VerifierLeconEleve(string codeNEPH, DateTime dateLecon)
+        {
+            bool leconExiste = false;
+            using (MySqlConnection cn = conn.GetConnection())
+            {
+                cn.Open();
+                string sql = "SELECT * FROM Lecon " +
+                             "JOIN Eleve ON Lecon.id_eleve = Eleve.id_eleve " +
+                             "WHERE CodeNEPH = "+codeNEPH+" AND Date_ = "+dateLecon;
+                MySqlCommand cmd = new MySqlCommand(sql, cn);
+                if(sql != null && sql != "")
+                {
+                    leconExiste = true;
+                }
+                else if(sql == null || sql == "")
+                {
+                    leconExiste = false;
+                }
+            }
+            return leconExiste;
+        }
+        public bool VerifierLeconMoniteur(string moniteur, DateTime dateLecon)
+        {
+            bool leconExiste = false;
+            using (MySqlConnection cn = conn.GetConnection())
+            {
+                cn.Open();
+                string sql = "SELECT * FROM Lecon " +
+                             "JOIN Moniteur ON Lecon.id_moniteur = Moniteur.id_moniteur" +
+                             "WHERE nom = " + moniteur + " AND Date_ = " + dateLecon;
+                MySqlCommand cmd = new MySqlCommand(sql, cn);
+                if (sql != null && sql != "")
+                {
+                    leconExiste = true;
+                }
+                else if (sql == null || sql == "")
+                {
+                    leconExiste = false;
+                }
+            }
+            return leconExiste;
+        }
+        public bool VerifierLeconVehicule(string vehicule, DateTime dateLecon)
+        {
+            bool leconExiste = false;
+            using (MySqlConnection cn = conn.GetConnection())
+            {
+                cn.Open();
+                string sql = "SELECT * FROM Lecon " +
+                             "JOIN Eleve ON Lecon.id_eleve = Eleve.id_eleve " +
+                             "WHERE Immatriculation = " + vehicule + " AND Date_ = " + dateLecon;
+                MySqlCommand cmd = new MySqlCommand(sql, cn);
+                if (sql != null && sql != "")
+                {
+                    leconExiste = true;
+                }
+                else if (sql == null || sql == "")
+                {
+                    leconExiste = false;
+                }
+            }
+            return leconExiste;
+        }
         public int Id_LeconFromDateAndEleve(string codeNEPH, DateTime dateLecon)
         {
             int id_lecon = 0;

@@ -3,7 +3,7 @@ CREATE DATABASE AutoEcole;
 USE AutoEcole;
 
 CREATE TABLE Eleve( -- Client
-   id_eleve INT AUTO_INCREMENT PRIMARY KEY,
+	id_eleve INT AUTO_INCREMENT PRIMARY KEY,
    CodeNEPH VARCHAR(50),
    Nom VARCHAR(50) NOT NULL,
    Prenom VARCHAR(50) NOT NULL,
@@ -17,8 +17,8 @@ CREATE TABLE Eleve( -- Client
    Boite VARCHAR(50) NOT NULL,
    MoniteurTitre VARCHAR(50),
    NbHeuresAPayer INT,
-   MontantReglementRestant INT NOT NULL
-   -- PRIMARY KEY(CodeNEPH)
+   MontantReglementRestant INT NOT NULL,
+   PRIMARY KEY(id_eleve)
 );
 
 CREATE TABLE Moniteur(
@@ -47,7 +47,10 @@ CREATE TABLE Lecon(
    Moniteur VARCHAR(50) NOT NULL,
    Vehicule VARCHAR(50) NOT NULL,
    MontantFacture INT NOT NULL,
-   PRIMARY KEY(ID_Lecon)
+   PRIMARY KEY(ID_Lecon),
+   FOREIGN KEY(Immatriculation) REFERENCES Vehicule(Immatriculation),
+   FOREIGN KEY(ID_Moniteur) REFERENCES Moniteur(ID_Moniteur),
+   FOREIGN KEY(id_eleve) REFERENCES Eleve(id_eleve)
 );
 
 CREATE TABLE Planning(
