@@ -48,9 +48,8 @@ namespace ProjetAutoEcoleS4.Data
                     Console.Write("Le code NEPH de l'élève ne peut pas être vide. Veuillez réessayer : ");
                 }
             } while (string.IsNullOrWhiteSpace(codeNeph) && lecondao.VerifierLeconEleve(codeNeph, date));
-            l.eleve = clientservices.CreerEleve(port, password);
+            l.eleve = clientservices.CreerEleve(codeNeph, port, password);
             clientservices.AjouterEleve(l.eleve, port, password);
-
             l.eleve = eleve;
             Console.WriteLine("Donnez le nom du moniteur : ");
             string moniteur;

@@ -18,14 +18,10 @@ namespace ProjetAutoEcoleS4.Data
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                string sql = "INSERT INTO ELEVE(CodeNEPH) VALUES (@n)";
+                string sql = "INSERT INTO ELEVE(CodeNEPH,Nom,Prenom, DateNaissance,Tel,Mail) VALUES ("+e.CodeNEPH+","+e.Nom+","+e.Prenom+","+e.DateNaissance+","+e.Tel+","+e.Mail+");";
                 MySqlCommand cmd = new MySqlCommand(sql, cn);
-                cmd.Parameters.AddWithValue("@nom", e.CodeNEPH);
-                cmd.Parameters.AddWithValue("@prenom", e.Prenom);
-                cmd.Parameters.AddWithValue("@DateNaissance", e.DateNaissance);
-                cmd.Parameters.AddWithValue("@Tel", e.Tel);
-                cmd.Parameters.AddWithValue("@Mail", e.Mail);
-                cmd.ExecuteNonQuery();
+
+                cn.Dispose();
             }
         }
 
@@ -42,7 +38,7 @@ namespace ProjetAutoEcoleS4.Data
                 {
                     liste.Add(new Eleve
                     {
-                        CodeNEPH = dr.GetString("CodeNEPH"),
+                        id_eleve = dr.GetInt32("id_eleve"),
                         Nom = dr.GetString("nom"),
                         Prenom = dr.GetString("prenom"),
                         //DateNaissance = dr.GetDateTime("date_naissance"),

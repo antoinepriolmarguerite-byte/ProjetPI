@@ -28,10 +28,10 @@ namespace ProjetAutoEcoleS4.Services
             bdd_Eleve.Ajouter(e, port, password);
         }
 
-        public Eleve CreerEleve(string port, string password)
+        public Eleve CreerEleve(string codeneph, string port, string password)
         {
-            Console.WriteLine("Veuillez entrer le code NEPH de l'élève : ");
-            string codeneph = Console.ReadLine();
+            
+           
             Eleve e = new Eleve(codeneph);
             return e;
         }
