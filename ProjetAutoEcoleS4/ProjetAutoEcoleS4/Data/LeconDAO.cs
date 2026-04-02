@@ -66,7 +66,7 @@ namespace ProjetAutoEcoleS4.Data
                 string sql = "SELECT 1 FROM Lecon " +
                              "JOIN Moniteur ON Lecon.id_moniteur = Moniteur.id_moniteur " +
                              "WHERE Moniteur.Nom = @nom " +
-                             "AND DATE(Lecon.Date_) = DATE(@dateLecon) " +
+                             "AND Lecon.Date_ = @dateLecon " +
                              "LIMIT 1";
 
                 MySqlCommand cmd = new MySqlCommand(sql, cn);
@@ -89,9 +89,9 @@ namespace ProjetAutoEcoleS4.Data
                 cn.Open();
 
                 string sql = "SELECT 1 FROM Lecon " +
-                             "JOIN Vehicule ON Lecon.immatriculation = Moniteur.immatriculation " +
+                             "JOIN Vehicule ON Lecon.immatriculation = Vehicule.immatriculation " +
                              "WHERE Vehicule.immatriculation = @immatriculation " +
-                             "AND DATE(Lecon.Date_) = DATE(@dateLecon) " +
+                             "AND Lecon.Date_ = @dateLecon " +
                              "LIMIT 1";
 
                 MySqlCommand cmd = new MySqlCommand(sql, cn);

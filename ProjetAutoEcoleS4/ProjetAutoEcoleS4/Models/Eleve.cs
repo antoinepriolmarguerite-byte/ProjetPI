@@ -27,7 +27,7 @@ namespace ProjetAutoEcoleS4.Models
         public string MoniteurTitre { get; set; }
         public int NbHeureARegler { get; set; }
         public double MontantReglementRestant { get; set; }
-                public Eleve(string CodeNEPH)
+        public Eleve(string CodeNEPH)
         {
             this.id_eleve = autoincr++;
             this.CodeNEPH = CodeNEPH;

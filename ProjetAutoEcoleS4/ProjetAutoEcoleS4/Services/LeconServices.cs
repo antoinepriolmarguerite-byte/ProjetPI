@@ -25,6 +25,7 @@ namespace ProjetAutoEcoleS4.Data
 
         public void Ajouterleçon(Lecon l)
         {
+            Console.Clear();
             EleveService clientservices = new EleveService(port,password);
             LeconDAO lecondao = new LeconDAO(port, password);
 
@@ -50,9 +51,10 @@ namespace ProjetAutoEcoleS4.Data
                 }
                 else if(lecondao.VerifierLeconEleve(codeNeph, date))
                 {
-                    Console.WriteLine("Il existe déjà une leçon pour cet élève à cette date. Veuillez réessayer : ");
+                    Console.WriteLine("Il existe déjà une leçon pour cet élève à cette date. Veuillez ressaisir votre leçon : ");
+                    Ajouterleçon(l);
                 }
-            } while (string.IsNullOrWhiteSpace(codeNeph) || lecondao.VerifierLeconEleve(codeNeph, date));
+            } while (string.IsNullOrWhiteSpace(codeNeph));
             l.eleve = clientservices.CreerEleve(codeNeph, port, password);
             clientservices.AjouterEleve(l.eleve, port, password);
             l.eleve = eleve;
@@ -65,11 +67,12 @@ namespace ProjetAutoEcoleS4.Data
                 {
                     Console.Write("Le nom du moniteur ne peut pas être vide. Veuillez réessayer : ");
                 }
-                else if (lecondao.VerifierLeconMoniteur(codeNeph, date))
+                else if (lecondao.VerifierLeconMoniteur(moniteur, date))
                 {
-                    Console.WriteLine("Il existe déjà une leçon pour ce moniteur à cette date. Veuillez réessayer : ");
+                    Console.WriteLine("Il existe déjà une leçon pour ce moniteur à cette date. Veuillez ressaisir votre leçon : ");
+                    Ajouterleçon(l);
                 }
-            } while (string.IsNullOrWhiteSpace(moniteur) || lecondao.VerifierLeconMoniteur(moniteur, date));
+            } while (string.IsNullOrWhiteSpace(moniteur) );
             l.moniteur = moniteur;
             Console.WriteLine("Donnez l'immatricule du véhicule pour la leçon : ");
             string vehicule;
@@ -80,11 +83,12 @@ namespace ProjetAutoEcoleS4.Data
                 {
                     Console.WriteLine("L'immatricule du véhicule ne peut pas être vide. Veuillez réessayer : ");
                 }
-                else if (lecondao.VerifierLeconVehicule(codeNeph, date))
+                else if (lecondao.VerifierLeconVehicule(vehicule, date))
                 {
-                    Console.WriteLine("Il existe déjà une leçon pour ce véhicule à cette date. Veuillez réessayer : ");
+                    Console.WriteLine("Il existe déjà une leçon pour ce véhicule à cette date. Veuillez ressaisir votre leçon : ");
+                    Ajouterleçon(l);
                 }
-            } while (string.IsNullOrWhiteSpace(vehicule) || lecondao.VerifierLeconVehicule(vehicule, date));
+            } while (string.IsNullOrWhiteSpace(vehicule));
             l.vehicule = vehicule;
             Console.WriteLine("Donnez le montant de la facture pour la leçon : ");
             double montantFacture;

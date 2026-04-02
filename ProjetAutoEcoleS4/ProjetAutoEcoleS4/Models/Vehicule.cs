@@ -28,9 +28,20 @@ namespace ProjetAutoEcoleS4.Models
             this.marque = marque;
             this.modele = modele;
         }
-        public Vehicule()
+        public Vehicule(string immatriculation)
         {
 
+            this.id_vehicule = autoincr++;
+            this.immatriculation = "";
+            this.typevehicule = "";
+            this.boitevitesse = false;
+            this.historique = "";
+            this.coutAssurance = 0;
+            this.marque = "";
+            this.modele = "";
+        }
+        public Vehicule()
+        {
             this.id_vehicule = autoincr++;
             this.immatriculation = "";
             this.typevehicule = "";
