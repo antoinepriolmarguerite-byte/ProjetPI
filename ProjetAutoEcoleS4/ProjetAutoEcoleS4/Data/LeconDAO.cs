@@ -26,6 +26,7 @@ namespace ProjetAutoEcoleS4.Data
                 MySqlCommand con = new MySqlCommand(insertTable, cn);
 
                 Console.WriteLine("Insertion réalisée");
+                Thread.Sleep(10000);
 
                 cn.Dispose();
             }

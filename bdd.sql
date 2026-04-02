@@ -75,7 +75,7 @@ CREATE TABLE Facture(
    Eleve VARCHAR(50) NOT NULL,
    Montant INT NOT NULL,
    DeadlineReglement DATE NOT NULL,
-   DateSéance DATE NOT NULL,
+   DateSeance DATE NOT NULL, -- C'est qui l'-------- qui a laissé un é !!!!!!!!
    TypeReglement VARCHAR(50),
    id_eleve INT, 
    PRIMARY KEY(ID_Facture),
