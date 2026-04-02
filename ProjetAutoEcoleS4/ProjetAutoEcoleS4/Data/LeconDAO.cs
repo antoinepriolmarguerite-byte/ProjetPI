@@ -41,7 +41,7 @@ namespace ProjetAutoEcoleS4.Data
                 string sql = "SELECT 1 FROM Lecon " +
                              "JOIN Eleve ON Lecon.id_eleve = Eleve.id_eleve " +
                              "WHERE Eleve.CodeNEPH = @codeNEPH " +
-                             "AND DATE(Lecon.Date_) = DATE(@dateLecon) " +
+                             "AND Lecon.Date_ = @dateLecon " +
                              "LIMIT 1";
 
                 MySqlCommand cmd = new MySqlCommand(sql, cn);
