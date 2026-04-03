@@ -11,6 +11,11 @@ namespace ProjetAutoEcoleS4.Data
 {
     internal class VehiculeDAO
     {
+        public Database conn;
+        public VehiculeDAO(string port, string password)
+        {
+            conn = new Database(port, password);
+        }
         public List<Vehicule> GetAll(string port, string password)
         {
             Database conn = new Database(port, password);
@@ -51,6 +56,24 @@ namespace ProjetAutoEcoleS4.Data
                 }
             }
             return nbr;
+        }
+        public void Ajouter(Vehicule v, string port, string password)
+        {
+            Database conn = new Database(port, password);
+            using (MySqlConnection cn = conn.GetConnection())
+            {
+                cn.Open();
+                string insertTable = "insert into VEHICULE(immatriculation,typevehicule,boitevitesse,marque,modele) Values (@immatriculation,@typevehicule,@boitevitesse,@marque,@modele);";
+                MySqlCommand cmd = new MySqlCommand(insertTable, cn);
+                cmd.Parameters.AddWithValue("@immatriculation", v.immatriculation);
+                cmd.Parameters.AddWithValue("@typevehicule", v.typevehicule);
+                cmd.Parameters.AddWithValue("@boitevitesse", v.boitevitesse);
+                cmd.Parameters.AddWithValue("@marque", v.marque);
+                cmd.Parameters.AddWithValue("@modele", v.modele);
+                Console.WriteLine("Insertion réalisée");
+                cn.Dispose();
+            }
+            Thread.Sleep(1000);
         }
     }
 }

@@ -63,7 +63,7 @@ while (continuer)
             break;
         case "5":
             Vehicule vehicule = new Vehicule();
-            VehiculeDAO vehiculeDAO = new VehiculeDAO();
+            VehiculeDAO vehiculeDAO = new VehiculeDAO(port,pwd);
             vehicule.afficherallvehicule(port, pwd);
             List<Vehicule> listeVehicules = vehiculeDAO.GetAll(port, pwd);
             Console.WriteLine("Chosisissez le numéro du véhicule que vous souhaitez connaitre le kilométrage");
@@ -89,6 +89,11 @@ while (continuer)
             Console.Clear();
             break;
         case "9":
+            Console.Clear();
+            VehiculeServices ajvehicule= new VehiculeServices();
+            ajvehicule.AjouterVehicule(new Vehicule(), port, pwd);
+            break;
+        case "10":
             continuer = false;
             Console.Clear();
             break;
@@ -111,5 +116,6 @@ void AfficherMenu()
     Console.WriteLine("6 - Heures élève/moniteur");
     Console.WriteLine("7 - Chiffre mensuel");
     Console.WriteLine("8 - Ajoutez Eleve");
-    Console.WriteLine("9 - Quitter");
+    Console.WriteLine("9 - Ajoutez Véhicule");
+    Console.WriteLine("10 - Quitter");
 }
