@@ -63,7 +63,7 @@ namespace ProjetAutoEcoleS4.Data
                     Console.Write("Le nom du moniteur ne peut pas être vide. Veuillez réessayer : ");
                 }
             } while (string.IsNullOrWhiteSpace(moniteur) && !lecondao.VerifierLeconMoniteur(moniteur, date));
-            l.moniteur = moniteur;
+            l.moniteur = new Moniteur(moniteur,"","A",2000);
             Console.WriteLine("Donnez l'immatricule du véhicule pour la leçon : ");
             string vehicule;
             do

@@ -28,7 +28,7 @@ while (continuer)
     {
         case "1":
             LeconServices lecon1 = new LeconServices(port, pwd);
-            lecon1.AjouterLeconAEleve(new Lecon());
+            lecon1.Ajouterleçon(new Lecon());
             Console.Clear();
             break;
         case "2":

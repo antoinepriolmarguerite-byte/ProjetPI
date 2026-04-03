@@ -41,3 +41,6 @@ INSERT INTO Mois (Annee_mois) VALUES (202604);
 INSERT INTO KilmometrageMois (Immatriculation, Annee_mois, Nbkilometre) VALUES
 ('AA-123-BB', 202604, 1250.5),
 ('CC-456-DD', 202604, 800.0);
+
+SELECT * FROM lecon;
+SELECT * FROM moniteur;
