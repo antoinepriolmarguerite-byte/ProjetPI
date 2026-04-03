@@ -29,14 +29,14 @@ namespace ProjetAutoEcoleS4.Data
             EleveService clientservices = new EleveService(port,password);
             LeconDAO lecondao = new LeconDAO(port, password);
 
-            Console.WriteLine("Donnez la date de la leçon : ");
+            Console.WriteLine("Donnez la date et l'heure de la leçon : ");
             DateTime date;
             do
             {
 
                 if (!DateTime.TryParse(Console.ReadLine(), out date))
                 {
-                    Console.Write("Veuillez entrer une date valide (jj/mm/aaaa) :");
+                    Console.Write("Veuillez entrer une date valide (jj/mm/aaaa h) :");
                 }
             } while (date == default(DateTime));
             l.date_Lecon = date;
