@@ -129,12 +129,13 @@ namespace ProjetAutoEcoleS4.Data
             if (Eleveservice.EleveExiste(e))
             {
                 l.eleve = e;
-                Console.Write("Veuillez choisir un moniteur : ");
+                Console.WriteLine("== MONITEURS ==");
                 MS.AfficherAllMoniteur(port,password);
                 for(int i = 0; i < ListeMoniteur.Count(); i++)
                 {
                     idMoniteur.Add(ListeMoniteur[i].id_Moniteur); 
                 }
+                Console.Write("Veuillez choisir un moniteur : ");
                 int entreeUtilisateur = int.Parse(Console.ReadLine())!; //Jvous laisse faire le tryparse, chepa faire
                 while (!idMoniteur.Contains(entreeUtilisateur))
                 {
@@ -143,17 +144,23 @@ namespace ProjetAutoEcoleS4.Data
                 }
                 l.id_moniteur = entreeUtilisateur;
                 
-                Console.WriteLine("Donnez la date de la leçon : ");
+                Console.Write("Donnez la date de la leçon : ");
                 DateTime date;
                 do
                 {
 
                     if (!DateTime.TryParse(Console.ReadLine(), out date))
                     {
-                        Console.Write("Veuillez entrer une date valide (jj/mm/aaaa) :");
+                        Console.Write("Veuillez entrer une date valide (jj-mm-aaaa HH:mm:ss) :");
                     }
                 } while (date == default(DateTime));
                 l.date_Lecon = date;
+
+                if (lecondao.VerifierLeconEleve(e.CodeNEPH, date))
+                {
+                    Console.WriteLine("Erreur : Cet élève a déjà une leçon prévue à cette date !");
+                    return;
+                }
 
                 Console.WriteLine("Donnez l'id du véhicule pour la leçon : ");
                 Vehicule vehicule = new Vehicule();
