@@ -197,20 +197,3 @@ void AfficherMenu()
     Console.WriteLine("9 - Ajoutez Véhicule");
     Console.WriteLine("10 - Quitter");
 }
-
-
-void AfficherMenu()
-{
-    Console.Clear();
-    Console.WriteLine("\n========== MENU PRINCIPAL ==========");
-    Console.WriteLine("1 - Ajouter une leçon");
-    Console.WriteLine("2 - Supprimer une leçon");
-    Console.WriteLine("3 - Voir le planning");
-    Console.WriteLine("4 - Voir le montant à régler");
-    Console.WriteLine("5 - Kilométrage véhicule");
-    Console.WriteLine("6 - Heures élève/moniteur");
-    Console.WriteLine("7 - Chiffre d'affaire mensuel");
-    Console.WriteLine("8 - Ajoutez Eleve");
-    Console.WriteLine("9 - Ajoutez Véhicule");
-    Console.WriteLine("10 - Quitter");
-}
