@@ -3,7 +3,7 @@ CREATE DATABASE AutoEcole;
 USE AutoEcole;
 
 CREATE TABLE Eleve( -- Client
-	id_eleve INT AUTO_INCREMENT PRIMARY KEY,
+   id_eleve INT AUTO_INCREMENT PRIMARY KEY,
    CodeNEPH VARCHAR(50),
    Nom VARCHAR(50) NOT NULL,
    Prenom VARCHAR(50) NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE Moniteur(
 );
 
 CREATE TABLE Vehicule(
-	id_vehicule INT AUTO_INCREMENT,
+   id_vehicule INT AUTO_INCREMENT,
    Immatriculation VARCHAR(50),
    TypeVehicule VARCHAR(50) NOT NULL,
    Boite BOOLEAN NOT NULL,
@@ -60,12 +60,12 @@ CREATE TABLE Planning(
    DateHeureDebut DATETIME NOT NULL,
    DateHeureFin DATETIME NOT NULL,
    Formule VARCHAR(50),
-   Immatriculation VARCHAR(50) NOT NULL,
-   ID_Lecon VARCHAR(50) NOT NULL,
-   ID_Moniteur VARCHAR(50) NOT NULL,
+   Immatriculation int not null,
+   ID_Lecon int,
+   ID_Moniteur int,
    id_eleve INT, 
    PRIMARY KEY(ID_Planning),
-   FOREIGN KEY(Immatriculation) REFERENCES Vehicule(Immatriculation),
+   FOREIGN KEY(Immatriculation) REFERENCES Vehicule(id_vehicule),
    FOREIGN KEY(ID_Lecon) REFERENCES Lecon(ID_Lecon),
    FOREIGN KEY(ID_Moniteur) REFERENCES Moniteur(ID_Moniteur),
    FOREIGN KEY(id_eleve) REFERENCES Eleve(id_eleve)
@@ -77,7 +77,7 @@ CREATE TABLE Facture(
    Eleve VARCHAR(50) NOT NULL,
    Montant INT NOT NULL,
    DeadlineReglement DATE NOT NULL,
-   DateSéance DATE NOT NULL,
+   DateSeance DATE NOT NULL, -- QUI A MIS UN ACCENT !!!
    TypeReglement VARCHAR(50),
    id_eleve INT, 
    PRIMARY KEY(ID_Facture),
@@ -90,11 +90,11 @@ CREATE TABLE Mois(
 );
 
 CREATE TABLE KilmometrageMois(
-   Immatriculation VARCHAR(50),
+   Immatriculation int,
    Annee_mois INT,
    Nbkilometre DOUBLE,
    PRIMARY KEY(Immatriculation, Annee_mois),
-   FOREIGN KEY(Immatriculation) REFERENCES Vehicule(Immatriculation),
+   FOREIGN KEY(Immatriculation) REFERENCES Vehicule(id_vehicule),
    FOREIGN KEY(Annee_mois) REFERENCES Mois(Annee_mois)
 );
 
@@ -119,13 +119,6 @@ VALUES
 ('EF-456-GH', 'Voiture', FALSE, 'Révision OK', 1300, 'Renault', 'Clio'),
 ('IJ-789-KL', 'Voiture', TRUE, 'Changement pneus', 1100, 'Citroen', 'C3');
 
--- PLANNING
-INSERT INTO Planning (ID_Planning, DateHeureDebut, DateHeureFin, Formule, Immatriculation, ID_Lecon, ID_Moniteur, CodeNEPH, id_eleve)
-VALUES
-(1, '2025-03-01 10:00:00', '2025-03-01 11:00:00', '1h', 'AB-123-CD', 1, 1, 'NEPH001', 1),
-(2, '2025-03-02 14:00:00', '2025-03-02 15:00:00', '1h', 'EF-456-GH', 2, 2, 'NEPH002', 2),
-(3, '2025-03-03 09:00:00', '2025-03-03 10:00:00', '1h', 'IJ-789-KL', 3, 3, 'NEPH003', 3);
-
 -- LECON
 INSERT INTO Lecon (ID_Lecon, Date_, id_eleve, id_moniteur, Immatriculation, MontantFacture, id_vehicule)
 VALUES
@@ -133,12 +126,21 @@ VALUES
 (2, '2025-03-02 14:00:00', 2, 2, 'EF-456-GH', 55, 2),
 (3, '2025-03-03 09:00:00', 3, 3, 'IJ-789-KL', 50, 3);
 
--- FACTURATION
-INSERT INTO Facture (ID_Facture, Destinataire, Eleve, Montant, DeadlineReglement, DateSeance, TypeReglement, CodeNEPH, id_eleve)
+-- PLANNING
+INSERT INTO Planning (ID_Planning, DateHeureDebut, DateHeureFin, Formule, Immatriculation, ID_Lecon, ID_Moniteur,id_eleve)
 VALUES
-('F001', 'Dupont', 'Lucas', 50, '2025-03-10', '2025-03-01', 'CB', 'NEPH001', 1),
-('F002', 'Martin', 'Emma', 55, '2025-03-11', '2025-03-02', 'Espèces', 'NEPH002', 2),
-('F003', 'Durand', 'Noah', 50, '2025-03-12', '2025-03-03', 'Virement', 'NEPH003', 3);
+(1, '2025-03-01 10:00:00', '2025-03-01 11:00:00', '1h', 1, 1, 1, 1),
+(2, '2025-03-02 14:00:00', '2025-03-02 15:00:00', '1h', 1, 2, 2, 2),
+(3, '2025-03-03 09:00:00', '2025-03-03 10:00:00', '1h', 2, 3, 3, 3);
+
+-- LECON
+
+-- FACTURATION
+INSERT INTO Facture (ID_Facture, Destinataire, Eleve, Montant, DeadlineReglement, DateSeance, TypeReglement, id_eleve)
+VALUES
+('F001', 'Dupont', 'Lucas', 50, '2025-03-10', '2025-03-01', 'CB', 1),
+('F002', 'Martin', 'Emma', 55, '2025-03-11', '2025-03-02', 'Espèces', 2),
+('F003', 'Durand', 'Noah', 50, '2025-03-12', '2025-03-03', 'Virement', 3);
 
 INSERT INTO Mois (Annee_mois)
 VALUES
@@ -148,8 +150,24 @@ VALUES
 
 INSERT INTO KilmometrageMois (Immatriculation, Annee_mois, Nbkilometre)
 VALUES
-('AB-123-CD', 202503, 1200.5),
-('EF-456-GH', 202503, 980.3),
-('IJ-789-KL', 202503, 1500.0);
+(1, 202503, 1200.5),
+(2, 202503, 980.3),
+(3, 202503, 1500.0);
+
+SELECT * FROM lecon;
+SELECT * FROM ELEVE;
+SELECT ID_Moniteur FROM moniteur;
+
+-- 1. Désactiver la vérification des clés étrangères
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- 2. Modifier la colonne pour qu'elle s'auto-gère
+ALTER TABLE Lecon MODIFY COLUMN ID_Lecon INT AUTO_INCREMENT;
+
+-- 3. (Optionnel) Vider la table pour repartir sur des IDs propres
+TRUNCATE TABLE Lecon; 
+
+-- 4. Réactiver la vérification
+SET FOREIGN_KEY_CHECKS = 1;
 
 

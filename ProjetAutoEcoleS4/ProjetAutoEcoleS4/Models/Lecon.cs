@@ -14,28 +14,28 @@ namespace ProjetAutoEcoleS4.Models
         public int id_Lecon  { get; set; }//Clé primaire
         public DateTime date_Lecon { get; set; }
         public Eleve eleve { get; set; } //Auto ou manuelle
-        public string moniteur { get; set; }
-        public string vehicule { get; set; }
+        public int id_moniteur { get; set; }
+        public Vehicule vehicule { get; set; }
         public double montantFacture { get; set; }//ça fout quoi là?
 
-        public Lecon(DateTime date, Eleve eleve, string moniteur, string vehicule, double montantFacture)
+        public Lecon(DateTime date, Eleve eleve, int id_moniteur, Vehicule vehicule, double montantFacture)
         {
-            id_Lecon = idCounter;
-            idCounter++;
+            //id_Lecon = idCounter;
+            //idCounter++;
             this.date_Lecon = date;
             this.eleve = eleve;
-            this.moniteur = moniteur;
+            this.id_moniteur = id_moniteur;
             this.vehicule = vehicule;
             this.montantFacture = montantFacture;
         }   
         public Lecon()
         {
-            id_Lecon = idCounter;
-            idCounter++;
+            //id_Lecon = idCounter;
+            //idCounter++;
             date_Lecon = new DateTime();
             eleve = new Eleve();
-            moniteur = "";
-            vehicule = "";
+            id_moniteur = 0;
+            vehicule = new Vehicule();
             montantFacture = 0; 
         }
     }

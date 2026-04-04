@@ -11,15 +11,15 @@ namespace ProjetAutoEcoleS4.Services
 {
     internal class EleveService
     {
-        private List<Eleve> list_eleve;
+        internal List<Eleve> list_eleve {set; get;}
         private IEleveService view;
         private EleveDAO bdd_Eleve;
 
         public EleveService(string port, string password)
         {
-            list_eleve = new List<Eleve>();
             this.view = new IEleveService(port,password);
             this.bdd_Eleve = new EleveDAO();
+            list_eleve = bdd_Eleve.GetAll(port,password);
         }
 
         public void AjouterEleve(Eleve e, string port, string password)

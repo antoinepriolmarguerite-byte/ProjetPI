@@ -14,7 +14,7 @@ namespace ProjetAutoEcoleS4.Services
         private MoniteurDAO bdd_Moniteur;
 
 
-        public bool MoniteurExiste(string m)
+        public bool MoniteurExiste(int m)
         {
             for(int i = 0; i < list_moniteur.Count(); i++)
             {

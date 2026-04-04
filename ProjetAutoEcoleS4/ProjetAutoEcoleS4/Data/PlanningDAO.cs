@@ -25,7 +25,7 @@ namespace ProjetAutoEcoleS4.Data
                 cn.Open();
                 string sql = @"SELECT p.DateHeureDebut, e.Nom, m.Nom as MoniteurNom 
                            FROM Planning p
-                           JOIN Eleve e ON p.CodeNEPH = e.CodeNEPH
+                           JOIN Eleve e ON p.id_eleve = e.id_eleve
                            JOIN Moniteur m ON p.ID_Moniteur = m.ID_Moniteur";
 
                 MySqlCommand cmd = new MySqlCommand(sql, cn);
