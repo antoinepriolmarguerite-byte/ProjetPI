@@ -23,7 +23,7 @@ namespace ProjetAutoEcoleS4.Data
             this.password = password;
         }
 
-        public void Ajouterleçon(Lecon l)
+        public void Ajouterleçon(Lecon l) //Bon cette méthode marche plus
         {
             Console.Clear();
             EleveService clientservices = new EleveService(port,password);
@@ -73,13 +73,13 @@ namespace ProjetAutoEcoleS4.Data
                     Ajouterleçon(l);
                 }
             } while (string.IsNullOrWhiteSpace(moniteur) );
-            l.moniteur = moniteur;
+            //l.moniteur = moniteur;
             Console.WriteLine("Donnez l'immatricule du véhicule pour la leçon : ");
-            string vehicule;
+            int vehicule = 0;
             do
             {
-                vehicule = Console.ReadLine().ToUpper();
-                if (string.IsNullOrWhiteSpace(vehicule))
+                vehicule = int.Parse(Console.ReadLine());
+                if (vehicule<0)
                 {
                     Console.WriteLine("L'immatricule du véhicule ne peut pas être vide. Veuillez réessayer : ");
                 }
@@ -88,8 +88,8 @@ namespace ProjetAutoEcoleS4.Data
                     Console.WriteLine("Il existe déjà une leçon pour ce véhicule à cette date. Veuillez ressaisir votre leçon : ");
                     Ajouterleçon(l);
                 }
-            } while (string.IsNullOrWhiteSpace(vehicule));
-            l.vehicule = vehicule;
+            } while (vehicule<0);
+            l.vehicule = new Vehicule();
             Console.WriteLine("Donnez le montant de la facture pour la leçon : ");
             double montantFacture;
             do
@@ -104,31 +104,44 @@ namespace ProjetAutoEcoleS4.Data
             lecondao.AjouterLecon_DAO(l);
         }
 
-        public void AjouterLeconAEleve(Lecon l,Eleve e)
+        public void AjouterLeconAEleve(Lecon l)
         {
             EleveService Eleveservice = new EleveService(port,password);
             LeconDAO lecondao = new LeconDAO(port, password);
             MoniteurService MS = new MoniteurService();
             MoniteurDAO bddMoniteur = new MoniteurDAO(port,password);
-            List<string> idMoniteur = new List<string>();
+            List<int> idMoniteur = new List<int>();
             List<Moniteur> ListeMoniteur = bddMoniteur.GetAll(port, password);
 
-            l.eleve = e;
+
+            for(int i = 0; i < Eleveservice.list_eleve.Count(); i++)
+            {
+                Console.WriteLine(Eleveservice.list_eleve[i].ToString());
+            }
+            Console.Write("Veuillez choisir un élève (en entrant le n° de l'élève) : ");
+            int id;
+            if (!int.TryParse(Console.ReadLine(), out id))
+            {
+                Console.Write("Veuillez entrer un nombre entier naturel : ");
+            }
+            Eleve e = Eleveservice.list_eleve[id-1];
 
             if (Eleveservice.EleveExiste(e))
             {
+                l.eleve = e;
                 Console.Write("Veuillez choisir un moniteur : ");
                 MS.AfficherAllMoniteur(port,password);
                 for(int i = 0; i < ListeMoniteur.Count(); i++)
                 {
-                    idMoniteur[i] = ListeMoniteur[i].id_Moniteur;
+                    idMoniteur.Add(ListeMoniteur[i].id_Moniteur); 
                 }
-                string entreeUtilisateur = Console.ReadLine()!;
+                int entreeUtilisateur = int.Parse(Console.ReadLine())!; //Jvous laisse faire le tryparse, chepa faire
                 while (!idMoniteur.Contains(entreeUtilisateur))
                 {
-                     Console.Write("Veuillez choisir l'id du moniteur (FORMAT : MONIT--) : ");
-                     entreeUtilisateur = Console.ReadLine()!; // Les ! permettent de caché les warnings
+                     Console.Write("Veuillez choisir l'id du moniteur : ");
+                     entreeUtilisateur = int.Parse(Console.ReadLine())!; // Les ! permettent de caché les warnings
                 }
+                l.id_moniteur = entreeUtilisateur;
                 
                 Console.WriteLine("Donnez la date de la leçon : ");
                 DateTime date;
@@ -142,18 +155,30 @@ namespace ProjetAutoEcoleS4.Data
                 } while (date == default(DateTime));
                 l.date_Lecon = date;
 
-                Console.WriteLine("Donnez l'immatricule du véhicule pour la leçon : ");
-                string vehicule;
+                Console.WriteLine("Donnez l'id du véhicule pour la leçon : ");
+                Vehicule vehicule = new Vehicule();
                 do
                 {
-                    vehicule = Console.ReadLine().ToUpper()!;
-                    if (string.IsNullOrWhiteSpace(vehicule))
+                    vehicule.id_vehicule = int.Parse(Console.ReadLine())!;
+                    if (vehicule.id_vehicule < 0)
+                    {
+                        Console.WriteLine("L'id du véhicule ne peut pas être inférieur à 0. Veuillez réessayer : ");
+                    }
+                } while (vehicule.id_vehicule<0);
+                l.vehicule.id_vehicule = vehicule.id_vehicule;
+
+                Console.WriteLine("Veuillez entrer l'immatricule du véhicule : ");
+                do
+                {
+                    vehicule.immatriculation = Console.ReadLine()!;
+                    if (vehicule.immatriculation==null)
                     {
                         Console.WriteLine("L'immatricule du véhicule ne peut pas être vide. Veuillez réessayer : ");
                     }
-                } while (string.IsNullOrWhiteSpace(vehicule));
-                l.vehicule = vehicule;
+                } while (vehicule.immatriculation==null);
+                l.vehicule.immatriculation = vehicule.immatriculation;
 
+                Console.WriteLine("Veuillez entrer le montant de la facture : ");
                 double montantFacture;
                 do
                 {
@@ -165,42 +190,8 @@ namespace ProjetAutoEcoleS4.Data
                 l.montantFacture = montantFacture;
                 e.NbHeureARegler++;
 
+                lecondao.AjouterLecon_DAO(l);//C'est utile aussi
             }
-            /*Console.WriteLine("Donnez le nom du moniteur : ");
-            string moniteur;
-            do
-            {
-                moniteur = Console.ReadLine().ToUpper();
-                if (string.IsNullOrWhiteSpace(moniteur))
-                {
-                    Console.Write("Le nom du moniteur ne peut pas être vide. Veuillez réessayer : ");
-                }
-            } while (string.IsNullOrWhiteSpace(moniteur));
-            l.moniteur = moniteur;
-            Console.WriteLine("Donnez l'immatricule du véhicule pour la leçon : ");
-            string vehicule;
-            do
-            {
-                vehicule = Console.ReadLine().ToUpper();
-                if (string.IsNullOrWhiteSpace(vehicule))
-                {
-                    Console.WriteLine("L'immatricule du véhicule ne peut pas être vide. Veuillez réessayer : ");
-                }
-            } while (string.IsNullOrWhiteSpace(vehicule));
-            l.vehicule = vehicule;
-            Console.WriteLine("Donnez le montant de la facture pour la leçon : ");
-            double montantFacture;
-            do
-            {
-                if (!double.TryParse(Console.ReadLine(), out montantFacture) || montantFacture < 0)
-                {
-                    Console.Write("Veuillez entrer un montant valide : ");
-                }
-            } while (montantFacture < 0);
-            l.montantFacture = montantFacture;
-            e.NbHeureARegler++;
-
-            lecondao.AjouterLecon_DAO(l);*/
         }
 
         public void SupprimerLeçon()

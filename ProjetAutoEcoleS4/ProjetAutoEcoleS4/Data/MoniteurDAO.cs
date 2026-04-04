@@ -53,7 +53,7 @@ namespace ProjetAutoEcoleS4.Data
                 {
                     liste.Add(new Moniteur
                     {
-                        id_Moniteur = dr.GetString("id_eleve"),
+                        id_Moniteur = dr.GetInt32("id_Moniteur"),//bawi faut changer guignol
                         nom = dr.GetString("Nom"),
                         prenom = dr.GetString("prenom"),
                         //DateNaissance = dr.GetDateTime("date_naissance"),

@@ -17,19 +17,30 @@ namespace ProjetAutoEcoleS4.Data
         {
             conn = new Database(port, password);
         }
-        public void AjouterLecon_DAO(Lecon c)
+public void AjouterLecon_DAO(Lecon c)
+{
+    using (MySqlConnection cn = conn.GetConnection())
+    {
+        cn.Open();
+        string insertTable = "ALTER TABLE Lecon MODIFY COLUMN ID_Lecon INT AUTO_INCREMENT;" +
+                            "INSERT INTO Lecon(Date_, id_eleve, id_moniteur, Immatriculation, MontantFacture, id_vehicule) " +
+                             "VALUES (@date, @idEleve, @idMoniteur, @immat, @montant, @idVehicule)";
+
+        using (MySqlCommand cmd = new MySqlCommand(insertTable, cn))
         {
-            using (MySqlConnection cn = conn.GetConnection())
-            {
-                cn.Open();
-                string insertTable = "insert into Lecon(id_Lecon,date_,id_eleve,id_moniteur,immatriculation,montantFacture, id_vehicule) Values (" + c.id_Lecon + "," + c.date_Lecon + "," + c.eleve + "," + c.moniteur + "," + c.vehicule + "," + c.montantFacture + ");";
-                MySqlCommand con = new MySqlCommand(insertTable, cn);
-
-                Console.WriteLine("Insertion réalisée");
-
-                cn.Dispose();
-            }
+            //cmd.Parameters.AddWithValue("@id", c.id_Lecon);
+            cmd.Parameters.AddWithValue("@date", c.date_Lecon);
+            cmd.Parameters.AddWithValue("@idEleve", c.eleve.id_eleve);
+            cmd.Parameters.AddWithValue("@idMoniteur", c.id_moniteur); 
+            cmd.Parameters.AddWithValue("@immat", c.vehicule.immatriculation);
+            cmd.Parameters.AddWithValue("@montant", c.montantFacture);
+            cmd.Parameters.AddWithValue("@idVehicule", c.vehicule.id_vehicule);
+            cmd.ExecuteNonQuery(); //N'oubliez pas cette ligne sinon ça marche pas!
         }
+
+        Console.WriteLine("Insertion réalisée avec succès dans la base !");
+    }
+}
         public bool VerifierLeconEleve(string codeNEPH, DateTime dateLecon)
         {
             bool leconExiste = false;
@@ -80,7 +91,7 @@ namespace ProjetAutoEcoleS4.Data
 
             return leconExiste;
         }
-        public bool VerifierLeconVehicule(string vehicule, DateTime dateLecon)
+        public bool VerifierLeconVehicule(int vehicule, DateTime dateLecon)
         {
             bool leconExiste = false;
 
@@ -88,7 +99,7 @@ namespace ProjetAutoEcoleS4.Data
             {
                 cn.Open();
 
-                string sql = "SELECT 1 FROM Lecon " +
+                string sql = "SELECT 1 FROM Lecon " + //pourquoi 1 ?
                              "JOIN Vehicule ON Lecon.immatriculation = Vehicule.immatriculation " +
                              "WHERE Vehicule.immatriculation = @immatriculation " +
                              "AND Lecon.Date_ = @dateLecon " +
