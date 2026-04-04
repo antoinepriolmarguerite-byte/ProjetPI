@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjetAutoEcoleS4.Data;

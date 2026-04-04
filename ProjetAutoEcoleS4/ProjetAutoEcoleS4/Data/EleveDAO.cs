@@ -1,4 +1,3 @@
-﻿
 ﻿using MySql.Data.MySqlClient;
 using ProjetAutoEcoleS4.Models;
 using ProjetAutoEcoleS4.Data;
@@ -12,9 +11,9 @@ namespace ProjetAutoEcoleS4.Data
 {
     internal class EleveDAO
     {
-        public void Ajouter(Eleve e,string port, string password) //MON GROS CACA respectez ce commentaire, c'est le 1er push de Bastien
+        public void Ajouter(Eleve e, string port, string password) //MON GROS CACA respectez ce commentaire, c'est le 1er push de Bastien
         {
-            Database conn = new Database(port,password);
+            Database conn = new Database(port, password);
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
@@ -25,9 +24,9 @@ namespace ProjetAutoEcoleS4.Data
             }
         }
 
-        public List<Eleve> GetAll(string port,string password)
+        public List<Eleve> GetAll(string port, string password)
         {
-            Database conn = new Database(port,password); //Ronan changera
+            Database conn = new Database(port, password); //Ronan changera
             List<Eleve> liste = new List<Eleve>();
             using (MySqlConnection cn = conn.GetConnection())
             {
@@ -49,9 +48,9 @@ namespace ProjetAutoEcoleS4.Data
             return liste;
         }
 
-        public void Supprimer(int id,string port,string password)
+        public void Supprimer(int id, string port, string password)
         {
-            Database conn = new Database(port,password);
+            Database conn = new Database(port, password);
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
@@ -79,6 +78,23 @@ namespace ProjetAutoEcoleS4.Data
                 }
             }
             return nbr;
+        }
+        public double MontantTotalEleve(int id, string port, string password)
+        {
+            double montant = 0;
+            Database conn = new Database(port, password);
+            using (MySqlConnection cn = conn.GetConnection())
+            {
+                cn.Open();
+                string sql = "SELECT MontantReglementRestant FROM Eleve WHERE id_eleve=" + id;
+                MySqlCommand cmd = new MySqlCommand(sql, cn);
+                MySqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    montant = dr.GetDouble("MontantReglementRestant");
+                }
+            }
+            return montant;
         }
     }
 }
