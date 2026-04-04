@@ -56,16 +56,16 @@ CREATE TABLE Lecon(
 );
 
 CREATE TABLE Planning(
-   ID_Planning VARCHAR(50),
+   ID_Planning int,
    DateHeureDebut DATETIME NOT NULL,
    DateHeureFin DATETIME NOT NULL,
    Formule VARCHAR(50),
-   Immatriculation VARCHAR(50) NOT NULL,
-   ID_Lecon VARCHAR(50) NOT NULL,
-   ID_Moniteur VARCHAR(50) NOT NULL,
-   id_eleve INT, 
+   id_vehicule int NOT NULL,
+   ID_Lecon int NOT NULL,
+   ID_Moniteur int NOT NULL,
+   id_eleve int,
    PRIMARY KEY(ID_Planning),
-   FOREIGN KEY(Immatriculation) REFERENCES Vehicule(Immatriculation),
+   FOREIGN KEY(id_vehicule) REFERENCES Vehicule(id_vehicule),
    FOREIGN KEY(ID_Lecon) REFERENCES Lecon(ID_Lecon),
    FOREIGN KEY(ID_Moniteur) REFERENCES Moniteur(ID_Moniteur),
    FOREIGN KEY(id_eleve) REFERENCES Eleve(id_eleve)
@@ -120,11 +120,11 @@ VALUES
 ('IJ-789-KL', 'Voiture', TRUE, 'Changement pneus', 1100, 'Citroen', 'C3');
 
 -- PLANNING
-INSERT INTO Planning (ID_Planning, DateHeureDebut, DateHeureFin, Formule, Immatriculation, ID_Lecon, ID_Moniteur, CodeNEPH, id_eleve)
+INSERT INTO Planning (ID_Planning, DateHeureDebut, DateHeureFin, Formule,id_vehicule, ID_Lecon, ID_Moniteur, id_eleve)
 VALUES
-(1, '2025-03-01 10:00:00', '2025-03-01 11:00:00', '1h', 'AB-123-CD', 1, 1, 'NEPH001', 1),
-(2, '2025-03-02 14:00:00', '2025-03-02 15:00:00', '1h', 'EF-456-GH', 2, 2, 'NEPH002', 2),
-(3, '2025-03-03 09:00:00', '2025-03-03 10:00:00', '1h', 'IJ-789-KL', 3, 3, 'NEPH003', 3);
+(1, '2025-03-01 10:00:00', '2025-03-01 11:00:00', '1h',1, 1, 1, 1),
+(2, '2025-03-02 14:00:00', '2025-03-02 15:00:00', '1h',2, 2, 2, 2),
+(3, '2025-03-03 09:00:00', '2025-03-03 10:00:00', '1h',3, 3, 3, 3);
 
 -- LECON
 INSERT INTO Lecon (ID_Lecon, Date_, id_eleve, id_moniteur, Immatriculation, MontantFacture, id_vehicule)

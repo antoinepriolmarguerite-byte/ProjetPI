@@ -25,8 +25,8 @@ namespace ProjetAutoEcoleS4.Data
                 cn.Open();
                 string sql = @"SELECT p.DateHeureDebut, e.Nom, m.Nom as MoniteurNom 
                            FROM Planning p
-                           JOIN Eleve e ON p.CodeNEPH = e.CodeNEPH
-                           JOIN Moniteur m ON p.ID_Moniteur = m.ID_Moniteur";
+                           JOIN Eleve e ON p.id_eleve = e.id_eleve
+                           JOIN Moniteur m ON p.ID_Moniteur = m.ID_Moniteur order by p.DateHeureDebut";
 
                 MySqlCommand cmd = new MySqlCommand(sql, cn);
                 using (MySqlDataReader dr = cmd.ExecuteReader())
