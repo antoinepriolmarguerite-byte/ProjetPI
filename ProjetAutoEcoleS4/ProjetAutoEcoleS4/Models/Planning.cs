@@ -17,7 +17,5 @@ namespace ProjetAutoEcoleS4.Models
         private int id_lecon { get; }
         private string id_moniteur { get; }
         private string codeNEPH { get; }
-
-
     }
 }

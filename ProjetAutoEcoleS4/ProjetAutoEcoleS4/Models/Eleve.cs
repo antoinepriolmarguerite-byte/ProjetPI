@@ -90,6 +90,5 @@ namespace ProjetAutoEcoleS4.Models
             nbHeuresAPayer = 0;
             montantReglementRestant = 0;
         }
-
     }
 }
