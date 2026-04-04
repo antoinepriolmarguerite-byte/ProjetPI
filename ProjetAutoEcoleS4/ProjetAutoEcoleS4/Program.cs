@@ -58,7 +58,7 @@ while (continuer)
                     Console.WriteLine("Veuillez entrer un numéro valide :");
                 }
             } while (id < 0 && id > liste.Count);
-            e = liste[id];
+            e = liste[id-1];
             Console.WriteLine("Le montant à régler pour l'élève " + e.Nom + " est de : " + e.MontantReglementRestant + "EUR");
             Thread.Sleep(2500);
             break;
@@ -76,8 +76,26 @@ while (continuer)
                     Console.WriteLine("Veuillez entrer un numéro valide :");
                 }
             } while (idv < 0 && idv > listeVehicules.Count);
+            Console.WriteLine("Donnez le mois que vous souhaitez regarder le kilométrage :");
+            int Moiskilo;
+            do
+            {
+                if (!int.TryParse(Console.ReadLine(), out Moiskilo) || Moiskilo < 1 || Moiskilo > 12)
+                {
+                    Console.Write("Veuillez entrer un nombre valide : ");
+                }
+            } while (Moiskilo < 1 || Moiskilo > 12);
+            Console.WriteLine("Donnez l'année que vous souhaitez regarder le chiffre d'affaire :");
+            int annekilo;
+            do
+            {
+                if (!int.TryParse(Console.ReadLine(), out annekilo) || annekilo < 0)
+                {
+                    Console.Write("Veuillez entrer un nombre valide : ");
+                }
+            } while (annekilo < 0);
             vehicule = listeVehicules[idv - 1];
-            double nbrkilometre=vehiculeDAO.Nbrkilometre(idv,  port,  pwd);
+            double nbrkilometre=vehiculeDAO.Nbrkilometre(idv, annekilo, Moiskilo,  port,  pwd);
             Console.WriteLine("Le kilométrage du véhicule " + vehicule.marque + " " + vehicule.modele + " est de : " + nbrkilometre + "km");
             Thread.Sleep(2500);
             break;

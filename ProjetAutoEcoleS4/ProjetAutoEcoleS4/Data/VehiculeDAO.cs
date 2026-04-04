@@ -33,13 +33,12 @@ namespace ProjetAutoEcoleS4.Data
                         marque = dr.GetString("marque"),
                         modele = dr.GetString("modele"),
                         immatriculation = dr.GetString("immatriculation"),
-                        etat = dr.GetString("etat")
                     });
                 }
             }
             return liste;
         }
-        public double Nbrkilometre(int idvehicule, string port, string password)
+        public double Nbrkilometre(int idvehicule,int anne,int Mois, string port, string password)
         {
             double nbr = 0;
             Database conn = new Database(port, password);
@@ -47,7 +46,7 @@ namespace ProjetAutoEcoleS4.Data
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                MySqlCommand cmd = new MySqlCommand("SELECT Nbkilometre FROM KilmometrageMois where id_vehicule=@idvehicule", cn);
+                MySqlCommand cmd = new MySqlCommand("SELECT Nbkilometre FROM KilmometrageMois where id_vehicule=@idvehicule and Annee_mois="+anne+Mois, cn);
                 cmd.Parameters.AddWithValue("@idvehicule", idvehicule);
                 object result = cmd.ExecuteScalar();
                 if (result != null && result != DBNull.Value)
