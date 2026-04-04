@@ -14,9 +14,16 @@ namespace ProjetAutoEcoleS4.Data
 {
     internal class VehiculeServices
     {
-        private Vehicule vehicule;
+        string port;
+        string password;
 
-        public void AjouterVehicule(Vehicule v, string port, string password)
+        public VehiculeServices(string port, string password)
+        {
+            this.port = port;
+            this.password = password;
+        }
+
+        public void AjouterVehicule(Vehicule v)
         {
             Console.Clear();
             VehiculeDAO vehiculedao = new VehiculeDAO(port, password);
@@ -84,9 +91,35 @@ namespace ProjetAutoEcoleS4.Data
                 }
             } while (string.IsNullOrWhiteSpace(modele));
             v.modele = modele;
-            vehiculedao.Ajouter( v,  port,  password);
+            vehiculedao.Ajouter(v);
         }
 
+        public void SupprimerVehicule()
+        {
+            Console.Clear();
+            VehiculeDAO vehiculedao = new VehiculeDAO(port, password);
 
+            Console.WriteLine("Donnez l'immatriculation du véhicule à supprimer : ");
+            string immatriculation;
+            do
+            {
+
+                immatriculation = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(immatriculation))
+                {
+                    Console.Write("L'immatriculation du véhicule ne peut pas être vide. Veuillez réessayer : ");
+                }
+            } while (string.IsNullOrWhiteSpace(immatriculation));
+            int id_vehicule = vehiculedao.FindVehicule(immatriculation);
+            if (id_vehicule != 0)
+            {
+                vehiculedao.Supprimer(id_vehicule);
+                Console.WriteLine("Le véhicule avec l'immatriculation " + immatriculation + " a été supprimé.");
+            }
+            else
+            {
+                Console.WriteLine("Aucun véhicule trouvé avec l'immatriculation " + immatriculation + ".");
+            }
+        }
     }
 }

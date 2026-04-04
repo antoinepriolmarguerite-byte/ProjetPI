@@ -67,7 +67,7 @@ while (continuer)
             Vehicule vehicule = new Vehicule();
             VehiculeDAO vehiculeDAO = new VehiculeDAO(port, pwd);
             vehicule.afficherallvehicule(port, pwd);
-            List<Vehicule> listeVehicules = vehiculeDAO.GetAll(port, pwd);
+            List<Vehicule> listeVehicules = vehiculeDAO.GetAll();
             Console.WriteLine("Chosisissez le numéro du véhicule que vous souhaitez connaitre le kilométrage");
             int idv;
             do
@@ -96,7 +96,7 @@ while (continuer)
                 }
             } while (annekilo < 0);
             vehicule = listeVehicules[idv - 1];
-            double nbrkilometre = vehiculeDAO.Nbrkilometre(idv, annekilo, Moiskilo, port, pwd);
+            double nbrkilometre = vehiculeDAO.Nbrkilometre(idv, annekilo, Moiskilo);
             Console.WriteLine("Le kilométrage du véhicule " + vehicule.marque + " " + vehicule.modele + " est de : " + nbrkilometre + "km");
             Thread.Sleep(2500);
             break;
@@ -187,8 +187,8 @@ while (continuer)
             break;
         case "9":
             Console.Clear();
-            VehiculeServices ajvehicule= new VehiculeServices();
-            ajvehicule.AjouterVehicule(new Vehicule(), port, pwd);
+            VehiculeServices ajvehicule = new VehiculeServices(port, pwd);
+            ajvehicule.AjouterVehicule(new Vehicule());
             break;
         case "10":
             continuer = false;

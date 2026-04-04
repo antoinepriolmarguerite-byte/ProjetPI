@@ -16,9 +16,8 @@ namespace ProjetAutoEcoleS4.Data
         {
             conn = new Database(port, password);
         }
-        public List<Vehicule> GetAll(string port, string password)
+        public List<Vehicule> GetAll()
         {
-            Database conn = new Database(port, password);
             List<Vehicule> liste = new List<Vehicule>();
             using (MySqlConnection cn = conn.GetConnection())
             {
@@ -39,12 +38,28 @@ namespace ProjetAutoEcoleS4.Data
             }
             return liste;
         }
-        public double Nbrkilometre(int idvehicule, int anne, int Mois, string port, string password)
+
+        public int FindVehicule(string immatriculation)
+        {
+            int id_vehicule = 0;
+            using (MySqlConnection cn = conn.GetConnection())
+            {
+                cn.Open();
+                MySqlCommand cmd = new MySqlCommand("SELECT id_vehicule FROM VEHICULE WHERE immatriculation = @immat", cn);
+                cmd.Parameters.AddWithValue("@immat", immatriculation);
+                object result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    id_vehicule = Convert.ToInt32(result);
+                }
+            }
+            return id_vehicule;
+        }
+
+        public double Nbrkilometre(int idvehicule, int anne, int Mois)
         {
             double nbr = 0;
             string phrase = anne + "" + Mois;
-            Database conn = new Database(port, password);
-            List<Vehicule> liste = new List<Vehicule>();
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
@@ -57,12 +72,10 @@ namespace ProjetAutoEcoleS4.Data
                     nbr = Convert.ToDouble(result);
                 }
             }
-
             return nbr;
         }
-        public void Ajouter(Vehicule v, string port, string password)
+        public void Ajouter(Vehicule v)
         {
-            Database conn = new Database(port, password);
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
@@ -78,10 +91,8 @@ namespace ProjetAutoEcoleS4.Data
             }
             Thread.Sleep(1000);
         }
-        public void Supprimer(string id_vehicule, string port, string password)
+        public void Supprimer(int id_vehicule)
         {
-            Database conn = new Database(port, password);
-
             using (MySqlConnection cn = conn.GetConnection())
             {
                 try

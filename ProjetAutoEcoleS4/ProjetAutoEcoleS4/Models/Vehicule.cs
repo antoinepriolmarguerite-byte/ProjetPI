@@ -58,7 +58,7 @@ namespace ProjetAutoEcoleS4.Models
         public void afficherallvehicule(string port, string password)
         {
             VehiculeDAO vehiculeDao = new VehiculeDAO(port,password);
-            List<Vehicule> liste = vehiculeDao.GetAll(port, password);
+            List<Vehicule> liste = vehiculeDao.GetAll();
             foreach (Vehicule e in liste)
             {
                 Console.WriteLine(e.ToString());
