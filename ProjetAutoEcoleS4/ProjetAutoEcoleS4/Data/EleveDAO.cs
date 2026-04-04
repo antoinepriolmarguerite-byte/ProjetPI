@@ -60,5 +60,25 @@ namespace ProjetAutoEcoleS4.Data
                 cmd.ExecuteNonQuery();
             }
         }
+        public int NbrheureEleve(int id, string port, string password)
+        {
+            int nbr = 0;
+            Database conn = new Database(port, password);
+            using (MySqlConnection cn = conn.GetConnection())
+            {
+                cn.Open();
+                string sql = "SELECT Count(*) FROM Lecon WHERE id_eleve=" + id;
+
+                MySqlCommand cmd = new MySqlCommand(sql, cn);
+                MySqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+
+                    nbr = dr.GetInt32("Count(*)");
+
+                }
+            }
+            return nbr;
+        }
     }
 }

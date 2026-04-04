@@ -31,13 +31,15 @@ namespace ProjetAutoEcoleS4.Data
                 MySqlCommand cmd = new MySqlCommand(sql, cn);
                 using (MySqlDataReader dr = cmd.ExecuteReader())
                 {
-                    while (dr.Read())
                     {
-                        liste.Add($"{dr.GetDateTime("DateHeureDebut")} | {dr.GetString("Nom")} avec {dr.GetString("MoniteurNom")}");
+                        while (dr.Read())
+                        {
+                            liste.Add($"{dr.GetDateTime("DateHeureDebut")} | {dr.GetString("Nom")} avec {dr.GetString("MoniteurNom")}");
+                        }
                     }
                 }
+                return liste;
             }
-            return liste;
         }
     }
 }

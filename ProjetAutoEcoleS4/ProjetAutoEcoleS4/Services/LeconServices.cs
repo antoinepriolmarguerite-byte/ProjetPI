@@ -108,7 +108,7 @@ namespace ProjetAutoEcoleS4.Data
         {
             EleveService Eleveservice = new EleveService(port,password);
             LeconDAO lecondao = new LeconDAO(port, password);
-            MoniteurService MS = new MoniteurService();
+            MoniteurService MS = new MoniteurService(port, password);
             MoniteurDAO bddMoniteur = new MoniteurDAO(port,password);
             List<int> idMoniteur = new List<int>();
             List<Moniteur> ListeMoniteur = bddMoniteur.GetAll(port, password);

@@ -1,10 +1,11 @@
+using ProjetAutoEcoleS4.Data;
+using ProjetAutoEcoleS4.Interfaces;
+using ProjetAutoEcoleS4.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ProjetAutoEcoleS4.Models;
-using ProjetAutoEcoleS4.Data;
 
 namespace ProjetAutoEcoleS4.Services
 {
@@ -13,7 +14,11 @@ namespace ProjetAutoEcoleS4.Services
         List<Moniteur> list_moniteur;
         private MoniteurDAO bdd_Moniteur;
 
-
+        public MoniteurService(string port, string password)
+        {
+            this.bdd_Moniteur = new MoniteurDAO(port,password);
+            list_moniteur = bdd_Moniteur.GetAll(port, password);
+        }
         public bool MoniteurExiste(int m)
         {
             for(int i = 0; i < list_moniteur.Count(); i++)
