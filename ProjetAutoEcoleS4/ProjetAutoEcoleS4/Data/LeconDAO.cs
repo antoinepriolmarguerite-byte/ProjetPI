@@ -13,33 +13,33 @@ namespace ProjetAutoEcoleS4.Data
     internal class LeconDAO
     {
         public Database conn;
-        public LeconDAO(string port, string password) 
+        public LeconDAO(string port, string password)
         {
             conn = new Database(port, password);
         }
-public void AjouterLecon_DAO(Lecon c)
-{
-    using (MySqlConnection cn = conn.GetConnection())
-    {
-        cn.Open();
-        string insertTable = "ALTER TABLE Lecon MODIFY COLUMN ID_Lecon INT AUTO_INCREMENT;" +
-                            "INSERT INTO Lecon(Date_, id_eleve, id_moniteur, MontantFacture, id_vehicule) " +
-                             "VALUES (@date, @idEleve, @idMoniteur, @montant, @idVehicule)";
-
-        using (MySqlCommand cmd = new MySqlCommand(insertTable, cn))
+        public void AjouterLecon_DAO(Lecon c)
         {
-            //cmd.Parameters.AddWithValue("@id", c.id_Lecon);
-            cmd.Parameters.AddWithValue("@date", c.date_Lecon);
-            cmd.Parameters.AddWithValue("@idEleve", c.eleve.id_eleve);
-            cmd.Parameters.AddWithValue("@idMoniteur", c.id_moniteur); 
-            cmd.Parameters.AddWithValue("@montant", c.montantFacture);
-            cmd.Parameters.AddWithValue("@idVehicule", c.vehicule.id_vehicule);
-            cmd.ExecuteNonQuery(); //N'oubliez pas cette ligne sinon ça marche pas!
-        }
+            using (MySqlConnection cn = conn.GetConnection())
+            {
+                cn.Open();
+                string insertTable = "ALTER TABLE Lecon MODIFY COLUMN ID_Lecon INT AUTO_INCREMENT;" +
+                                    "INSERT INTO Lecon(Date_, ID_Eleve, ID_Moniteur, , ID_Vehicule, MontantFacture) " +
+                                     "VALUES (@date, @idEleve, @idMoniteur, @idVehicule, @montant)";
 
-        Console.WriteLine("Insertion réalisée avec succès dans la base !");
-    }
-}
+                using (MySqlCommand cmd = new MySqlCommand(insertTable, cn))
+                {
+                    //cmd.Parameters.AddWithValue("@id", c.id_Lecon);
+                    cmd.Parameters.AddWithValue("@date", c.dateLecon);
+                    cmd.Parameters.AddWithValue("@idEleve", c.eleve.id_eleve);
+                    cmd.Parameters.AddWithValue("@idMoniteur", c.id_moniteur);
+                    cmd.Parameters.AddWithValue("@idVehicule", c.vehicule.id_vehicule);
+                    cmd.Parameters.AddWithValue("@montant", c.montantFacture);
+                    cmd.ExecuteNonQuery(); //N'oubliez pas cette ligne sinon ça marche pas!
+                }
+
+                Console.WriteLine("Insertion réalisée avec succès dans la base !");
+            }
+        }
         public bool VerifierLeconEleve(string codeNEPH, DateTime dateLecon)
         {
             bool leconExiste = false;
@@ -164,13 +164,13 @@ public void AjouterLecon_DAO(Lecon c)
                     Console.WriteLine("Aucune leçon trouvée avec cet ID.");
             }
         }
-        public double Chiffremensuel(int anne,int mois)
+        public double Chiffremensuel(int anne, int mois)
         {
             double chiffre = 0;
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                string sql = "SELECT SUM(MontantFacture) FROM Lecon WHERE MONTH(Date_) = "+mois+" AND YEAR(Date_) = "+anne;
+                string sql = "SELECT SUM(MontantFacture) FROM Lecon WHERE MONTH(Date_) = " + mois + " AND YEAR(Date_) = " + anne;
                 MySqlCommand cmd = new MySqlCommand(sql, cn);
                 object result = cmd.ExecuteScalar();
                 if (result != null && result != DBNull.Value)
