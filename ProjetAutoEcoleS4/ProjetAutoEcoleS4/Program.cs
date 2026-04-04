@@ -58,9 +58,8 @@ while (continuer)
                     Console.WriteLine("Veuillez entrer un numéro valide :");
                 }
             } while (id < 0 && id > liste.Count);
-            e = liste[id-1];
-            double montant= dao.MontantTotalEleve(id, port, pwd);
-            Console.WriteLine("Le montant à régler pour l'élève " + e.Nom + " est de : " + montant + "EUR");
+            e = liste[id];
+            Console.WriteLine("Le montant à régler pour l'élève " + e.nomEleve + " est de : " + e.montantReglementRestant + "EUR");
             Thread.Sleep(2500);
             break;
         case "5":
@@ -77,26 +76,8 @@ while (continuer)
                     Console.WriteLine("Veuillez entrer un numéro valide :");
                 }
             } while (idv < 0 && idv > listeVehicules.Count);
-            Console.WriteLine("Donnez le mois que vous souhaitez regarder le kilométrage :");
-            int Moiskilo;
-            do
-            {
-                if (!int.TryParse(Console.ReadLine(), out Moiskilo) || Moiskilo < 1 || Moiskilo > 12)
-                {
-                    Console.Write("Veuillez entrer un nombre valide : ");
-                }
-            } while (Moiskilo < 1 || Moiskilo > 12);
-            Console.WriteLine("Donnez l'année que vous souhaitez regarder le chiffre d'affaire :");
-            int annekilo;
-            do
-            {
-                if (!int.TryParse(Console.ReadLine(), out annekilo) || annekilo < 0)
-                {
-                    Console.Write("Veuillez entrer un nombre valide : ");
-                }
-            } while (annekilo < 0);
             vehicule = listeVehicules[idv - 1];
-            double nbrkilometre=vehiculeDAO.Nbrkilometre(idv, annekilo, Moiskilo,  port,  pwd);
+            double nbrkilometre=vehiculeDAO.Nbrkilometre(idv,  port,  pwd);
             Console.WriteLine("Le kilométrage du véhicule " + vehicule.marque + " " + vehicule.modele + " est de : " + nbrkilometre + "km");
             Thread.Sleep(2500);
             break;
@@ -148,7 +129,7 @@ while (continuer)
                 } while (id < 0 && id > listeeleve.Count);
                 e = listeeleve[id-1];
                 int nbrheureeleve = dao.NbrheureEleve(id, port, pwd);
-                Console.WriteLine("Le nombre d'heures de l'élève " + e.Nom + " " + e.Prenom + " est de : " + nbrheureeleve + "h");
+                Console.WriteLine("Le nombre d'heures de l'élève " + e.nomEleve + " " + e.prenomEleve + " est de : " + nbrheureeleve + "h");
             }
             
             Thread.Sleep(2500);
@@ -198,6 +179,23 @@ while (continuer)
             Console.WriteLine("Option invalide, veuillez réessayer.");
             break;
     }
+}
+
+
+void AfficherMenu()
+{
+    Console.Clear();
+    Console.WriteLine("\n========== MENU PRINCIPAL ==========");
+    Console.WriteLine("1 - Ajouter une leçon");
+    Console.WriteLine("2 - Supprimer une leçon");
+    Console.WriteLine("3 - Voir le planning");
+    Console.WriteLine("4 - Voir le montant à régler");
+    Console.WriteLine("5 - Kilométrage véhicule");
+    Console.WriteLine("6 - Heures élève/moniteur");
+    Console.WriteLine("7 - Chiffre d'affaire mensuel");
+    Console.WriteLine("8 - Ajoutez Eleve");
+    Console.WriteLine("9 - Ajoutez Véhicule");
+    Console.WriteLine("10 - Quitter");
 }
 
 
