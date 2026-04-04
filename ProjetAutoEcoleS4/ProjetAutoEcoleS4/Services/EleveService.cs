@@ -51,7 +51,7 @@ namespace ProjetAutoEcoleS4.Services
                 if(e==list_eleve[i]) {list_eleve.RemoveAt(i);break;}
             }
             Console.WriteLine("Eleve supprimé avec succès ! ");
-            bdd_Eleve.Supprimer(int.Parse(e.CodeNEPH),port,password);
+            bdd_Eleve.Supprimer(int.Parse(e.codeNeph),port,password);
         }
         public void AfficherAllEleve(string port, string password)
         {
