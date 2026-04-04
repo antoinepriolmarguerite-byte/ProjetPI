@@ -23,8 +23,8 @@ public void AjouterLecon_DAO(Lecon c)
     {
         cn.Open();
         string insertTable = "ALTER TABLE Lecon MODIFY COLUMN ID_Lecon INT AUTO_INCREMENT;" +
-                            "INSERT INTO Lecon(Date_, id_eleve, id_moniteur, Immatriculation, MontantFacture, id_vehicule) " +
-                             "VALUES (@date, @idEleve, @idMoniteur, @immat, @montant, @idVehicule)";
+                            "INSERT INTO Lecon(Date_, id_eleve, id_moniteur, MontantFacture, id_vehicule) " +
+                             "VALUES (@date, @idEleve, @idMoniteur, @montant, @idVehicule)";
 
         using (MySqlCommand cmd = new MySqlCommand(insertTable, cn))
         {
@@ -32,7 +32,6 @@ public void AjouterLecon_DAO(Lecon c)
             cmd.Parameters.AddWithValue("@date", c.date_Lecon);
             cmd.Parameters.AddWithValue("@idEleve", c.eleve.id_eleve);
             cmd.Parameters.AddWithValue("@idMoniteur", c.id_moniteur); 
-            cmd.Parameters.AddWithValue("@immat", c.vehicule.immatriculation);
             cmd.Parameters.AddWithValue("@montant", c.montantFacture);
             cmd.Parameters.AddWithValue("@idVehicule", c.vehicule.id_vehicule);
             cmd.ExecuteNonQuery(); //N'oubliez pas cette ligne sinon ça marche pas!
