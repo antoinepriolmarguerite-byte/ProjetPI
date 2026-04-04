@@ -119,19 +119,19 @@ VALUES
 ('EF-456-GH', 'Voiture', FALSE, 'Révision OK', 1300, 'Renault', 'Clio'),
 ('IJ-789-KL', 'Voiture', TRUE, 'Changement pneus', 1100, 'Citroen', 'C3');
 
--- PLANNING
-INSERT INTO Planning (ID_Planning, DateHeureDebut, DateHeureFin, Formule,id_vehicule, ID_Lecon, ID_Moniteur, id_eleve)
-VALUES
-(1, '2025-03-01 10:00:00', '2025-03-01 11:00:00', '1h',1, 1, 1, 1),
-(2, '2025-03-02 14:00:00', '2025-03-02 15:00:00', '1h',2, 2, 2, 2),
-(3, '2025-03-03 09:00:00', '2025-03-03 10:00:00', '1h',3, 3, 3, 3);
-
 -- LECON
 INSERT INTO Lecon (ID_Lecon, Date_, id_eleve, id_moniteur, Immatriculation, MontantFacture, id_vehicule)
 VALUES
 (1, '2025-03-01 10:00:00', 1, 1, 'AB-123-CD', 50, 1),
 (2, '2025-03-02 14:00:00', 2, 2, 'EF-456-GH', 55, 2),
 (3, '2025-03-03 09:00:00', 3, 3, 'IJ-789-KL', 50, 3);
+
+-- PLANNING
+INSERT INTO Planning (ID_Planning, DateHeureDebut, DateHeureFin, Formule,id_vehicule, ID_Lecon, ID_Moniteur, id_eleve)
+VALUES
+(1, '2025-03-01 10:00:00', '2025-03-01 11:00:00', '1h',1, 1, 1, 1),
+(2, '2025-03-02 14:00:00', '2025-03-02 15:00:00', '1h',2, 2, 2, 2),
+(3, '2025-03-03 09:00:00', '2025-03-03 10:00:00', '1h',3, 3, 3, 3);
 
 -- PLANNING
 INSERT INTO Planning (ID_Planning, DateHeureDebut, DateHeureFin, Formule, Immatriculation, ID_Lecon, ID_Moniteur,id_eleve)
