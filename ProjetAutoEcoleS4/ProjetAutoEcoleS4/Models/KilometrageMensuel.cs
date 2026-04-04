@@ -8,7 +8,7 @@ namespace ProjetAutoEcoleS4.Models
 {
     internal class KilometrageMois
     {
-        private string immatriculation;
+        private string id_vehicule;
         private Mois annee_mois;
         private double NbKilometre;
     }
