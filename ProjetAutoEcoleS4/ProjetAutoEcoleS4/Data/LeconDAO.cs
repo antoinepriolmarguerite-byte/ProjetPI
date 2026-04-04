@@ -165,5 +165,21 @@ public void AjouterLecon_DAO(Lecon c)
                     Console.WriteLine("Aucune leçon trouvée avec cet ID.");
             }
         }
+        public double Chiffremensuel(int anne,int mois)
+        {
+            double chiffre = 0;
+            using (MySqlConnection cn = conn.GetConnection())
+            {
+                cn.Open();
+                string sql = "SELECT SUM(MontantFacture) FROM Lecon WHERE MONTH(Date_) = "+mois+" AND YEAR(Date_) = "+anne;
+                MySqlCommand cmd = new MySqlCommand(sql, cn);
+                object result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    chiffre = Convert.ToDouble(result);
+                }
+            }
+            return chiffre;
+        }
     }
 }

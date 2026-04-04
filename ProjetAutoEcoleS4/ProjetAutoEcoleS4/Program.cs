@@ -135,7 +135,28 @@ while (continuer)
             Thread.Sleep(2500);
             break;
         case "7":
-            Console.WriteLine("Chiffre d'affaires mensuel...");
+            LeconDAO leconDAO = new LeconDAO(port, pwd);
+            Console.WriteLine("Donnez le mois que vous souhaitez regarder le chiffre d'affaire :");
+            int Mois;
+            do
+            {
+                if (!int.TryParse(Console.ReadLine(), out Mois) || Mois < 1 || Mois>12)
+                {
+                    Console.Write("Veuillez entrer un nombre valide : ");
+                }
+            } while (Mois<1 || Mois >12);
+            Console.WriteLine("Donnez l'année que vous souhaitez regarder le chiffre d'affaire :");
+            int anne;
+            do
+            {
+                if (!int.TryParse(Console.ReadLine(), out anne) || anne < 0)
+                {
+                    Console.Write("Veuillez entrer un nombre valide : ");
+                }
+            } while (anne<0);
+            double chiffremensuel=leconDAO.Chiffremensuel(anne, Mois);
+            Console.WriteLine("\nLe chiffre d'affaire du mois " + Mois + " de l'année " + anne + " est de : " + chiffremensuel + "EUR");
+            Thread.Sleep(2500);
             Console.Clear();
             break;
         case "8":
@@ -168,7 +189,7 @@ void AfficherMenu()
     Console.WriteLine("4 - Voir le montant à régler");
     Console.WriteLine("5 - Kilométrage véhicule");
     Console.WriteLine("6 - Heures élève/moniteur");
-    Console.WriteLine("7 - Chiffre mensuel");
+    Console.WriteLine("7 - Chiffre d'affaire mensuel");
     Console.WriteLine("8 - Ajoutez Eleve");
     Console.WriteLine("9 - Ajoutez Véhicule");
     Console.WriteLine("10 - Quitter");
