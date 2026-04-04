@@ -23,7 +23,7 @@ namespace ProjetAutoEcoleS4.Data
             {
                 cn.Open();
                 string insertTable = "ALTER TABLE Lecon MODIFY COLUMN ID_Lecon INT AUTO_INCREMENT;" +
-                                    "INSERT INTO Lecon(Date_, ID_Eleve, ID_Moniteur, , ID_Vehicule, MontantFacture) " +
+                                    "INSERT INTO Lecon(Date_, ID_Eleve, ID_Moniteur, ID_Vehicule, MontantFacture) " +
                                      "VALUES (@date, @idEleve, @idMoniteur, @idVehicule, @montant)";
 
                 using (MySqlCommand cmd = new MySqlCommand(insertTable, cn))

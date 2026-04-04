@@ -174,17 +174,6 @@ namespace ProjetAutoEcoleS4.Data
                 } while (vehicule.id_vehicule<0);
                 l.vehicule.id_vehicule = vehicule.id_vehicule;
 
-                Console.WriteLine("Veuillez entrer l'immatricule du véhicule : ");
-                do
-                {
-                    vehicule.immatriculation = Console.ReadLine()!;
-                    if (vehicule.immatriculation==null)
-                    {
-                        Console.WriteLine("L'immatricule du véhicule ne peut pas être vide. Veuillez réessayer : ");
-                    }
-                } while (vehicule.immatriculation==null);
-                l.vehicule.immatriculation = vehicule.immatriculation;
-
                 Console.WriteLine("Veuillez entrer le montant de la facture : ");
                 double montantFacture;
                 do
