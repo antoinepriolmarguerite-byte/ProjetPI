@@ -1,4 +1,3 @@
-﻿
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -62,7 +61,6 @@ namespace ProjetAutoEcoleS4.Models
             List<Vehicule> liste = vehiculeDao.GetAll(port, password);
             foreach (Vehicule e in liste)
             {
-
                 Console.WriteLine(e.ToString());
             }
 
