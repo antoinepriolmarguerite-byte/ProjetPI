@@ -5,11 +5,11 @@ USE AutoEcole;
 CREATE TABLE Eleve (
    ID_Eleve INT AUTO_INCREMENT,
    CodeNEPH VARCHAR(50),
-   Nom VARCHAR(50) NOT NULL,
-   Prenom VARCHAR(50) NOT NULL,
+   NomEleve VARCHAR(50) NOT NULL,
+   PrenomEleve VARCHAR(50) NOT NULL,
    Tel VARCHAR(20),
    Mail VARCHAR(100),
-   Type_eleve VARCHAR(50), 
+   TypeEleve VARCHAR(50), 
    Adresse TEXT,
    RIB VARCHAR(50),
    DateNaissance DATE NOT NULL,
@@ -101,7 +101,7 @@ CREATE TABLE KilometrageMois (
 
 USE AutoEcole;
 
-INSERT INTO Eleve (CodeNEPH, Nom, Prenom, Tel, Mail, Type_eleve, Adresse, RIB, DateNaissance, Permis, Boite, MoniteurTitre, NbHeuresAPayer, MontantReglementRestant) VALUES
+INSERT INTO Eleve (CodeNEPH, NomEleve, PrenomEleve, Tel, Mail, TypeEleve, Adresse, RIB, DateNaissance, Permis, Boite, MoniteurTitre, NbHeuresAPayer, MontantReglementRestant) VALUES
 ('123456789012', 'Dupont', 'Jean', '0601020304', 'jean.dupont@email.com', 'Traditionnel', '12 rue de la Paix, Paris', 'FR763000...', '2005-05-15', 'B', 'Manuelle', 'Martin Lucas', 5, 250.00),
 ('987654321098', 'Martin', 'Sophie', '0708091011', 'sophie.martin@email.com', 'AAC', '5 avenue des Champs, Lyon', 'FR764000...', '2007-11-20', 'B', 'Automatique', NULL, 0, 0.00),
 ('456123789456', 'Lefebvre', 'Thomas', '0611223344', 'thomas.lef@email.com', 'Candidat Libre', '30 rue du Port, Marseille', 'FR765000...', '1998-02-10', 'A2', 'Manuelle', NULL, 10, 500.00);
@@ -140,5 +140,3 @@ INSERT INTO KilometrageMois (ID_Vehicule, Annee_mois, Nbkilometre) VALUES
 (1, 202403, 1250.5),
 (2, 202403, 890.0),
 (3, 202403, 450.2);
-
-SELECT  * FROM lecon;
