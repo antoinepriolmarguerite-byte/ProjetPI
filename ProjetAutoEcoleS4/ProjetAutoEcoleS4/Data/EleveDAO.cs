@@ -18,7 +18,7 @@ namespace ProjetAutoEcoleS4.Data
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                string sql = "INSERT INTO ELEVE(CodeNEPH,Nom,Prenom, DateNaissance,Tel,Mail) VALUES ("+e.CodeNEPH+","+e.Nom+","+e.Prenom+","+e.DateNaissance+","+e.Tel+","+e.Mail+");";
+                string sql = "INSERT INTO ELEVE(CodeNEPH,Nom,Prenom, DateNaissance,Tel,Mail) VALUES ("+e.codeNeph+","+e.nomEleve+","+e.prenomEleve+","+e.dateNaissance+","+e.tel+","+e.mail+");";
                 MySqlCommand cmd = new MySqlCommand(sql, cn);
 
                 cn.Dispose();
@@ -39,8 +39,8 @@ namespace ProjetAutoEcoleS4.Data
                     liste.Add(new Eleve
                     {
                         id_eleve = dr.GetInt32("id_eleve"),
-                        Nom = dr.GetString("nom"),
-                        Prenom = dr.GetString("prenom"),
+                        nomEleve = dr.GetString("nomEleve"),
+                        prenomEleve = dr.GetString("prenomEleve"),
                         //DateNaissance = dr.GetDateTime("date_naissance"),
                         //Tel = dr.GetString("telephone")
                     });
@@ -55,7 +55,7 @@ namespace ProjetAutoEcoleS4.Data
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                MySqlCommand cmd = new MySqlCommand("DELETE FROM ELEVE WHERE CodeNEPH=@id", cn);
+                MySqlCommand cmd = new MySqlCommand("DELETE FROM ELEVE WHERE CodeNEPH = @id", cn);
                 cmd.Parameters.AddWithValue("@id", id);
                 cmd.ExecuteNonQuery();
             }
@@ -67,7 +67,7 @@ namespace ProjetAutoEcoleS4.Data
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                string sql = "SELECT Count(*) FROM Lecon WHERE id_eleve=" + id;
+                string sql = "SELECT Count(*) FROM Lecon WHERE id_eleve =" + id;
 
                 MySqlCommand cmd = new MySqlCommand(sql, cn);
                 MySqlDataReader dr = cmd.ExecuteReader();

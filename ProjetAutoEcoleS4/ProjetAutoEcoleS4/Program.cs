@@ -59,7 +59,7 @@ while (continuer)
                 }
             } while (id < 0 && id > liste.Count);
             e = liste[id];
-            Console.WriteLine("Le montant à régler pour l'élève " + e.Nom + " est de : " + e.MontantReglementRestant + "EUR");
+            Console.WriteLine("Le montant à régler pour l'élève " + e.nomEleve + " est de : " + e.montantReglementRestant + "EUR");
             Thread.Sleep(2500);
             break;
         case "5":
@@ -129,7 +129,7 @@ while (continuer)
                 } while (id < 0 && id > listeeleve.Count);
                 e = listeeleve[id-1];
                 int nbrheureeleve = dao.NbrheureEleve(id, port, pwd);
-                Console.WriteLine("Le nombre d'heures de l'élève " + e.Nom + " " + e.Prenom + " est de : " + nbrheureeleve + "h");
+                Console.WriteLine("Le nombre d'heures de l'élève " + e.nomEleve + " " + e.prenomEleve + " est de : " + nbrheureeleve + "h");
             }
             
             Thread.Sleep(2500);

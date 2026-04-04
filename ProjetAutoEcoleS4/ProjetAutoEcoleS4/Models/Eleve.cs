@@ -26,10 +26,10 @@ namespace ProjetAutoEcoleS4.Models
         public string moniteurTitre { get; set; }
         public int nbHeuresAPayer { get; set; }
         public double montantReglementRestant { get; set; }
-        public Eleve(string CodeNEPH)
+        public Eleve(string codeNEPH)
         {
             this.id_eleve = autoincr++;
-            this.codeNeph = CodeNEPH;
+            this.codeNeph = codeNEPH;
             nomEleve = "";
             prenomEleve = "";
             tel = "";

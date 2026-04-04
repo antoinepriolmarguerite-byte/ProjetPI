@@ -12,7 +12,7 @@ namespace ProjetAutoEcoleS4.Data
     {
         private Database conn;
 
-        public MoniteurDAO(string port, string password) //Bah pourquoi elle marche pas ? Bah c'est le constructeur guignol
+        public MoniteurDAO(string port, string password)
         {
             conn = new Database(port, password);
         }
@@ -53,11 +53,9 @@ namespace ProjetAutoEcoleS4.Data
                 {
                     liste.Add(new Moniteur
                     {
-                        id_Moniteur = dr.GetInt32("id_Moniteur"),//bawi faut changer guignol
+                        id_moniteur = dr.GetInt32("ID_Moniteur"), 
                         nom = dr.GetString("Nom"),
-                        prenom = dr.GetString("prenom"),
-                        //DateNaissance = dr.GetDateTime("date_naissance"),
-                        //Tel = dr.GetString("telephone")
+                        prenom = dr.GetString("Prenom"),
                     });
                 }
             }
@@ -70,7 +68,7 @@ namespace ProjetAutoEcoleS4.Data
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                string sql = "SELECT Count(*) FROM Lecon WHERE id_moniteur=" + id;
+                string sql = "SELECT Count(*) FROM Lecon WHERE id_moniteur =" + id;
 
                 MySqlCommand cmd = new MySqlCommand(sql, cn);
                 MySqlDataReader dr = cmd.ExecuteReader();

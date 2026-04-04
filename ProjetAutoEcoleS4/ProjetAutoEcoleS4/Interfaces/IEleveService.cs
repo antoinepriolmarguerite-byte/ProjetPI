@@ -24,13 +24,13 @@ namespace ProjetAutoEcoleS4.Interfaces
             string[] retour = new string[12];
 
             Console.WriteLine("Veuillez écrire votre CodeNEPH : ");
-            string CodeNEPH = Console.ReadLine(); long intNEPH;
-            while (string.IsNullOrWhiteSpace(CodeNEPH)|| CodeNEPH.Length != 12 || !long.TryParse(CodeNEPH, out intNEPH))
+            string codeNEPH = Console.ReadLine(); long intNEPH;
+            while (string.IsNullOrWhiteSpace(codeNEPH) || codeNEPH.Length != 12 || !long.TryParse(codeNEPH, out intNEPH))
             {
                 Console.WriteLine("Mauvais format ! Veuillez recommencer : ");
-                CodeNEPH = Console.ReadLine();
+                codeNEPH = Console.ReadLine();
             }
-            retour[0] = CodeNEPH;
+            retour[0] = codeNEPH;
 
             Console.WriteLine("Veuillez écrire votre nom : ");
             string nom = Console.ReadLine();

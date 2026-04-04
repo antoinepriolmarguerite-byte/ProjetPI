@@ -26,7 +26,7 @@ namespace ProjetAutoEcoleS4.Data
         public void Ajouterleçon(Lecon l) //Bon cette méthode marche plus
         {
             Console.Clear();
-            EleveService clientservices = new EleveService(port,password);
+            EleveService eleveservices = new EleveService(port,password);
             LeconDAO lecondao = new LeconDAO(port, password);
 
             Console.WriteLine("Donnez la date et l'heure de la leçon : ");
@@ -39,7 +39,7 @@ namespace ProjetAutoEcoleS4.Data
                     Console.Write("Veuillez entrer une date valide (jj/mm/aaaa h:m:s) :");
                 }
             } while (date == default(DateTime));
-            l.date_Lecon = date;
+            l.dateLecon = date;
             Console.WriteLine("Donnez le code NEPH de l'élève : ");
             string codeNeph;
             do
@@ -55,8 +55,8 @@ namespace ProjetAutoEcoleS4.Data
                     Ajouterleçon(l);
                 }
             } while (string.IsNullOrWhiteSpace(codeNeph));
-            l.eleve = clientservices.CreerEleve(codeNeph, port, password);
-            clientservices.AjouterEleve(l.eleve, port, password);
+            l.eleve = eleveservices.CreerEleve(port, password);
+            eleveservices.AjouterEleve(l.eleve, port, password);
             l.eleve = eleve;
             Console.WriteLine("Donnez le nom du moniteur : ");
             string moniteur;
@@ -133,7 +133,7 @@ namespace ProjetAutoEcoleS4.Data
                 MS.AfficherAllMoniteur(port,password);
                 for(int i = 0; i < ListeMoniteur.Count(); i++)
                 {
-                    idMoniteur.Add(ListeMoniteur[i].id_Moniteur); 
+                    idMoniteur.Add(ListeMoniteur[i].id_moniteur); 
                 }
                 Console.Write("Veuillez choisir un moniteur : ");
                 int entreeUtilisateur = int.Parse(Console.ReadLine())!; //Jvous laisse faire le tryparse, chepa faire
@@ -154,9 +154,9 @@ namespace ProjetAutoEcoleS4.Data
                         Console.Write("Veuillez entrer une date valide (jj-mm-aaaa HH:mm:ss) :");
                     }
                 } while (date == default(DateTime));
-                l.date_Lecon = date;
+                l.dateLecon = date;
 
-                if (lecondao.VerifierLeconEleve(e.CodeNEPH, date))
+                if (lecondao.VerifierLeconEleve(e.codeNeph, date))
                 {
                     Console.WriteLine("Erreur : Cet élève a déjà une leçon prévue à cette date !");
                     return;
@@ -195,7 +195,7 @@ namespace ProjetAutoEcoleS4.Data
                     }
                 } while (montantFacture < 0);
                 l.montantFacture = montantFacture;
-                e.NbHeureARegler++;
+                e.nbHeuresAPayer++;
 
                 lecondao.AjouterLecon_DAO(l);//C'est utile aussi
             }
