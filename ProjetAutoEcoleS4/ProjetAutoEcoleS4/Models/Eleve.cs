@@ -11,88 +11,84 @@ namespace ProjetAutoEcoleS4.Models
     internal class Eleve
     {
         private static int autoincr = 0;
-        public int id_eleve { get; set; } //idEleve
-
-        public string CodeNEPH { get; set; } //idEleve
-        public string Nom { get; set; }
-        public string Prenom { get; set; }
-        public string Tel { get; set; }
-        public string Mail { get; set; }
-        public string TypeEleve { get; set; }
-        public string Adresse { get; set; }
-        public string Rib { get; set; }
-        public DateTime DateNaissance { get; set; }
-        public string Permis { get; set; }
-        public bool EstBoiteManuelle { get; set; } //true => Boite manuelle
-        public string MoniteurTitre { get; set; }
-        public int NbHeureARegler { get; set; }
-        public double MontantReglementRestant { get; set; }
-        public Eleve(string CodeNEPH)
+        public int id_eleve { get; set; }
+        public string codeNeph { get; set; } 
+        public string nomEleve { get; set; }
+        public string prenomEleve { get; set; }
+        public string tel { get; set; }
+        public string mail { get; set; }
+        public string typeEleve { get; set; }
+        public string adresse { get; set; }
+        public string rib { get; set; }
+        public DateTime dateNaissance { get; set; }
+        public string permis { get; set; }
+        public bool estBoiteManuelle { get; set; } //true = Boite manuelle
+        public string moniteurTitre { get; set; }
+        public int nbHeuresAPayer { get; set; }
+        public double montantReglementRestant { get; set; }
+        public Eleve(string codeNEPH)
         {
             this.id_eleve = autoincr++;
-            this.CodeNEPH = CodeNEPH;
-            Nom = "";
-            Prenom = "";
-            Tel = "";
-            Mail = "";
-            TypeEleve = "";
-            Adresse = "";
-            Rib = "";
-            DateNaissance = new DateTime();
-            Permis = "";
-            EstBoiteManuelle = false;
-            MoniteurTitre = "";
-            NbHeureARegler = 0;
-            MontantReglementRestant = 0;
-            //Console.WriteLine("Client construit avec succès ! NE PAS SORTIR DE SON CONTEXTE");
+            this.codeNeph = codeNEPH;
+            nomEleve = "";
+            prenomEleve = "";
+            tel = "";
+            mail = "";
+            typeEleve = "";
+            adresse = "";
+            rib = "";
+            dateNaissance = new DateTime();
+            permis = "";
+            estBoiteManuelle = false;
+            moniteurTitre = "";
+            nbHeuresAPayer = 0;
+            montantReglementRestant = 0;
         }
         public Eleve(IEleveService view)
         {
             string[] attributs = view.AjouterEleve();
-            this.CodeNEPH = attributs[0];
-            this.Nom = attributs[1];
-            this.Prenom = attributs[2];
-            this.Tel = attributs[3];
-            this.Mail = attributs[4];
-            this.TypeEleve = attributs[5];
-            this.Adresse = attributs[6];
-            this.Rib = attributs[7];
-            this.DateNaissance = DateTime.Parse(attributs[8]);
-            this.Permis = attributs[9];
-            this.EstBoiteManuelle = bool.Parse(attributs[9]);
-            this.MoniteurTitre = attributs[10];
-            this.NbHeureARegler = 0;
+            this.codeNeph = attributs[0];
+            this.nomEleve = attributs[1];
+            this.prenomEleve = attributs[2];
+            this.tel = attributs[3];
+            this.mail = attributs[4];
+            this.typeEleve = attributs[5];
+            this.adresse = attributs[6];
+            this.rib = attributs[7];
+            this.dateNaissance = DateTime.Parse(attributs[8]);
+            this.permis = attributs[9];
+            this.estBoiteManuelle = bool.Parse(attributs[9]);
+            this.moniteurTitre = attributs[10];
+            this.nbHeuresAPayer = 0;
         }
         public override string ToString()
         {
-            return $"{id_eleve} | Code NEPH: {CodeNEPH} | Nom: {Nom} | Prénom: {Prenom}";
+            return $"{id_eleve} | Code NEPH: {codeNeph} | Nom: {nomEleve} | Prénom: {prenomEleve}";
         }
         static public bool operator  ==(Eleve e1,Eleve e2)
         {
-            return e1.CodeNEPH==e2.CodeNEPH;
+            return e1.codeNeph == e2.codeNeph;
         }
         static public bool operator  !=(Eleve e1,Eleve e2)
         {
-            return e1.CodeNEPH!=e2.CodeNEPH;
+            return e1.codeNeph != e2.codeNeph;
         }
         public Eleve()
         {
-            CodeNEPH = "";
-            Nom = "";
-            Prenom = "";
-            Tel = "";
-            Mail = "";
-            TypeEleve = "";
-            Adresse = "";
-            Rib = "";
-            DateNaissance = new DateTime();
-            Permis = "";
-            EstBoiteManuelle = false;
-            MoniteurTitre = "";
-            NbHeureARegler = 0;
-            MontantReglementRestant = 0;
-            //Console.WriteLine("Client construit avec succès ! NE PAS SORTIR DE SON CONTEXTE"); 
+            codeNeph = "";
+            nomEleve = "";
+            prenomEleve = "";
+            tel = "";
+            mail = "";
+            typeEleve = "";
+            adresse = "";
+            rib = "";
+            dateNaissance = new DateTime();
+            permis = "";
+            estBoiteManuelle = false;
+            moniteurTitre = "";
+            nbHeuresAPayer = 0;
+            montantReglementRestant = 0;
         }
-
     }
 }
