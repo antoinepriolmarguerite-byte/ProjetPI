@@ -40,8 +40,6 @@ namespace ProjetAutoEcoleS4.Data
                         id_eleve = dr.GetInt32("id_eleve"),
                         nomEleve = dr.GetString("nomEleve"),
                         prenomEleve = dr.GetString("prenomEleve"),
-                        //DateNaissance = dr.GetDateTime("date_naissance"),
-                        //Tel = dr.GetString("telephone")
                     });
                 }
             }

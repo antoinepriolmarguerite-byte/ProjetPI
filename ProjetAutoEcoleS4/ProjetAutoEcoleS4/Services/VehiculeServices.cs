@@ -15,8 +15,6 @@ namespace ProjetAutoEcoleS4.Data
     internal class VehiculeServices
     {
         private Vehicule vehicule;
-        private string port;
-        private string password;
 
         public void AjouterVehicule(Vehicule v, string port, string password)
         {
@@ -88,5 +86,7 @@ namespace ProjetAutoEcoleS4.Data
             v.modele = modele;
             vehiculedao.Ajouter( v,  port,  password);
         }
+
+
     }
 }

@@ -23,7 +23,7 @@ namespace ProjetAutoEcoleS4.Data
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                MySqlCommand cmd = new MySqlCommand("SELECT * FROM VEHICULE order by  id_vehicule", cn);
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM VEHICULE order by id_vehicule", cn);
                 MySqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
@@ -63,7 +63,7 @@ namespace ProjetAutoEcoleS4.Data
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                string insertTable = "insert into VEHICULE(immatriculation,typevehicule,boitevitesse,marque,modele) Values (@immatriculation,@typevehicule,@boitevitesse,@marque,@modele);";
+                string insertTable = "insert into VEHICULE(Immatriculation,TypeVehicule,Boite,Marque,Modele) Values (@immatriculation,@typevehicule,@boitevitesse,@marque,@modele);";
                 MySqlCommand cmd = new MySqlCommand(insertTable, cn);
                 cmd.Parameters.AddWithValue("@immatriculation", v.immatriculation);
                 cmd.Parameters.AddWithValue("@typevehicule", v.typevehicule);
@@ -75,5 +75,37 @@ namespace ProjetAutoEcoleS4.Data
             }
             Thread.Sleep(1000);
         }
+        public void Supprimer(string id_vehicule, string port, string password)
+        {
+            Database conn = new Database(port, password);
+
+            using (MySqlConnection cn = conn.GetConnection())
+            {
+                try
+                {
+                    cn.Open();
+                    string deleteQuery = "DELETE FROM Vehicule WHERE ID_Vehicule = @id_vehicule;";
+
+                    MySqlCommand cmd = new MySqlCommand(deleteQuery, cn);
+                    cmd.Parameters.AddWithValue("@id_vehicule", id_vehicule);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        Console.WriteLine($"Le véhicule {id_vehicule} a été supprimé avec succès.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Aucun véhicule trouvé avec cet id_vehicule.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Erreur lors de la suppression : " + ex.Message);
+                }
+            }
+        }
+
     }
 }
