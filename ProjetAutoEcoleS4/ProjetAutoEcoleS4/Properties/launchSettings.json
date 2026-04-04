@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ProjetAutoEcoleS4": {
+      "commandName": "Project",
+      "hotReloadEnabled": false
+    }
+  }
+}

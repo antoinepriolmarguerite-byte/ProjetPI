@@ -120,7 +120,7 @@ namespace ProjetAutoEcoleS4.Data
             }
             Console.Write("Veuillez choisir un élève (en entrant le n° de l'élève) : ");
             int id;
-            if (!int.TryParse(Console.ReadLine(), out id))
+            if (!int.TryParse(Console.ReadLine(), out id) || id> Eleveservice.list_eleve.Count()-1 || id<1)
             {
                 Console.Write("Veuillez entrer un nombre entier naturel : ");
             }

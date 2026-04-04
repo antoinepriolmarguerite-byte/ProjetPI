@@ -15,7 +15,7 @@ namespace ProjetAutoEcoleS4.Models
         public int coutAssurance { get; set; }
         public string marque { get; set; }
         public string modele { get; set; }
-        public string etat { get; set; }
+        public bool etat { get; set; }
         public Vehicule(string immatriculation, string typevehicule, bool boitevitesse, string historique, int coutAssurance, string marque, string modele)
         {
             this.id_vehicule = autoincr++;

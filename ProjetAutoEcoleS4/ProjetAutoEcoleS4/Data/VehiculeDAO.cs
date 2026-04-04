@@ -33,28 +33,31 @@ namespace ProjetAutoEcoleS4.Data
                         marque = dr.GetString("marque"),
                         modele = dr.GetString("modele"),
                         immatriculation = dr.GetString("immatriculation"),
-                        etat = dr.GetString("etat")
+                        etat = dr.GetBoolean("etat")
                     });
                 }
             }
             return liste;
         }
-        public double Nbrkilometre(int idvehicule, string port, string password)
+        public double Nbrkilometre(int idvehicule, int anne, int Mois, string port, string password)
         {
             double nbr = 0;
+            string phrase = anne + "" + Mois;
             Database conn = new Database(port, password);
             List<Vehicule> liste = new List<Vehicule>();
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                MySqlCommand cmd = new MySqlCommand("SELECT Nbkilometre FROM KilmometrageMois where id_vehicule=@idvehicule", cn);
+                MySqlCommand cmd = new MySqlCommand("SELECT Nbkilometre FROM KilometrageMois where ID_Vehicule=@idvehicule and Annee_mois=@annemois", cn);
                 cmd.Parameters.AddWithValue("@idvehicule", idvehicule);
+                cmd.Parameters.AddWithValue("@annemois", phrase);
                 object result = cmd.ExecuteScalar();
                 if (result != null && result != DBNull.Value)
                 {
                     nbr = Convert.ToDouble(result);
                 }
             }
+
             return nbr;
         }
         public void Ajouter(Vehicule v, string port, string password)

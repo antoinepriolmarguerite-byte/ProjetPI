@@ -38,8 +38,8 @@ namespace ProjetAutoEcoleS4.Data
                     liste.Add(new Eleve
                     {
                         id_eleve = dr.GetInt32("id_eleve"),
-                        nomEleve = dr.GetString("nomEleve"),
-                        prenomEleve = dr.GetString("prenomEleve"),
+                        nomEleve = dr.GetString("NomEleve"),
+                        prenomEleve = dr.GetString("PrenomEleve"),
                     });
                 }
             }

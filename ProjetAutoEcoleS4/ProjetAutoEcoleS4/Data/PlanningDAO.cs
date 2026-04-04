@@ -23,7 +23,7 @@ namespace ProjetAutoEcoleS4.Data
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                string sql = @"SELECT p.DateHeureDebut, e.Nom, m.Nom as MoniteurNom 
+                string sql = @"SELECT p.DateHeureDebut, e.NomEleve, m.Nom as MoniteurNom 
                            FROM Planning p
                            JOIN Eleve e ON p.id_eleve = e.id_eleve
                            JOIN Moniteur m ON p.ID_Moniteur = m.ID_Moniteur order by p.DateHeureDebut";
