@@ -38,6 +38,7 @@ CREATE TABLE Vehicule(
    CoutAssurance INT,
    Marque VARCHAR(50),
    Modele VARCHAR(50),
+   Etat BOOL,
    PRIMARY KEY(id_vehicule)
 );
 
@@ -77,7 +78,7 @@ CREATE TABLE Facture(
    Eleve VARCHAR(50) NOT NULL,
    Montant INT NOT NULL,
    DeadlineReglement DATE NOT NULL,
-   DateSeance DATE NOT NULL, -- QUI A MIS UN ACCENT !!!
+   DateSeance DATE NOT NULL,
    TypeReglement VARCHAR(50),
    id_eleve INT, 
    PRIMARY KEY(ID_Facture),
@@ -90,7 +91,7 @@ CREATE TABLE Mois(
 );
 
 CREATE TABLE KilmometrageMois(
-   Immatriculation int,
+   Immatriculation INT,
    Annee_mois INT,
    Nbkilometre DOUBLE,
    PRIMARY KEY(Immatriculation, Annee_mois),
@@ -113,11 +114,11 @@ VALUES
 ('Robert', 'Marc', 'B', 2100);
 
 -- VEHICULE
-INSERT INTO Vehicule (Immatriculation, TypeVehicule, Boite, Historique, CoutAssurance, Marque, Modele, etat)
+INSERT INTO Vehicule (Immatriculation, TypeVehicule, Boite, Historique, CoutAssurance, Marque, Modele, Etat)
 VALUES
-('AB-123-CD', 'Voiture', TRUE, 'RAS', 1200, 'Peugeot', '208', 'disponible'),
-('EF-456-GH', 'Voiture', FALSE, 'Révision OK', 1300, 'Renault', 'Clio', 'disponible'),
-('IJ-789-KL', 'Voiture', TRUE, 'Changement pneus', 1100, 'Citroen', 'C3', 'disponible');
+('AB-123-CD', 'Voiture', TRUE, 'RAS', 1200, 'Peugeot', '208', true),
+('EF-456-GH', 'Voiture', FALSE, 'Révision OK', 1300, 'Renault', 'Clio', true),
+('IJ-789-KL', 'Voiture', TRUE, 'Changement pneus', 1100, 'Citroen', 'C3', false);
 
 -- LECON
 INSERT INTO Lecon (ID_Lecon, Date_, id_eleve, id_moniteur, Immatriculation, MontantFacture, id_vehicule)
@@ -135,11 +136,11 @@ VALUES
 
 
 -- FACTURATION
-INSERT INTO Facture (ID_Facture, Destinataire, Eleve, Montant, DeadlineReglement, DateSeance, TypeReglement, CodeNEPH, id_eleve)
+INSERT INTO Facture (ID_Facture, Destinataire, Eleve, Montant, DeadlineReglement, DateSeance, TypeReglement, id_eleve)
 VALUES
-('F001', 'Dupont', 'Lucas', 50, '2025-03-10', '2025-03-01', 'CB', 'NEPH001', 1),
-('F002', 'Martin', 'Emma', 55, '2025-03-11', '2025-03-02', 'Espèces', 'NEPH002', 2),
-('F003', 'Durand', 'Noah', 50, '2025-03-12', '2025-03-03', 'Virement', 'NEPH003', 3);
+('F001', 'Dupont', 'Lucas', 50, '2025-03-10', '2025-03-01', 'CB', 1),
+('F002', 'Martin', 'Emma', 55, '2025-03-11', '2025-03-02', 'Espèces', 2),
+('F003', 'Durand', 'Noah', 50, '2025-03-12', '2025-03-03', 'Virement', 3);
 
 INSERT INTO Mois (Annee_mois)
 VALUES
@@ -147,11 +148,11 @@ VALUES
 (202504),
 (202505);
 
-INSERT INTO KilmometrageMois (id_vehicule, Annee_mois, Nbkilometre)
+INSERT INTO KilmometrageMois (Immatriculation, Annee_mois, Nbkilometre)
 VALUES
-('1', 202503, 1200.5),
-('2', 202503, 980.3),
-('3', 202503, 1500.0);
+(1, 202503, 1200.5),
+(2, 202503, 980.3),
+(3, 202503, 1500.0);
 
 
 SELECT * FROM lecon;
@@ -169,5 +170,3 @@ TRUNCATE TABLE Lecon;
 
 -- 4. Réactiver la vérification
 SET FOREIGN_KEY_CHECKS = 1;
-
-
