@@ -11,6 +11,11 @@ namespace ProjetAutoEcoleS4.Data
 {
     internal class VehiculeDAO
     {
+        public Database conn;
+        public VehiculeDAO(string port, string password)
+        {
+            conn = new Database(port, password);
+        }
         public List<Vehicule> GetAll(string port, string password)
         {
             Database conn = new Database(port, password);
@@ -33,6 +38,42 @@ namespace ProjetAutoEcoleS4.Data
                 }
             }
             return liste;
+        }
+        public double Nbrkilometre(int idvehicule, string port, string password)
+        {
+            double nbr = 0;
+            Database conn = new Database(port, password);
+            List<Vehicule> liste = new List<Vehicule>();
+            using (MySqlConnection cn = conn.GetConnection())
+            {
+                cn.Open();
+                MySqlCommand cmd = new MySqlCommand("SELECT Nbkilometre FROM KilmometrageMois where id_vehicule=@idvehicule", cn);
+                cmd.Parameters.AddWithValue("@idvehicule", idvehicule);
+                object result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    nbr = Convert.ToDouble(result);
+                }
+            }
+            return nbr;
+        }
+        public void Ajouter(Vehicule v, string port, string password)
+        {
+            Database conn = new Database(port, password);
+            using (MySqlConnection cn = conn.GetConnection())
+            {
+                cn.Open();
+                string insertTable = "insert into VEHICULE(immatriculation,typevehicule,boitevitesse,marque,modele) Values (@immatriculation,@typevehicule,@boitevitesse,@marque,@modele);";
+                MySqlCommand cmd = new MySqlCommand(insertTable, cn);
+                cmd.Parameters.AddWithValue("@immatriculation", v.immatriculation);
+                cmd.Parameters.AddWithValue("@typevehicule", v.typevehicule);
+                cmd.Parameters.AddWithValue("@boitevitesse", v.boitevitesse);
+                cmd.Parameters.AddWithValue("@marque", v.marque);
+                cmd.Parameters.AddWithValue("@modele", v.modele);
+                Console.WriteLine("Insertion réalisée");
+                cn.Dispose();
+            }
+            Thread.Sleep(1000);
         }
     }
 }

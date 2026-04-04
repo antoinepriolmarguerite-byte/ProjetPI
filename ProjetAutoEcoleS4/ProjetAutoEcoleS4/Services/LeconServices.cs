@@ -36,7 +36,7 @@ namespace ProjetAutoEcoleS4.Data
 
                 if (!DateTime.TryParse(Console.ReadLine(), out date))
                 {
-                    Console.Write("Veuillez entrer une date valide (jj/mm/aaaa h) :");
+                    Console.Write("Veuillez entrer une date valide (jj/mm/aaaa h:m:s) :");
                 }
             } while (date == default(DateTime));
             l.date_Lecon = date;
