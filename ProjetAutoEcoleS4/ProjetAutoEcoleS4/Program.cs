@@ -59,7 +59,8 @@ while (continuer)
                 }
             } while (id < 0 && id > liste.Count);
             e = liste[id-1];
-            Console.WriteLine("Le montant à régler pour l'élève " + e.Nom + " est de : " + e.MontantReglementRestant + "EUR");
+            double montant= dao.MontantTotalEleve(id, port, pwd);
+            Console.WriteLine("Le montant à régler pour l'élève " + e.Nom + " est de : " + montant + "EUR");
             Thread.Sleep(2500);
             break;
         case "5":
