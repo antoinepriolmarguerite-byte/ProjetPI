@@ -28,11 +28,10 @@ namespace ProjetAutoEcoleS4.Services
             bdd_Eleve.Ajouter(e, port, password);
         }
 
-        public Eleve CreerEleve(string codeneph, string port, string password)
+        public Eleve CreerEleve(string port, string password)
         {
-            
-           
-            Eleve e = new Eleve(codeneph);
+            IEleveService view = new IEleveService(port,password);
+            Eleve e = new Eleve(view);
             return e;
         }
 

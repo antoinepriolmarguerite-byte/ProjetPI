@@ -161,6 +161,9 @@ while (continuer)
             break;
         case "8":
             Console.WriteLine("Ajout d'un élève ...");
+            EleveService eleveService = new EleveService(port,pwd);
+            eleveService.CreerEleve(port,pwd);
+            eleveService.AjouterEleve(e,port,pwd);
             Console.Clear();
             break;
         case "9":
