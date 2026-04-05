@@ -137,11 +137,12 @@ namespace ProjetAutoEcoleS4.Data
             }
             return id_lecon;
         }
-        public void SupprimerLecon_DAO(string codeNEPH, DateTime dateLecon)
-        {
-            int idLecon = Id_LeconFromDateAndEleve(codeNEPH, dateLecon);
 
-            if (idLecon <= 0)
+        public void SupprimerLecon_DAO(int idlecon)
+        {
+            //int idLecon = Id_LeconFromDateAndEleve(codeNEPH, dateLecon);
+
+            if (idlecon <= 0)
             {
                 Console.WriteLine("Erreur : ID de leçon invalide.");
                 return;
@@ -150,10 +151,16 @@ namespace ProjetAutoEcoleS4.Data
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
+                string sqlUpdate = "UPDATE Planning SET ID_Lecon = NULL WHERE ID_Lecon = @id";
+                using (MySqlCommand cmdUpdate = new MySqlCommand(sqlUpdate, cn))
+                {
+                    cmdUpdate.Parameters.AddWithValue("@id", idlecon);
+                    cmdUpdate.ExecuteNonQuery();
+                }
                 string sql = "DELETE FROM Lecon WHERE id_Lecon = @id";
 
                 MySqlCommand cmd = new MySqlCommand(sql, cn);
-                cmd.Parameters.AddWithValue("@id", idLecon);
+                cmd.Parameters.AddWithValue("@id", idlecon);
 
                 int rows = cmd.ExecuteNonQuery();
 
@@ -178,6 +185,29 @@ namespace ProjetAutoEcoleS4.Data
                 }
             }
             return chiffre;
+        }
+
+        public List<Lecon> GetAll(string port, string password)
+        {
+            Database conn = new Database(port, password); //Ronan changera
+            List<Lecon> liste = new List<Lecon>();
+            using (MySqlConnection cn = conn.GetConnection())
+            {
+                cn.Open();
+                
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM LECON", cn);
+                MySqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    liste.Add(new Lecon
+                    {
+                        id_lecon = dr.GetInt32("id_lecon"),
+                        dateLecon = dr.GetDateTime("date_"),
+                        id_moniteur = dr.GetInt32("ID_Moniteur"),
+                    });
+                }
+            }
+            return liste;
         }
     }
 }
