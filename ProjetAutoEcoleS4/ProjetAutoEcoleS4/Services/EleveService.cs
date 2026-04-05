@@ -59,8 +59,7 @@ namespace ProjetAutoEcoleS4.Services
         public void AfficherAllEleve()
         {
             EleveDAO elevedao = new EleveDAO(port, password);
-            List<Eleve> liste = elevedao.GetAll();
-            foreach (Eleve e in liste)
+            foreach (Eleve e in list_eleve)
             {
                 Console.WriteLine(e.ToString());
             }
