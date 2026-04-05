@@ -111,30 +111,24 @@ namespace ProjetAutoEcoleS4.Data
 
         public void SupprimerLeçon()
         {
-            LeconDAO lecondao = new LeconDAO(port, password);
-            Console.Write("Donnez la date de la leçon : ");
-            DateTime date;
+            LeconDAO leconbdd = new LeconDAO(port,password);
+            List<Lecon> ListeLecon = leconbdd.GetAll(port,password);
+
+            for(int i = 0; i < ListeLecon.Count(); i++)
+            {
+                Console.WriteLine(ListeLecon[i].ToString());
+            }
+            Console.Write("Veuillez choisir une leçon : ");
+            int idlecon = 0;
             do
             {
-
-                if (!DateTime.TryParse(Console.ReadLine(), out date))
+                if (!int.TryParse(Console.ReadLine(), out idlecon))
                 {
-                    Console.Write("Veuillez entrer une date valide (jj/mm/aaaa) :");
+                    Console.Write("Veuillez entrer un id valide : ");
                 }
-            } while (date == default(DateTime));
+            } while (idlecon <= 0);
 
-            Console.Write("Donnez le code NEPH de l'élève : ");
-            string codeNeph;
-            do
-            {
-                codeNeph = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(codeNeph))
-                {
-                    Console.Write("Le code NEPH de l'élève ne peut pas être vide. Veuillez réessayer : ");
-                }
-            } while (string.IsNullOrWhiteSpace(codeNeph));
-
-            lecondao.SupprimerLecon_DAO(codeNeph, date);
+            leconbdd.SupprimerLecon_DAO(idlecon);
         }
     }
 }

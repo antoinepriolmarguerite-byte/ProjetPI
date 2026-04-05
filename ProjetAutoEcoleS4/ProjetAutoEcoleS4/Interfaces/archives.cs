@@ -114,3 +114,29 @@ public void Ajouterleçon(Lecon l) //Bon cette méthode marche plus
                 }
             retour[11] = entreeUtilisateur+"";
             */
+
+
+/*LeconDAO lecondao = new LeconDAO(port, password);
+            Console.Write("Donnez la date de la leçon : ");
+            DateTime date;
+            do
+            {
+
+                if (!DateTime.TryParse(Console.ReadLine(), out date))
+                {
+                    Console.Write("Veuillez entrer une date valide (jj/mm/aaaa) :");
+                }
+            } while (date == default(DateTime));
+
+            Console.Write("Donnez le code NEPH de l'élève : ");
+            string codeNeph;
+            do
+            {
+                codeNeph = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(codeNeph))
+                {
+                    Console.Write("Le code NEPH de l'élève ne peut pas être vide. Veuillez réessayer : ");
+                }
+            } while (string.IsNullOrWhiteSpace(codeNeph));
+
+            lecondao.SupprimerLecon_DAO(codeNeph, date);*/
