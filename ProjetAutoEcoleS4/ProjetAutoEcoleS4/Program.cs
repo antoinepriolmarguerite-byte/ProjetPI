@@ -58,16 +58,12 @@ while (continuer)
             Console.Clear();
             break;
         case "8":
-            Console.WriteLine("Ajout d'un élève ...");
-            EleveService eleveService = new EleveService(port,pwd);
-            Eleve eleve8 = eleveService.CreerEleve(port,pwd);
-            eleveService.AjouterEleve(eleve8,port,pwd);
+            AfficherAjoutSuppEleve();
             Console.Clear();
             break;
         case "9":
+            AfficherAjoutSuppVehicule();
             Console.Clear();
-            VehiculeServices ajvehicule = new VehiculeServices(port, pwd);
-            ajvehicule.AjouterVehicule(new Vehicule());
             break;
         case "10":
             continuer = false;
@@ -102,15 +98,15 @@ void AfficherVoirMontant()
     Eleve e = new Eleve();
     EleveDAO dao = new EleveDAO();
 
-    eleve.AfficherAllEleve(port, pwd);
+    eleve.AfficherAllEleve();
     List<Eleve> liste = dao.GetAll(port, pwd);
-    Console.WriteLine("Chosisissez le numéro de l'élève que vous souhaitez connaitre le montant à régler");
+    Console.WriteLine("Choisissez le numéro de l'élève que vous souhaitez connaitre le montant à régler");
     int id;
     do
     {
         if (!int.TryParse(Console.ReadLine(), out id) || id < 0)
         {
-            Console.WriteLine("Veuillez entrer un numéro valide :");
+            Console.Write("Veuillez entrer un numéro valide : ");
         }
     } while (id < 0 && id > liste.Count);
     e = liste[id - 1];
@@ -175,7 +171,7 @@ void AfficherHeureEleveMoni()
         choix = Console.ReadLine();
         if (choix != "1" && choix != "2")
         {
-            Console.WriteLine("Veuillez entrer un choix valide :");
+            Console.Write("Veuillez entrer un choix valide : ");
         }
     } while (choix != "1" && choix != "2");
     if (choix == "1")
@@ -191,7 +187,7 @@ void AfficherHeureEleveMoni()
         {
             if (!int.TryParse(Console.ReadLine(), out id) || id < 0)
             {
-                Console.WriteLine("Veuillez entrer un numéro valide :");
+                Console.Write("Veuillez entrer un numéro valide : ");
             }
         } while (id < 0 && id > listmon.Count);
         moniteur = listmon[id - 1];
@@ -201,15 +197,14 @@ void AfficherHeureEleveMoni()
     }
     else if (choix == "2")
     {
-        eleve.AfficherAllEleve(port, pwd);
+        eleve.AfficherAllEleve();
         List<Eleve> listeeleve = dao.GetAll(port, pwd);
-        Console.WriteLine("Chosisissez le numéro de l'élève que vous souhaitez connaitre le nombre d'heures");
-        int ideleve;
+        Console.WriteLine("Choisissez le numéro de l'élève que vous souhaitez connaitre le nombre d'heures");
         do
         {
             if (!int.TryParse(Console.ReadLine(), out id) || id < 0)
             {
-                Console.WriteLine("Veuillez entrer un numéro valide :");
+                Console.Write("Veuillez entrer un numéro valide : ");
             }
         } while (id < 0 && id > listeeleve.Count);
         e = listeeleve[id - 1];
@@ -220,8 +215,9 @@ void AfficherHeureEleveMoni()
 }
 
 void AfficherCAmensuel()
-{     LeconDAO leconDAO = new LeconDAO(port, pwd);
-    Console.WriteLine("Donnez le mois que vous souhaitez regarder le chiffre d'affaire :");
+{     
+    LeconDAO leconDAO = new LeconDAO(port, pwd);
+    Console.WriteLine("Donnez le mois que vous souhaitez regarder le chiffre d'affaire");
     int Mois;
     do
     {
@@ -242,4 +238,75 @@ void AfficherCAmensuel()
     double chiffremensuel = leconDAO.Chiffremensuel(anne, Mois);
     Console.WriteLine("\nLe chiffre d'affaire du mois " + Mois + " de l'année " + anne + " est de : " + chiffremensuel + "EUR");
     Thread.Sleep(2500);
+}
+
+void AfficherAjoutSuppEleve()
+{
+    EleveDAO dao = new EleveDAO();
+    Eleve e = new Eleve();
+    EleveService eleveService = new EleveService(port, pwd);
+
+    Console.WriteLine("Voulez-vous ajouter ou supprimer un élève ?");
+    Console.WriteLine("1 - Ajouter");
+    Console.WriteLine("2 - Supprimer");
+    string choix;
+    do
+    {
+        choix = Console.ReadLine();
+        if (choix != "1" && choix != "2")
+        {
+            Console.Write("Veuillez entrer un choix valide : ");
+        }
+    } while (choix != "1" && choix != "2");
+    if (choix == "1")
+    {
+        Console.WriteLine("Ajout d'un élève ...");
+        e = eleveService.CreerEleve();
+        eleveService.AjouterEleve(e);
+    }
+    else if (choix == "2")
+    {
+        Console.WriteLine("Suppression d'un élève ...");
+        eleveService.AfficherAllEleve();
+        List<Eleve> listeeleve = dao.GetAll(port, pwd);
+        Console.Write("Chosisissez le numéro de l'élève que vous souhaitez supprimer");
+        int ideleve;
+        do
+        {
+            if (!int.TryParse(Console.ReadLine(), out ideleve) || ideleve < 0)
+            {
+                Console.Write("Veuillez entrer un numéro valide : ");
+            }
+        } while (ideleve < 0 && ideleve > listeeleve.Count);
+        eleveService.SupprimerEleve(ideleve);
+    }
+}
+
+void AfficherAjoutSuppVehicule()
+{
+    VehiculeDAO dao = new VehiculeDAO(port, pwd);
+    Vehicule v = new Vehicule();
+    VehiculeServices vehiculeService = new VehiculeServices(port, pwd);
+    Console.WriteLine("Voulez-vous ajouter ou supprimer un véhicule ?");
+    Console.WriteLine("1 - Ajouter");
+    Console.WriteLine("2 - Supprimer");
+    string choix;
+    do
+    {
+        choix = Console.ReadLine();
+        if (choix != "1" && choix != "2")
+        {
+            Console.Write("Veuillez entrer un choix valide : ");
+        }
+    } while (choix != "1" && choix != "2");
+    if (choix == "1")
+    {
+        VehiculeServices ajvehicule = new VehiculeServices(port, pwd);
+        ajvehicule.AjouterVehicule(new Vehicule());
+    }
+    else if (choix == "2")
+    {
+        Console.WriteLine("Suppression d'un véhicule ...");
+        vehiculeService.SupprimerVehicule();
+    }
 }

@@ -13,23 +13,25 @@ namespace ProjetAutoEcoleS4.Services
     internal class EleveService
     {
         internal List<Eleve> list_eleve {set; get;}
-        private IEleveService view;
         private EleveDAO bdd_Eleve;
+        string port;
+        string password;
 
         public EleveService(string port, string password)
         {
-            this.view = new IEleveService(port,password);
             this.bdd_Eleve = new EleveDAO();
             list_eleve = bdd_Eleve.GetAll(port,password);
+            this.port = port;
+            this.password = password;
         }
 
-        public void AjouterEleve(Eleve e, string port, string password)
+        public void AjouterEleve(Eleve e)
         {
             list_eleve.Add(e);
             bdd_Eleve.Ajouter(e, port, password);
         }
 
-        public Eleve CreerEleve(string port, string password)
+        public Eleve CreerEleve()
         {
             IEleveService view = new IEleveService(port,password);
             Eleve e = new Eleve(view,port,password);
@@ -45,16 +47,17 @@ namespace ProjetAutoEcoleS4.Services
             return false;
         }
 
-        public void SupprimerEleve(Eleve e,string port, string password)
+        public void SupprimerEleve(int id)
         {
             for(int i = 0; i < list_eleve.Count(); i++)
             {
-                if(e==list_eleve[i]) {list_eleve.RemoveAt(i);break;}
+                if(id == list_eleve[i].id_eleve) {list_eleve.RemoveAt(i);break;}
             }
+            bdd_Eleve.Supprimer(id, port, password);
             Console.WriteLine("Eleve supprimé avec succès ! ");
-            bdd_Eleve.Supprimer(int.Parse(e.codeNeph),port,password);
         }
-        public void AfficherAllEleve(string port, string password)
+
+        public void AfficherAllEleve()
         {
             EleveDAO elevedao = new EleveDAO();
             List<Eleve> liste = elevedao.GetAll(port, password);

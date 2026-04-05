@@ -98,7 +98,7 @@ namespace ProjetAutoEcoleS4.Data
         {
             Console.Clear();
             VehiculeDAO vehiculedao = new VehiculeDAO(port, password);
-
+            AfficherAllVehicule();
             Console.WriteLine("Donnez l'immatriculation du véhicule à supprimer : ");
             string immatriculation;
             do
@@ -119,6 +119,18 @@ namespace ProjetAutoEcoleS4.Data
             else
             {
                 Console.WriteLine("Aucun véhicule trouvé avec l'immatriculation " + immatriculation + ".");
+            }
+        }
+
+        public void AfficherAllVehicule()
+        {
+            Console.Clear();
+            VehiculeDAO vehiculedao = new VehiculeDAO(port, password);
+            List<Vehicule> list_vehicule = vehiculedao.GetAll();
+            Console.WriteLine("Voici la liste de tous les véhicules : ");
+            foreach (Vehicule v in list_vehicule)
+            {
+                Console.WriteLine("ID : " + v.id_vehicule + " | Immatriculation : " + v.immatriculation + " | Type : " + v.typevehicule + " | Boite de vitesse : " + (v.boitevitesse ? "Automatique" : "Manuelle") + " | Marque : " + v.marque + " | Modèle : " + v.modele);
             }
         }
     }
