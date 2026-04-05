@@ -19,6 +19,8 @@ namespace ProjetAutoEcoleS4.Services
         {
             this.bdd_vehicule = new VehiculeDAO(port, password);
             this.list_vehicule = bdd_vehicule.GetAll();
+            this.port = port;
+            this.password = password;
         }
 
         public void AfficherAllVehicule()
