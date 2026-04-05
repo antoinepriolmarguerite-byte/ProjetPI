@@ -183,17 +183,22 @@ void AfficherHeureEleveMoni()
         MoniteurService moniteurService = new MoniteurService(port, pwd);
         moniteurService.AfficherAllMoniteur();
         List<Moniteur> listmon = moniteurDAO.GetAll();
-        Console.Write("Choisissez le numéro du moniteur que vous souhaitez connaitre le nombre d'heures : ");
-        int idmon;
+        Console.WriteLine("Chosisissez le numéro du moniteur que vous souhaitez connaitre le nombre d'heures");
+
+        Moniteur m = new Moniteur();
+        int idmon=0;
         do
         {
-            if (!int.TryParse(Console.ReadLine(), out id) || id < 0)
+            if (!int.TryParse(Console.ReadLine(), out idmon) || idmon < 0)
             {
                 Console.Write("Veuillez entrer un numéro valide : ");
             }
-        } while (id < 0 && id > listmon.Count);
-        moniteur = listmon[id - 1];
-        int nbrheuremoniteur = moniteurDAO.NbrheureMoniteur(id, port, pwd);
+        } while (idmon < 0 && idmon > listmon.Count);
+        for(int i = 0; i < listmon.Count(); i++)
+        {
+            if(listmon[i].id_moniteur == idmon) m=listmon[i];
+        }
+        int nbrheuremoniteur = moniteurDAO.NbrheureMoniteur(idmon, port, pwd);
         Console.WriteLine("Le nombre d'heures du moniteur " + moniteur.nom + " " + moniteur.prenom + " est de : " + nbrheuremoniteur + "h");
         Thread.Sleep(2500);
     }
@@ -209,7 +214,10 @@ void AfficherHeureEleveMoni()
                 Console.Write("Veuillez entrer un numéro valide : ");
             }
         } while (id < 0 && id > listeeleve.Count);
-        e = listeeleve[id - 1];
+        for(int i = 0; i < listeeleve.Count(); i++)
+        {
+            if(listeeleve[i].id_eleve == id) e=listeeleve[i];
+        }
         int nbrheureeleve = dao.NbrheureEleve(id);
         Console.WriteLine("Le nombre d'heures de l'élève " + e.nomEleve + " " + e.prenomEleve + " est de : " + nbrheureeleve + "h");
     }

@@ -106,7 +106,7 @@ USE AutoEcole;
 INSERT INTO Moniteur (Nom, Prenom, Permis_Moniteur, Salaire_Moniteur) VALUES
 ('Martin', 'Lucas', 'B, BE, A', 2200.50),
 ('Bernard', 'Julie', 'B, BVA', 2100.00),
-('Petit', 'Nicolas', 'A, A1, A2', 2300.00);
+('Petit', 'Nicolas', 'A, A1, A2', 2300.00); -- ok c'est drôle
 
 INSERT INTO Eleve (CodeNEPH, NomEleve, PrenomEleve, Tel, Mail, TypeEleve, Adresse, RIB, DateNaissance, Permis, Boite, idMoniteurReferent, NbHeuresAPayer, MontantReglementRestant) VALUES
 ('123456789012', 'Dupont', 'Jean', '0601020304', 'jean.dupont@email.com', 'Traditionnel', '12 rue de la Paix, Paris', 'FR763000...', '2005-05-15', 'B', 'Manuelle', 1, 5, 250.00),

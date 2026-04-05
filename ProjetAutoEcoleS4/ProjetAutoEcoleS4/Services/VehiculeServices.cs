@@ -105,21 +105,21 @@ namespace ProjetAutoEcoleS4.Data
             do
             {
 
-                immatriculation = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(immatriculation))
+                id = int.Parse(Console.ReadLine());
+                if (id==0)
                 {
-                    Console.Write("L'immatriculation du véhicule ne peut pas être vide. Veuillez réessayer : ");
+                    Console.Write("L'id du véhicule ne peut pas être vide. Veuillez réessayer : ");
                 }
-            } while (string.IsNullOrWhiteSpace(immatriculation));
-            int id_vehicule = vehiculedao.FindVehicule(immatriculation);
+            } while (id==0);
+            int id_vehicule = vehiculedao.FindVehicule(id);
             if (id_vehicule != 0)
             {
                 vehiculedao.Supprimer(id_vehicule);
-                Console.WriteLine("Le véhicule avec l'immatriculation " + immatriculation + " a été supprimé.");
+                Console.WriteLine("Le véhicule avec l'id " + id + " a été supprimé.");
             }
             else
             {
-                Console.WriteLine("Aucun véhicule trouvé avec l'immatriculation " + immatriculation + ".");
+                Console.WriteLine("Aucun véhicule trouvé avec l'id " + id + ".");
             }
         }
     }
