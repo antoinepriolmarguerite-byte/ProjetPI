@@ -19,25 +19,30 @@ namespace ProjetAutoEcoleS4.Data
         }
         public void AjouterLecon_DAO(Lecon c)
         {
+            PlanningDAO planningDAO = new PlanningDAO(conn);
+
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                string insertTable = "ALTER TABLE Lecon MODIFY COLUMN ID_Lecon INT AUTO_INCREMENT;" +
-                                    "INSERT INTO Lecon(Date_, ID_Eleve, ID_Moniteur, ID_Vehicule, MontantFacture) " +
-                                     "VALUES (@date, @idEleve, @idMoniteur, @idVehicule, @montant)";
+
+                string insertTable = "INSERT INTO Lecon(Date_, ID_Eleve, ID_Moniteur, ID_Vehicule, MontantFacture) " +
+                                     "VALUES (@date, @idEleve, @idMoniteur, @idVehicule, @montant); " +
+                                     "SELECT LAST_INSERT_ID();";
 
                 using (MySqlCommand cmd = new MySqlCommand(insertTable, cn))
                 {
-                    //cmd.Parameters.AddWithValue("@id", c.id_Lecon);
                     cmd.Parameters.AddWithValue("@date", c.dateLecon);
                     cmd.Parameters.AddWithValue("@idEleve", c.eleve.id_eleve);
                     cmd.Parameters.AddWithValue("@idMoniteur", c.id_moniteur);
                     cmd.Parameters.AddWithValue("@idVehicule", c.vehicule.id_vehicule);
                     cmd.Parameters.AddWithValue("@montant", c.montantFacture);
-                    cmd.ExecuteNonQuery(); //N'oubliez pas cette ligne sinon ça marche pas!
+                    object result = cmd.ExecuteScalar();
+                    if (result != null)
+                    {
+                        c.id_lecon = Convert.ToInt32(result);
+                    }
                 }
-
-                Console.WriteLine("Insertion réalisée avec succès dans la base !");
+                planningDAO.AjouterLeconDansPlanning(c);
             }
         }
         public bool VerifierLeconEleve(string codeNEPH, DateTime dateLecon)
@@ -115,7 +120,6 @@ namespace ProjetAutoEcoleS4.Data
 
             return leconExiste;
         }
-
         public int Id_LeconFromDateAndEleve(string codeNEPH, DateTime dateLecon)
         {
             int id_lecon = 0;
@@ -138,7 +142,6 @@ namespace ProjetAutoEcoleS4.Data
             }
             return id_lecon;
         }
-
         public void SupprimerLecon_DAO(int idlecon)
         {
             //int idLecon = Id_LeconFromDateAndEleve(codeNEPH, dateLecon);
@@ -187,7 +190,6 @@ namespace ProjetAutoEcoleS4.Data
             }
             return chiffre;
         }
-
         public List<Lecon> GetAll(string port, string password)
         {
             Database conn = new Database(port, password); //Ronan changera
