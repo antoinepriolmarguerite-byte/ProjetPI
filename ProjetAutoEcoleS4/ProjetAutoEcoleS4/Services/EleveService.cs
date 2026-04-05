@@ -32,7 +32,7 @@ namespace ProjetAutoEcoleS4.Services
         public Eleve CreerEleve(string port, string password)
         {
             IEleveService view = new IEleveService(port,password);
-            Eleve e = new Eleve(view);
+            Eleve e = new Eleve(view,port,password);
             return e;
         }
 

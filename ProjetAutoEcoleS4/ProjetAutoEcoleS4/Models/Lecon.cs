@@ -39,5 +39,10 @@ namespace ProjetAutoEcoleS4.Models
             vehicule = new Vehicule();
             montantFacture = 0; 
         }
+
+        public override string ToString()
+        {
+            return $"{id_lecon} | Eleve: {eleve.ToString()} | Moniteur: {id_moniteur} | Date: {dateLecon}";
+        }
     }
 }

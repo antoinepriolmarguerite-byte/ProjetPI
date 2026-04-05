@@ -23,7 +23,7 @@ namespace ProjetAutoEcoleS4.Models
         public DateTime dateNaissance { get; set; }
         public string permis { get; set; }
         public bool estBoiteManuelle { get; set; } //true = Boite manuelle
-        public string moniteurTitre { get; set; }
+        public int moniteurTitre { get; set; }
         public int nbHeuresAPayer { get; set; }
         public double montantReglementRestant { get; set; }
         public Eleve(string codeNEPH)
@@ -40,13 +40,13 @@ namespace ProjetAutoEcoleS4.Models
             dateNaissance = new DateTime();
             permis = "";
             estBoiteManuelle = false;
-            moniteurTitre = "";
+            moniteurTitre = 0;
             nbHeuresAPayer = 0;
             montantReglementRestant = 0;
         }
-        public Eleve(IEleveService view)
+        public Eleve(IEleveService view,string port,string password)
         {
-            string[] attributs = view.AjouterEleve();
+            string[] attributs = view.AjouterEleve(port,password);
             this.codeNeph = attributs[0];
             this.nomEleve = attributs[1];
             this.prenomEleve = attributs[2];
@@ -57,8 +57,8 @@ namespace ProjetAutoEcoleS4.Models
             this.rib = attributs[7];
             this.dateNaissance = DateTime.Parse(attributs[8]);
             this.permis = attributs[9];
-            this.estBoiteManuelle = bool.Parse(attributs[9]);
-            this.moniteurTitre = attributs[10];
+            this.estBoiteManuelle = bool.Parse(attributs[10]);
+            this.moniteurTitre = int.Parse(attributs[11]);
             this.nbHeuresAPayer = 0;
         }
         public override string ToString()
@@ -86,7 +86,7 @@ namespace ProjetAutoEcoleS4.Models
             dateNaissance = new DateTime();
             permis = "";
             estBoiteManuelle = false;
-            moniteurTitre = "";
+            moniteurTitre = 0;
             nbHeuresAPayer = 0;
             montantReglementRestant = 0;
         }

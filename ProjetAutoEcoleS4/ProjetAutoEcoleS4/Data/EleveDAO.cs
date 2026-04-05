@@ -17,10 +17,29 @@ namespace ProjetAutoEcoleS4.Data
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                string sql = "INSERT INTO ELEVE(CodeNEPH,Nom,Prenom, DateNaissance,Tel,Mail) VALUES ("+e.codeNeph+","+e.nomEleve+","+e.prenomEleve+","+e.dateNaissance+","+e.tel+","+e.mail+");";
-                MySqlCommand cmd = new MySqlCommand(sql, cn);
+                string sql = "INSERT INTO ELEVE (CodeNEPH, nomEleve, prenomEleve, DateNaissance, Tel, Mail, TypeEleve, Adresse, RIB, Permis, Boite, idMoniteurReferent, NbHeuresAPayer) " +
+                            "VALUES (@code, @nom, @prenom, @date, @tel, @mail, @type, @adresse, @rib, @permis, @boite, @moniteur, @heures);";
 
-                cn.Dispose();
+                using (MySqlCommand cmd = new MySqlCommand(sql, cn))
+                {
+                    cmd.Parameters.AddWithValue("@code", e.codeNeph);
+                    cmd.Parameters.AddWithValue("@nom", e.nomEleve);
+                    cmd.Parameters.AddWithValue("@prenom", e.prenomEleve);
+                    cmd.Parameters.AddWithValue("@date", e.dateNaissance);
+                    cmd.Parameters.AddWithValue("@tel", e.tel);
+                    cmd.Parameters.AddWithValue("@mail", e.mail);
+                    cmd.Parameters.AddWithValue("@type", e.typeEleve);
+                    cmd.Parameters.AddWithValue("@adresse", e.adresse);
+                    cmd.Parameters.AddWithValue("@rib", e.rib);
+                    cmd.Parameters.AddWithValue("@permis", e.permis);
+                    cmd.Parameters.AddWithValue("@boite", e.estBoiteManuelle);
+                    cmd.Parameters.AddWithValue("@moniteur", e.moniteurTitre);
+                    cmd.Parameters.AddWithValue("@heures", e.nbHeuresAPayer);
+
+                    cmd.ExecuteNonQuery();
+                }
+                
+                Console.WriteLine($"L'élève a été ajouté avec succès dans la bdd !");
             }
         }
 
