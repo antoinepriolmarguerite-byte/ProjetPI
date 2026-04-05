@@ -20,21 +20,28 @@ namespace ProjetAutoEcoleS4.Data
         public List<Vehicule> GetAll()
         {
             List<Vehicule> liste = new List<Vehicule>();
+
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                MySqlCommand cmd = new MySqlCommand("SELECT * FROM VEHICULE order by id_vehicule", cn);
-                MySqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
+                string sql = "SELECT ID_Vehicule, Marque, Modele, Immatriculation, Etat FROM Vehicule ORDER BY ID_Vehicule";
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, cn))
                 {
-                    liste.Add(new Vehicule
+                    using (MySqlDataReader dr = cmd.ExecuteReader())
                     {
-                        id_vehicule = dr.GetInt32("id_vehicule"),
-                        marque = dr.GetString("marque"),
-                        modele = dr.GetString("modele"),
-                        immatriculation = dr.GetString("immatriculation"),
-                        etat = dr.GetBoolean("etat")
-                    });
+                        while (dr.Read())
+                        {
+                            liste.Add(new Vehicule
+                            {
+                                id_vehicule = dr.GetInt32("ID_Vehicule"),
+                                marque = dr.IsDBNull(dr.GetOrdinal("Marque")) ? "" : dr.GetString("Marque"),
+                                modele = dr.IsDBNull(dr.GetOrdinal("Modele")) ? "" : dr.GetString("Modele"),
+                                immatriculation = dr.GetString("Immatriculation"),
+                                etat = dr.GetBoolean("Etat")
+                            });
+                        }
+                    }
                 }
             }
             return liste;
