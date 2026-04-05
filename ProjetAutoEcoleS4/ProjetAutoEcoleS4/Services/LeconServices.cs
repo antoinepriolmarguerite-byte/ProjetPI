@@ -30,7 +30,7 @@ namespace ProjetAutoEcoleS4.Data
             MoniteurService MS = new MoniteurService(port, password);
             MoniteurDAO bddMoniteur = new MoniteurDAO(port, password);
             List<int> idMoniteurList = new List<int>();
-            List<Moniteur> ListeMoniteur = bddMoniteur.GetAll(port, password);
+            List<Moniteur> ListeMoniteur = bddMoniteur.GetAll();
 
             // --- DATE ---
             Console.Write("Donnez la date de la leçon (jj-mm-aaaa HH:mm:ss) : ");
