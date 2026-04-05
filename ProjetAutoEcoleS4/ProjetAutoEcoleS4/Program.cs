@@ -23,6 +23,7 @@ while (continuer)
     AfficherMenu();
     Console.Write("\nVotre choix (1-9) : ");
     string choix = Console.ReadLine();
+    Console.Clear();
 
     switch (choix)
     {
