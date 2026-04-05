@@ -73,7 +73,7 @@ namespace ProjetAutoEcoleS4.Data
             {
                 cn.Open();
 
-                string sql = "SELECT 1 FROM Lecon " +
+                string sql = "SELECT id_vehicule FROM Lecon " +
                              "JOIN Moniteur ON Lecon.id_moniteur = Moniteur.id_moniteur " +
                              "WHERE Moniteur.Nom = @nom " +
                              "AND Lecon.Date_ = @dateLecon " +
@@ -98,7 +98,7 @@ namespace ProjetAutoEcoleS4.Data
             {
                 cn.Open();
 
-                string sql = "SELECT 1 FROM Lecon " + //pourquoi 1 ?
+                string sql = "SELECT id_vehicule FROM Lecon " +
                              "JOIN Vehicule ON Lecon.immatriculation = Vehicule.immatriculation " +
                              "WHERE Vehicule.immatriculation = @immatriculation " +
                              "AND Lecon.Date_ = @dateLecon " +
