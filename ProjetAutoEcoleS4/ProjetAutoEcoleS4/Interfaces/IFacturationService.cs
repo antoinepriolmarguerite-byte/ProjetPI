@@ -22,17 +22,6 @@ namespace ProjetAutoEcoleS4.Services
             this.port = port;
             this.password = password;
         }
-
-        public void AfficherAllFacture()
-        {
-            Console.Clear();
-            Console.WriteLine("Voici la liste de toutes les factures : ");
-            foreach (Facture f in list_facture)
-            {
-                Console.WriteLine("ID : " + f.id_facture + " | Nom de l'élève : " + f.nomEleve + " | Montant : " + f.montant + " | Date de la séance : " + f.dateSeance);
-            }
-        }
-
         public void AfficherVoirMontant()
         {
             EleveService eleve = new EleveService(port, password);
@@ -55,5 +44,16 @@ namespace ProjetAutoEcoleS4.Services
             Console.WriteLine("Le montant à régler pour l'élève " + e.nomEleve + " est de : " + montant + "EUR");
             Thread.Sleep(2500);
         }
+
+        public void AfficherAllFacture()
+        {
+            Console.Clear();
+            Console.WriteLine("Voici la liste de toutes les factures : ");
+            foreach (Facture f in list_facture)
+            {
+                Console.WriteLine("ID : " + f.id_facture + " | Nom de l'élève : " + f.nomEleve + " | Montant : " + f.montant + " | Date de la séance : " + f.dateSeance);
+            }
+        }
+
     }
 }

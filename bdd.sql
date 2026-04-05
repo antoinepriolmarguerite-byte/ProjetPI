@@ -145,3 +145,4 @@ INSERT INTO KilometrageMois (ID_Vehicule, Annee_mois, Nbkilometre) VALUES
 SELECT * FROM eleve;
 SELECT * FROM lecon;
 SELECT * FROM vehicule;
+Select * FROM facture;

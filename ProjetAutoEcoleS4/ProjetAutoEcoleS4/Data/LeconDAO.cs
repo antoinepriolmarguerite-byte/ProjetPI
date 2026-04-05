@@ -176,7 +176,7 @@ namespace ProjetAutoEcoleS4.Data
                     Console.WriteLine("Aucune leçon trouvée avec cet ID.");
             }
         }
-        public double Chiffremensuel(int anne, int mois) //c'est qui l'------ qui a écrit année avec un seul e
+        public double Chiffremensuel(int anne, int mois)
         {
             double chiffre = 0;
             using (MySqlConnection cn = conn.GetConnection())
