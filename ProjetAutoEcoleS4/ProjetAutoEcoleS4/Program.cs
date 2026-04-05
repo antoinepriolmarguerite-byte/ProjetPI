@@ -96,10 +96,10 @@ void AfficherVoirMontant()
 {
     EleveService eleve = new EleveService(port, pwd);
     Eleve e = new Eleve();
-    EleveDAO dao = new EleveDAO();
+    EleveDAO dao = new EleveDAO(port, pwd);
 
     eleve.AfficherAllEleve();
-    List<Eleve> liste = dao.GetAll(port, pwd);
+    List<Eleve> liste = dao.GetAll();
     Console.WriteLine("Choisissez le numéro de l'élève dont vous souhaitez connaitre le montant qu'il doit régler");
     int id;
     do
@@ -110,7 +110,7 @@ void AfficherVoirMontant()
         }
     } while (id < 0 && id > liste.Count);
     e = liste[id - 1];
-    double montant = dao.MontantTotalEleve(id, port, pwd);
+    double montant = dao.MontantTotalEleve(id);
     Console.WriteLine("Le montant à régler pour l'élève " + e.nomEleve + " est de : " + montant + "EUR");
     Thread.Sleep(2500);
 }
@@ -161,7 +161,7 @@ void AfficherHeureEleveMoni()
     int id;
     EleveService eleve = new EleveService(port, pwd);
     Eleve e = new Eleve();
-    EleveDAO dao = new EleveDAO();
+    EleveDAO dao = new EleveDAO(port, pwd);
 
     do
     {
@@ -179,8 +179,8 @@ void AfficherHeureEleveMoni()
         Moniteur moniteur = new Moniteur();
         MoniteurDAO moniteurDAO = new MoniteurDAO(port, pwd);
         MoniteurService moniteurService = new MoniteurService(port, pwd);
-        moniteurService.AfficherAllMoniteur(port, pwd);
-        List<Moniteur> listmon = moniteurDAO.GetAll(port, pwd);
+        moniteurService.AfficherAllMoniteur();
+        List<Moniteur> listmon = moniteurDAO.GetAll();
         Console.WriteLine("Chosisissez le numéro du moniteur que vous souhaitez connaitre le nombre d'heures");
         int idmon;
         do
@@ -198,7 +198,7 @@ void AfficherHeureEleveMoni()
     else if (choix == "2")
     {
         eleve.AfficherAllEleve();
-        List<Eleve> listeeleve = dao.GetAll(port, pwd);
+        List<Eleve> listeeleve = dao.GetAll();
         Console.WriteLine("Choisissez le numéro de l'élève que vous souhaitez connaitre le nombre d'heures");
         do
         {
@@ -208,7 +208,7 @@ void AfficherHeureEleveMoni()
             }
         } while (id < 0 && id > listeeleve.Count);
         e = listeeleve[id - 1];
-        int nbrheureeleve = dao.NbrheureEleve(id, port, pwd);
+        int nbrheureeleve = dao.NbrheureEleve(id);
         Console.WriteLine("Le nombre d'heures de l'élève " + e.nomEleve + " " + e.prenomEleve + " est de : " + nbrheureeleve + "h");
     }
     Thread.Sleep(2500);
@@ -242,7 +242,7 @@ void AfficherCAmensuel()
 
 void AfficherAjoutSuppEleve()
 {
-    EleveDAO dao = new EleveDAO();
+    EleveDAO dao = new EleveDAO(port, pwd);
     Eleve e = new Eleve();
     EleveService eleveService = new EleveService(port, pwd);
 
@@ -268,7 +268,7 @@ void AfficherAjoutSuppEleve()
     {
         Console.WriteLine("Suppression d'un élève ...");
         eleveService.AfficherAllEleve();
-        List<Eleve> listeeleve = dao.GetAll(port, pwd);
+        List<Eleve> listeeleve = dao.GetAll();
         Console.Write("Chosisissez le numéro de l'élève que vous souhaitez supprimer");
         int ideleve;
         do

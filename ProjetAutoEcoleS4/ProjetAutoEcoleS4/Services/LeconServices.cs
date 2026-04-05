@@ -66,7 +66,7 @@ namespace ProjetAutoEcoleS4.Data
 
                 // --- CHOIX MONITEUR ---
                 Console.WriteLine("== MONITEURS ==");
-                MS.AfficherAllMoniteur(port, password);
+                MS.AfficherAllMoniteur();
                 foreach (var m in ListeMoniteur) { idMoniteurList.Add(m.id_moniteur); }
 
                 Console.Write("Veuillez entrer l'ID du moniteur : ");

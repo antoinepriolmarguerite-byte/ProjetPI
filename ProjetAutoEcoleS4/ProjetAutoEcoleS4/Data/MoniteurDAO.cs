@@ -40,9 +40,8 @@ namespace ProjetAutoEcoleS4.Data
             }
             return liste;
         }
-         public List<Moniteur> GetAll(string port,string password)
+        public List<Moniteur> GetAll()
         {
-            Database conn = new Database(port,password); 
             List<Moniteur> liste = new List<Moniteur>();
             using (MySqlConnection cn = conn.GetConnection())
             {
