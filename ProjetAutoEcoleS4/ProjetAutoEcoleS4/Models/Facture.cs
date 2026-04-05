@@ -8,7 +8,6 @@ namespace ProjetAutoEcoleS4.Models
 {
     internal class Facture
     {
-        private static string autoincr = "FAC-" + DateTime.Now.ToString("yyyyMMddHHmmss");
         public string id_facture { get; set; } //Clé primaire
         public string destinataire { get; set; }
         public string nomEleve { get; set; }
