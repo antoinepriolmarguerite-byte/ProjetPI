@@ -100,12 +100,12 @@ namespace ProjetAutoEcoleS4.Data
 
                 string sql = "SELECT Vehicule.id_vehicule FROM Lecon " +
                              "JOIN Vehicule ON Lecon.id_vehicule = Vehicule.id_vehicule " +
-                             "WHERE Vehicule.immatriculation = @immatriculation " +
+                             "WHERE Vehicule.immatriculation = @idvehicule " +
                              "AND Lecon.Date_ = @dateLecon " +
                              "LIMIT 1";
 
                 MySqlCommand cmd = new MySqlCommand(sql, cn);
-                cmd.Parameters.AddWithValue("@immatriculation", vehicule);
+                cmd.Parameters.AddWithValue("@idVehicule", vehicule);
                 cmd.Parameters.AddWithValue("@dateLecon", dateLecon);
 
                 MySqlDataReader dr = cmd.ExecuteReader();
@@ -115,6 +115,7 @@ namespace ProjetAutoEcoleS4.Data
 
             return leconExiste;
         }
+
         public int Id_LeconFromDateAndEleve(string codeNEPH, DateTime dateLecon)
         {
             int id_lecon = 0;
