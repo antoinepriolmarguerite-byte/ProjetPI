@@ -17,29 +17,6 @@ namespace ProjetAutoEcoleS4.Data
             conn = new Database(port, password);
         }
 
-        public List<string> RecupererPlanningDAO() //A supprimé, les moniteurs sont ajoutés manuellement et si on a le temps on ajoutera ptêtre l'option
-        {
-            List<string> liste = new List<string>();
-
-            using (MySqlConnection cn = conn.GetConnection())
-            {
-                cn.Open();
-                string sql = @"SELECT p.DateHeureDebut, e.Nom, m.Nom as MoniteurNom 
-                           FROM Planning p
-                           JOIN Eleve e ON p.CodeNEPH = e.CodeNEPH
-                           JOIN Moniteur m ON p.ID_Moniteur = m.ID_Moniteur";
-
-                MySqlCommand cmd = new MySqlCommand(sql, cn);
-                using (MySqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        liste.Add($"{dr.GetDateTime("DateHeureDebut")} | {dr.GetString("Nom")} avec {dr.GetString("MoniteurNom")}");
-                    }
-                }
-            }
-            return liste;
-        }
         public List<Moniteur> GetAll()
         {
             List<Moniteur> liste = new List<Moniteur>();

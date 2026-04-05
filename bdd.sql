@@ -113,7 +113,6 @@ INSERT INTO Eleve (CodeNEPH, NomEleve, PrenomEleve, Tel, Mail, TypeEleve, Adress
 ('987654321098', 'Martin', 'Sophie', '0708091011', 'sophie.martin@email.com', 'AAC', '5 avenue des Champs, Lyon', 'FR764000...', '2007-11-20', 'B', 'Automatique', 2, 0, 0.00),
 ('456123789456', 'Lefebvre', 'Thomas', '0611223344', 'thomas.lef@email.com', 'Candidat Libre', '30 rue du Port, Marseille', 'FR765000...', '1998-02-10', 'A2', 'Manuelle', 1, 10, 500.00);
 
-
 INSERT INTO Vehicule (Immatriculation, TypeVehicule, Boite, Historique, CoutAssurance, Marque, Modele, Etat) VALUES
 ('AB-123-CD', 'Voiture', 0, 'Révision faite en Janvier', 450.00, 'Renault', 'Clio 5', 1),
 ('EF-456-GH', 'Voiture', 1, 'Neuve', 500.00, 'Peugeot', '208', 1),

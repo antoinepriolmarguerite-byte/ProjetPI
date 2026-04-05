@@ -46,7 +46,6 @@ namespace ProjetAutoEcoleS4.Data
                 Console.WriteLine($"L'élève a été ajouté avec succès dans la bdd !");
             }
         }
-
         public List<Eleve> GetAll()
         {
             List<Eleve> liste = new List<Eleve>();
@@ -67,7 +66,6 @@ namespace ProjetAutoEcoleS4.Data
             }
             return liste;
         }
-
         public void Supprimer(int id)
         {
             using (MySqlConnection cn = conn.GetConnection())
