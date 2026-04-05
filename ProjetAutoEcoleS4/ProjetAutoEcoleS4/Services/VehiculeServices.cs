@@ -100,8 +100,8 @@ namespace ProjetAutoEcoleS4.Data
             VehiculeDAO vehiculedao = new VehiculeDAO(port, password);
             IVehiculeServices IVS = new IVehiculeServices(port, password);
             IVS.AfficherAllVehicule();
-            Console.Write("Donnez l'immatriculation du véhicule à supprimer : ");
-            string immatriculation;
+            Console.Write("Donnez l'id du véhicule à supprimer : ");
+            int id;
             do
             {
 

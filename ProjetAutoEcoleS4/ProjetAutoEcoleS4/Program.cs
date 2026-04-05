@@ -101,7 +101,6 @@ void AfficherKiloVehicule()
 {
     Vehicule vehicule = new Vehicule();
     VehiculeDAO vehiculeDAO = new VehiculeDAO(port, pwd);
-
     vehicule.afficherallvehicule(port, pwd);
     List<Vehicule> listeVehicules = vehiculeDAO.GetAll();
     Console.Write("Chosisissez le numéro du véhicule que vous souhaitez connaitre le kilométrage : ");
@@ -131,7 +130,12 @@ void AfficherKiloVehicule()
             Console.Write("Veuillez entrer un nombre valide : ");
         }
     } while (annekilo < 0);
-    vehicule = listeVehicules[idv - 1];
+    
+    for(int i = 0; i < listeVehicules.Count(); i++)
+    {
+        if(listeVehicules[i].id_vehicule == idv) vehicule=listeVehicules[i];
+    }
+    //vehicule = listeVehicules[idv];
     double nbrkilometre = vehiculeDAO.Nbrkilometre(idv, annekilo, Moiskilo);
     Console.WriteLine("Le kilométrage du véhicule " + vehicule.marque + " " + vehicule.modele + " est de : " + nbrkilometre + "km");
     Thread.Sleep(2500);
@@ -150,7 +154,7 @@ void AfficherHeureEleveMoni()
         Console.WriteLine("Voulez-vous connaitre le nombre d'heures d'un moniteur ou d'un élève ?");
         Console.WriteLine("1 - Moniteur");
         Console.WriteLine("2 - Eleve");
-        choix = Console.ReadLine();
+        choix = Console.ReadLine()!;
         if (choix != "1" && choix != "2")
         {
             Console.Write("Veuillez entrer un choix valide : ");
