@@ -34,7 +34,7 @@ namespace ProjetAutoEcoleS4.Data
                     {
                         while (dr.Read())
                         {
-                            liste.Add($"{dr.GetDateTime("DateHeureDebut")} | {dr.GetString("Nom")} avec {dr.GetString("MoniteurNom")}");
+                            liste.Add($"{dr.GetDateTime("DateHeureDebut")} | {dr.GetString("NomEleve")} avec {dr.GetString("MoniteurNom")}");
                         }
                     }
                 }
