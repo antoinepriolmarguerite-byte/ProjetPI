@@ -75,7 +75,6 @@ while (continuer)
     }
 }
 
-
 void AfficherMenu()
 {
     Console.Clear();
@@ -100,7 +99,7 @@ void AfficherVoirMontant()
 
     eleve.AfficherAllEleve();
     List<Eleve> liste = dao.GetAll(port, pwd);
-    Console.WriteLine("Choisissez le numéro de l'élève que vous souhaitez connaitre le montant à régler");
+    Console.WriteLine("Choisissez le numéro de l'élève dont vous souhaitez connaitre le montant qu'il doit régler");
     int id;
     do
     {

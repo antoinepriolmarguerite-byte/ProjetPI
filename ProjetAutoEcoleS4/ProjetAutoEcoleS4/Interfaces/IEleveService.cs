@@ -18,7 +18,7 @@ namespace ProjetAutoEcoleS4.Interfaces
         public IEleveService(string port,string password)
         {
             this.bdd_Eleve = new EleveDAO();
-            this.list_eleve = bdd_Eleve.GetAll(port,password);//Comment ça Derefence bordel
+            this.list_eleve = bdd_Eleve.GetAll(port,password);
         }
         public string[] AjouterEleve(string port,string password)
         {
@@ -152,6 +152,9 @@ namespace ProjetAutoEcoleS4.Interfaces
 
 
         }
+
+
+
         /*
         //bool VerifierEligibilite(Client client);
         // Récupérer tous les clients (pour les afficher dans la console)
