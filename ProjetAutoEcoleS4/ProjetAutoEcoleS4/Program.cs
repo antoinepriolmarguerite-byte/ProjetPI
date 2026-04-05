@@ -179,7 +179,7 @@ void AfficherHeureEleveMoni()
         Console.WriteLine("Voulez-vous connaitre le nombre d'heures d'un moniteur ou d'un élève ?");
         Console.WriteLine("1 - Moniteur");
         Console.WriteLine("2 - Eleve");
-        choix = Console.ReadLine();
+        choix = Console.ReadLine()!;
         if (choix != "1" && choix != "2")
         {
             Console.Write("Veuillez entrer un choix valide : ");
