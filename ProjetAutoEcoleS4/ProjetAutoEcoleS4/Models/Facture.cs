@@ -12,8 +12,8 @@ namespace ProjetAutoEcoleS4.Models
         public string destinataire { get; set; }
         public string nomEleve { get; set; }
         public int montant { get; set; }
-        public DateTime deadlineReglement { get; set; }
-        public DateTime dateSeance { get; set; }
+        public DateTime? deadlineReglement { get; set; }
+        public DateTime? dateSeance { get; set; }
         public string typeReglement { get; set; }
         public int id_eleve { get; set; } //Clé étrangère
 
@@ -27,6 +27,19 @@ namespace ProjetAutoEcoleS4.Models
             this.montant = 0;
             this.deadlineReglement = DateTime.Now.AddMonths(1);
             this.dateSeance = date;
+            this.typeReglement = "En attente";
+            this.id_eleve = id_eleve;
+        }
+        public Facture()
+        {
+            string dateFormat = "yyyyMMddHHmmss";
+            this.id_facture = "";
+
+            this.destinataire = "";
+            this.nomEleve = "";
+            this.montant = 0;
+            this.deadlineReglement = DateTime.Now.AddMonths(1);
+            this.dateSeance = new DateTime();
             this.typeReglement = "En attente";
             this.id_eleve = id_eleve;
         }

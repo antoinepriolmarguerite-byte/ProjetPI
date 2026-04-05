@@ -62,9 +62,49 @@ namespace ProjetAutoEcoleS4.Services
 
         public List<Facture> GetAll()
         {
-            List<Facture> list_facture = new List<Facture>();
+            List<Facture> liste = new List<Facture>();
 
-            return list_facture;
+            using (MySqlConnection cn = conn.GetConnection())
+            {
+                try
+                {
+                    cn.Open();
+                    string sql = "SELECT * FROM FACTURE";
+
+                    using (MySqlCommand cmd = new MySqlCommand(sql, cn))
+                    {
+                        using (MySqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                Facture f = new Facture();
+
+                                f.id_facture = dr.IsDBNull(dr.GetOrdinal("ID_Facture")) ? "" : dr.GetString("ID_Facture");
+                                f.destinataire = dr.IsDBNull(dr.GetOrdinal("Destinataire")) ? "Inconnu" : dr.GetString("Destinataire");
+                                f.nomEleve = dr.IsDBNull(dr.GetOrdinal("NomEleve")) ? "Non renseigné" : dr.GetString("NomEleve");
+                                f.typeReglement = dr.IsDBNull(dr.GetOrdinal("TypeReglement")) ? "En attente" : dr.GetString("TypeReglement");
+                                f.id_eleve = dr.IsDBNull(dr.GetOrdinal("ID_Eleve")) ? 0 : dr.GetInt32("ID_Eleve");
+                                f.montant = dr.IsDBNull(dr.GetOrdinal("Montant")) ? 0 : dr.GetInt32("Montant");
+                                f.deadlineReglement = dr.IsDBNull(dr.GetOrdinal("DeadlineReglement")) 
+                                                    ? DateTime.Now.AddMonths(1) 
+                                                    : dr.GetDateTime("DeadlineReglement");
+
+                                f.dateSeance = dr.IsDBNull(dr.GetOrdinal("DateSeance")) 
+                                            ? DateTime.Now 
+                                            : dr.GetDateTime("DateSeance");
+
+                                liste.Add(f);
+                            }
+                        }
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    Console.WriteLine("Erreur lors de la récupération des factures : " + ex.Message);
+                }
+            }
+
+            return liste;
         }
     }
 }

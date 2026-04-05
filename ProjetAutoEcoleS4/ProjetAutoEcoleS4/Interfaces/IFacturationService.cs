@@ -27,6 +27,9 @@ namespace ProjetAutoEcoleS4.Services
             EleveService eleve = new EleveService(port, password);
             Eleve e = new Eleve();
             EleveDAO dao = new EleveDAO(port, password);
+            FactureDAO fdao = new FactureDAO(port,password);
+
+            List<Facture> listef = fdao.GetAll();
 
             eleve.AfficherAllEleve();
             List<Eleve> liste = dao.GetAll();
@@ -39,8 +42,16 @@ namespace ProjetAutoEcoleS4.Services
                     Console.Write("Veuillez entrer un numéro valide : ");
                 }
             } while (id < 0 && id > liste.Count);
-            e = liste[id - 1];
-            double montant = dao.MontantTotalEleve(id);
+            for (int i = 0; i < liste.Count(); i++)
+            {
+                if (liste[i].id_eleve == id) e = liste[i];
+            }
+            double montant = 0;
+            for(int i = 0; i < listef.Count(); i++)
+            {
+                if(listef[i].id_eleve==e.id_eleve) montant += listef[i].montant;
+            }
+            //double montant = dao.MontantTotalEleve(id);
             Console.WriteLine("Le montant à régler pour l'élève " + e.nomEleve + " est de : " + montant + "EUR");
             Thread.Sleep(2500);
         }
