@@ -20,6 +20,7 @@ namespace ProjetAutoEcoleS4.Data
         public void AjouterLecon_DAO(Lecon c)
         {
             PlanningDAO planningDAO = new PlanningDAO(conn);
+            FactureDAO factureDAO = new FactureDAO(conn);
 
             using (MySqlConnection cn = conn.GetConnection())
             {
@@ -43,6 +44,7 @@ namespace ProjetAutoEcoleS4.Data
                     }
                 }
                 planningDAO.AjouterLeconDansPlanning(c);
+                factureDAO.AjouterLeconDansFacture(c);
             }
         }
         public bool VerifierLeconEleve(string codeNEPH, DateTime dateLecon)

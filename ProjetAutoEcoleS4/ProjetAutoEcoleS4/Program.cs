@@ -43,7 +43,8 @@ while (continuer)
             Console.Clear();
             break;
         case "4":
-            AfficherVoirMontant();
+            IFacturationService IFS = new IFacturationService(port, pwd);
+            IFS.AfficherVoirMontant();
             Console.Clear();
             break;
         case "5":
@@ -94,28 +95,7 @@ void AfficherMenu()
     Console.WriteLine("10 - Quitter");
 }
 
-void AfficherVoirMontant()
-{
-    EleveService eleve = new EleveService(port, pwd);
-    Eleve e = new Eleve();
-    EleveDAO dao = new EleveDAO(port, pwd);
 
-    eleve.AfficherAllEleve();
-    List<Eleve> liste = dao.GetAll();
-    Console.Write("Choisissez le numéro de l'élève dont vous souhaitez connaitre le montant qu'il doit régler : ");
-    int id;
-    do
-    {
-        if (!int.TryParse(Console.ReadLine(), out id) || id < 0)
-        {
-            Console.Write("Veuillez entrer un numéro valide : ");
-        }
-    } while (id < 0 && id > liste.Count);
-    e = liste[id - 1];
-    double montant = dao.MontantTotalEleve(id);
-    Console.WriteLine("Le montant à régler pour l'élève " + e.nomEleve + " est de : " + montant + "EUR");
-    Thread.Sleep(2500);
-}
 
 void AfficherKiloVehicule()
 {
