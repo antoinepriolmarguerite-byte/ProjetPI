@@ -40,14 +40,14 @@ namespace ProjetAutoEcoleS4.Data
             return liste;
         }
 
-        public int FindVehicule(string immatriculation)
+        public int FindVehicule(int idvehicule)
         {
             int id_vehicule = 0;
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                MySqlCommand cmd = new MySqlCommand("SELECT id_vehicule FROM VEHICULE WHERE immatriculation = @immat", cn);
-                cmd.Parameters.AddWithValue("@immat", immatriculation);
+                MySqlCommand cmd = new MySqlCommand("SELECT id_vehicule FROM VEHICULE WHERE id_vehicule = @immat", cn);
+                cmd.Parameters.AddWithValue("@immat", idvehicule);
                 object result = cmd.ExecuteScalar();
                 if (result != null && result != DBNull.Value)
                 {
