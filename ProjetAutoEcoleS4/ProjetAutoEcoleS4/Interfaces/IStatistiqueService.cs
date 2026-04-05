@@ -20,6 +20,14 @@ namespace ProjetAutoEcoleS4
             this.pwd = pwd;
         }
 
+// ==========================================
+// TYPE       : Méthode d'INSTANCE
+// ENTRÉE     : aucune
+// TRAITEMENT : 
+//   - Permet de choisir un véhicule et une période (mois/année)
+//   - Appelle le DAO pour obtenir le cumul des kilomètres parcourus
+// SORTIE     : aucune (affichage du résultat)
+// ==========================================
         public void AfficherKiloVehicule()
         {
             Vehicule vehicule = new Vehicule();
@@ -63,6 +71,7 @@ namespace ProjetAutoEcoleS4
             Console.WriteLine("Le kilométrage du véhicule " + vehicule.marque + " " + vehicule.modele + " est de : " + nbrkilometre + "km");
             Thread.Sleep(2500);
         }
+
 
         public void AfficherHeureEleveMoni()
         {
@@ -131,6 +140,14 @@ namespace ProjetAutoEcoleS4
             Thread.Sleep(2500);
         }
 
+// ==========================================
+// TYPE       : Méthode d'INSTANCE
+// ENTRÉE     : aucune
+// TRAITEMENT : 
+//   - Demande la saisie d'un mois et d'une année avec validation
+//   - Interroge la base de données sur la somme des montants des leçons
+// SORTIE     : aucune (affiche le Chiffre d'Affaires mensuel)
+// ==========================================
         public void AfficherCAmensuel()
         {
             LeconDAO leconDAO = new LeconDAO(port, pwd);

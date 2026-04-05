@@ -16,6 +16,13 @@ namespace ProjetAutoEcoleS4.Data
         {
             conn = new Database(port, password);
         }
+
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : Eleve e
+        // TRAITEMENT : Exécute une requête INSERT pour sauvegarder un nouvel élève en base de données
+        // SORTIE     : aucune (affiche un message de succès en console)
+        // ==========================================
         public void Ajouter(Eleve e)
         {
             using (MySqlConnection cn = conn.GetConnection())
@@ -46,6 +53,13 @@ namespace ProjetAutoEcoleS4.Data
                 Console.WriteLine($"L'élève a été ajouté avec succès dans la bdd !");
             }
         }
+
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : aucune
+        // TRAITEMENT : Récupère tous les enregistrements de la table ELEVE
+        // SORTIE     : List<Eleve> (liste des objets élèves avec ID, Nom et Prénom)
+        // ==========================================
         public List<Eleve> GetAll()
         {
             List<Eleve> liste = new List<Eleve>();
@@ -66,6 +80,13 @@ namespace ProjetAutoEcoleS4.Data
             }
             return liste;
         }
+
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : int id
+        // TRAITEMENT : Supprime en cascade les factures, plannings, leçons et l'élève via une transaction
+        // SORTIE     : aucune (commit si succès, rollback en cas d'erreur)
+        // ==========================================
         public void Supprimer(int id)
         {
             using (MySqlConnection cn = conn.GetConnection())
@@ -90,6 +111,7 @@ namespace ProjetAutoEcoleS4.Data
                 }
             }
         }
+
         private void ExecuteSimpleQuery(string sql, int id, MySqlConnection cn, MySqlTransaction trans)
         {
             using (MySqlCommand cmd = new MySqlCommand(sql, cn, trans))
@@ -98,6 +120,13 @@ namespace ProjetAutoEcoleS4.Data
                 cmd.ExecuteNonQuery();
             }
         }
+
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : int id
+        // TRAITEMENT : Compte le nombre d'entrées dans la table Lecon pour un élève spécifique
+        // SORTIE     : int (nombre d'heures effectuées)
+        // ==========================================
         public int NbrheureEleve(int id)
         {
             int nbr = 0;
@@ -117,6 +146,13 @@ namespace ProjetAutoEcoleS4.Data
             }
             return nbr;
         }
+
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : int id
+        // TRAITEMENT : Récupère la valeur de la colonne MontantReglementRestant pour un élève
+        // SORTIE     : double (montant financier restant dû)
+        // ==========================================
         public double MontantTotalEleve(int id)
         {
             double montant = 0;

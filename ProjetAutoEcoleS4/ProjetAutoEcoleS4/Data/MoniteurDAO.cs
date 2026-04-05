@@ -17,6 +17,12 @@ namespace ProjetAutoEcoleS4.Data
             conn = new Database(port, password);
         }
 
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : aucune
+        // TRAITEMENT : Récupère la liste de tous les moniteurs enregistrés
+        // SORTIE     : List<Moniteur> (objets moniteurs avec ID, Nom, Prénom)
+        // ==========================================
         public List<Moniteur> GetAll()
         {
             List<Moniteur> liste = new List<Moniteur>();
@@ -37,6 +43,13 @@ namespace ProjetAutoEcoleS4.Data
             }
             return liste;
         }
+
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : int id, string port, string password
+        // TRAITEMENT : Compte le nombre de leçons effectuées par un moniteur spécifique
+        // SORTIE     : int (total d'heures travaillées)
+        // ==========================================
         public int NbrheureMoniteur(int id, string port, string password)
         {
             int nbr = 0;

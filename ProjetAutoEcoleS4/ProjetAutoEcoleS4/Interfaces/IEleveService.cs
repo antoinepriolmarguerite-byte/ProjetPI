@@ -23,6 +23,17 @@ namespace ProjetAutoEcoleS4.Interfaces
             this.port = port;
             this.password = password;
         }
+
+// ==========================================
+// TYPE       : Méthode d'INSTANCE
+// ENTRÉE     : aucune
+// TRAITEMENT : 
+//   - Affiche un formulaire de saisie complet dans la console
+//   - Valide le format du CodeNEPH (12 chiffres)
+//   - Propose une sélection interactive du moniteur référent
+//   - Récupère les informations personnelles (Nom, Prénom, Mail, etc.)
+// SORTIE     : string[] (tableau contenant toutes les données de l'élève saisies)
+// ==========================================
         public string[] CreerEleve()
         {
             string[] retour = new string[13];
@@ -156,6 +167,15 @@ namespace ProjetAutoEcoleS4.Interfaces
 
         }
 
+// ==========================================
+// TYPE       : Méthode d'INSTANCE
+// ENTRÉE     : aucune
+// TRAITEMENT : 
+//   - Affiche un menu de choix (Ajouter ou Supprimer)
+//   - En cas d'ajout : appelle la création et l'insertion d'un élève
+//   - En cas de suppression : affiche la liste et valide l'ID à supprimer
+// SORTIE     : aucune
+// ==========================================
         public void AfficherAjoutSuppEleve()
         {
             EleveDAO dao = new EleveDAO(port, password);

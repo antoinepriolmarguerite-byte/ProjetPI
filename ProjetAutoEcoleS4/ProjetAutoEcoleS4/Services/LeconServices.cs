@@ -23,6 +23,16 @@ namespace ProjetAutoEcoleS4.Data
             this.password = password;
         }
 
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : Lecon l
+        // TRAITEMENT : 
+        //   - Gère le formulaire complet de création d'une leçon en console
+        //   - Sélectionne l'élève, le moniteur et le véhicule
+        //   - Valide la date, l'heure et le montant saisi
+        //   - Met à jour le compteur d'heures et déclenche l'ajout en base
+        // SORTIE     : aucune
+        // ==========================================
         public void AjouterLeconAEleve(Lecon l)
         {
             EleveService Eleveservice = new EleveService(port, password);
@@ -117,6 +127,16 @@ namespace ProjetAutoEcoleS4.Data
                 Console.WriteLine("Leçon ajoutée avec succès !");
             }
         }
+        
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : aucune
+        // TRAITEMENT : 
+        //   - Affiche la liste de toutes les leçons existantes
+        //   - Demande la saisie d'un identifiant de leçon
+        //   - Appelle le DAO pour supprimer la leçon sélectionnée
+        // SORTIE     : aucune
+        // ==========================================        
         public void SupprimerLeçon()
         {
             LeconDAO leconbdd = new LeconDAO(port,password);

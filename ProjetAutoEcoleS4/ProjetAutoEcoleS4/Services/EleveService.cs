@@ -24,12 +24,28 @@ namespace ProjetAutoEcoleS4.Services
             this.password = password;
         }
 
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : Eleve e
+        // TRAITEMENT : 
+        //   - Ajoute l'objet élève à la liste locale synchronisée
+        //   - Appelle le DAO pour l'insertion persistante en base de données
+        // SORTIE     : aucune
+        // ==========================================
         public void AjouterEleve(Eleve e)
         {
             list_eleve.Add(e);
             bdd_Eleve.Ajouter(e);
         }
 
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : aucune
+        // TRAITEMENT : 
+        //   - Instancie l'interface de saisie (IEleveService)
+        //   - Initialise un nouvel objet Eleve via son constructeur de saisie
+        // SORTIE     : Eleve (l'objet créé)
+        // ==========================================
         public Eleve CreerEleve()
         {
             IEleveService view = new IEleveService(port,password);
@@ -37,6 +53,12 @@ namespace ProjetAutoEcoleS4.Services
             return e;
         }
 
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : Eleve e
+        // TRAITEMENT : Parcourt la liste locale pour vérifier si l'objet existe déjà
+        // SORTIE     : bool (true si trouvé)
+        // ==========================================
         public bool EleveExiste(Eleve e)
         {
             for(int i = 0; i < list_eleve.Count(); i++)
@@ -46,6 +68,14 @@ namespace ProjetAutoEcoleS4.Services
             return false;
         }
 
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : int id
+        // TRAITEMENT : 
+        //   - Supprime l'élève de la liste de cache locale par son ID
+        //   - Appelle la procédure de suppression SQL (EleveDAO)
+        // SORTIE     : aucune
+        // ==========================================
         public void SupprimerEleve(int id)
         {
             for(int i = 0; i < list_eleve.Count(); i++)

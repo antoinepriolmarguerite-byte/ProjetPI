@@ -23,6 +23,16 @@ namespace ProjetAutoEcoleS4.Data
             this.password = password;
         }
 
+// ==========================================
+// TYPE       : Méthode d'INSTANCE
+// ENTRÉE     : Vehicule v
+// TRAITEMENT : 
+//   - Affiche un formulaire de saisie console pour un nouveau véhicule
+//   - Valide la saisie de l'immatriculation, du type, de la marque et du modèle
+//   - Empêche les saisies vides ou blanches (IsNullOrWhiteSpace)
+//   - Enregistre le véhicule via le VehiculeDAO
+// SORTIE     : aucune
+// ==========================================
         public void AjouterVehicule(Vehicule v)
         {
             Console.Clear();
@@ -94,6 +104,15 @@ namespace ProjetAutoEcoleS4.Data
             vehiculedao.Ajouter(v);
         }
 
+// ==========================================
+// TYPE       : Méthode d'INSTANCE
+// ENTRÉE     : aucune
+// TRAITEMENT : 
+//   - Affiche la liste des véhicules disponibles
+//   - Demande la saisie de l'ID du véhicule à retirer
+//   - Vérifie l'existence du véhicule avant de lancer la suppression SQL
+// SORTIE     : aucune
+// ==========================================
         public void SupprimerVehicule()
         {
             Console.Clear();

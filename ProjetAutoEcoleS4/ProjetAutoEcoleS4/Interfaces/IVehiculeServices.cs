@@ -23,6 +23,14 @@ namespace ProjetAutoEcoleS4.Services
             this.password = password;
         }
 
+// ==========================================
+// TYPE       : Méthode d'INSTANCE
+// ENTRÉE     : aucune
+// TRAITEMENT : 
+//   - Nettoie l'écran et affiche l'entête
+//   - Liste les détails techniques de chaque véhicule (Immat, Type, Boite, Modèle)
+// SORTIE     : aucune
+// ==========================================
         public void AfficherAllVehicule()
         {
             Console.Clear();
@@ -33,6 +41,14 @@ namespace ProjetAutoEcoleS4.Services
             }
         }
 
+// ==========================================
+// TYPE       : Méthode d'INSTANCE
+// ENTRÉE     : aucune
+// TRAITEMENT : 
+//   - Propose un menu pour l'administration du parc automobile
+//   - Redirige vers le service d'ajout de véhicule ou de suppression
+// SORTIE     : aucune
+// ==========================================
         public void AfficherAjoutSuppVehicule()
         {
             VehiculeDAO dao = new VehiculeDAO(port, password);

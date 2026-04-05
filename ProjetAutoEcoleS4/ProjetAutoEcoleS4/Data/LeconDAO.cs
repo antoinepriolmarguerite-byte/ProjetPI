@@ -17,6 +17,13 @@ namespace ProjetAutoEcoleS4.Data
         {
             conn = new Database(port, password);
         }
+
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : Lecon c
+        // TRAITEMENT : Insère une leçon, récupère son ID auto-généré et met à jour le Planning et la Facturation
+        // SORTIE     : aucune
+        // ==========================================
         public void AjouterLecon_DAO(Lecon c)
         {
             PlanningDAO planningDAO = new PlanningDAO(conn);
@@ -47,6 +54,12 @@ namespace ProjetAutoEcoleS4.Data
                 factureDAO.AjouterLeconDansFacture(c);
             }
         }
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : string codeNEPH, DateTime dateLecon
+        // TRAITEMENT : Vérifie si un élève a déjà une leçon programmée à une date précise
+        // SORTIE     : bool (true si une leçon existe déjà)
+        // ==========================================
         public bool VerifierLeconEleve(string codeNEPH, DateTime dateLecon)
         {
             bool leconExiste = false;
@@ -72,6 +85,7 @@ namespace ProjetAutoEcoleS4.Data
 
             return leconExiste;
         }
+
         public bool VerifierLeconMoniteur(string moniteur, DateTime dateLecon)
         {
             bool leconExiste = false;
@@ -97,6 +111,8 @@ namespace ProjetAutoEcoleS4.Data
 
             return leconExiste;
         }
+
+
         public bool VerifierLeconVehicule(int vehicule, DateTime dateLecon)
         {
             bool leconExiste = false;
@@ -144,6 +160,13 @@ namespace ProjetAutoEcoleS4.Data
             }
             return id_lecon;
         }
+
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : int idlecon
+        // TRAITEMENT : Détache la leçon du planning puis supprime l'enregistrement de la table Lecon
+        // SORTIE     : aucune
+        // ==========================================
         public void SupprimerLecon_DAO(int idlecon)
         {
             //int idLecon = Id_LeconFromDateAndEleve(codeNEPH, dateLecon);
@@ -176,6 +199,12 @@ namespace ProjetAutoEcoleS4.Data
                     Console.WriteLine("Aucune leçon trouvée avec cet ID.");
             }
         }
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : int anne, int mois
+        // TRAITEMENT : Calcule la somme des montants facturés pour un mois et une année donnés
+        // SORTIE     : double (chiffre d'affaires mensuel)
+        // ==========================================
         public double Chiffremensuel(int anne, int mois)
         {
             double chiffre = 0;
@@ -192,6 +221,8 @@ namespace ProjetAutoEcoleS4.Data
             }
             return chiffre;
         }
+
+
         public List<Lecon> GetAll(string port, string password)
         {
             Database conn = new Database(port, password);

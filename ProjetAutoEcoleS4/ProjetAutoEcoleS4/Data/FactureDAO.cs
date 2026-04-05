@@ -22,6 +22,12 @@ namespace ProjetAutoEcoleS4.Services
             this.conn = conn;
         }
 
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : Lecon lecon
+        // TRAITEMENT : Calcule le prochain numéro de facture et insère une nouvelle ligne dans la table Facture
+        // SORTIE     : aucune (affiche le numéro de facture généré)
+        // ==========================================
         public void AjouterLeconDansFacture(Lecon lecon)
         {
             using (MySqlConnection cn = conn.GetConnection())
@@ -59,6 +65,13 @@ namespace ProjetAutoEcoleS4.Services
                 }
             }
         }
+
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : aucune
+        // TRAITEMENT : Récupère toutes les factures avec gestion des valeurs NULL (IsDBNull)
+        // SORTIE     : List<Facture> (liste complète des objets factures)
+        // ==========================================
 
         public List<Facture> GetAll()
         {

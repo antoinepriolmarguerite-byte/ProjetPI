@@ -23,6 +23,13 @@ namespace ProjetAutoEcoleS4.Services
             this.password = password;
             list_moniteur = bdd_Moniteur.GetAll();
         }
+
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : int m (ID du moniteur)
+        // TRAITEMENT : Vérifie dans la liste des moniteurs chargés si l'ID correspond à un moniteur existant
+        // SORTIE     : bool (true si le moniteur est valide)
+        // ==========================================
         public bool MoniteurExiste(int m)
         {
             for(int i = 0; i < list_moniteur.Count(); i++)
@@ -31,6 +38,15 @@ namespace ProjetAutoEcoleS4.Services
             }
             return false;
         }
+
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : aucune
+        // TRAITEMENT : 
+        //   - Récupère la liste actualisée via le MoniteurDAO
+        //   - Parcourt et affiche chaque moniteur dans la console (via ToString)
+        // SORTIE     : aucune
+        // ==========================================
         public void AfficherAllMoniteur()
         {
             MoniteurDAO moniteurDAO = new MoniteurDAO(port,password);

@@ -22,6 +22,16 @@ namespace ProjetAutoEcoleS4.Services
             this.port = port;
             this.password = password;
         }
+
+// ==========================================
+// TYPE       : Méthode d'INSTANCE
+// ENTRÉE     : aucune
+// TRAITEMENT : 
+//   - Affiche la liste des élèves pour sélection
+//   - Récupère toutes les factures liées à l'élève choisi
+//   - Calcule la somme cumulée des montants de ces factures
+// SORTIE     : aucune (affiche le montant total dû en euros)
+// ==========================================
         public void AfficherVoirMontant()
         {
             EleveService eleve = new EleveService(port, password);
@@ -56,6 +66,14 @@ namespace ProjetAutoEcoleS4.Services
             Thread.Sleep(2500);
         }
 
+// ==========================================
+// TYPE       : Méthode d'INSTANCE
+// ENTRÉE     : aucune
+// TRAITEMENT : 
+//   - Nettoie la console
+//   - Parcourt la liste des factures chargées et les affiche ligne par ligne
+// SORTIE     : aucune
+// ==========================================
         public void AfficherAllFacture()
         {
             Console.Clear();

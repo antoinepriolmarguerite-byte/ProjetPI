@@ -17,6 +17,12 @@ namespace ProjetAutoEcoleS4.Data
             conn = new Database(port, password);
         }
 
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : aucune
+        // TRAITEMENT : Récupère tous les véhicules avec leur état et immatriculation
+        // SORTIE     : List<Vehicule>
+        // ==========================================
         public List<Vehicule> GetAll()
         {
             List<Vehicule> liste = new List<Vehicule>();
@@ -47,6 +53,7 @@ namespace ProjetAutoEcoleS4.Data
             return liste;
         }
 
+
         public int FindVehicule(int idvehicule)
         {
             int id_vehicule = 0;
@@ -64,6 +71,12 @@ namespace ProjetAutoEcoleS4.Data
             return id_vehicule;
         }
 
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : int idvehicule, int anne, int Mois
+        // TRAITEMENT : Récupère le kilométrage enregistré pour un véhicule sur une période donnée
+        // SORTIE     : double (nombre de kilomètres)
+        // ==========================================
         public double Nbrkilometre(int idvehicule, int anne, int Mois)
         {
             double nbr = 0;
@@ -82,6 +95,7 @@ namespace ProjetAutoEcoleS4.Data
             }
             return nbr;
         }
+
         public void Ajouter(Vehicule v)
         {
             using (MySqlConnection cn = conn.GetConnection())
@@ -101,6 +115,13 @@ namespace ProjetAutoEcoleS4.Data
             }
             Thread.Sleep(1000);
         }
+
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : int id_vehicule
+        // TRAITEMENT : Supprime les données liées (kilométrage, planning, leçons) avant de supprimer le véhicule
+        // SORTIE     : aucune
+        // ==========================================
         public void Supprimer(int id_vehicule)
         {
             using (MySqlConnection cn = conn.GetConnection())
