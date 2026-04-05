@@ -116,7 +116,6 @@ void AfficherVoirMontant()
     {
         if(liste[i].id_eleve == id) e=liste[i];
     }
-    e = liste[id];
     double montant = dao.MontantTotalEleve(id);
     Console.WriteLine("Le montant à régler pour l'élève " + e.nomEleve + " est de : " + montant + "EUR");
     Thread.Sleep(2500);
