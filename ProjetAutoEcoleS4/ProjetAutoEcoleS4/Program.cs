@@ -59,11 +59,13 @@ while (continuer)
             Console.Clear();
             break;
         case "8":
-            AfficherAjoutSuppEleve();
+            IEleveService IES = new IEleveService(port, pwd);
+            IES.AfficherAjoutSuppEleve();
             Console.Clear();
             break;
         case "9":
-            AfficherAjoutSuppVehicule();
+            IVehiculeServices IVS = new IVehiculeServices(port, pwd);
+            IVS.AfficherAjoutSuppVehicule();
             Console.Clear();
             break;
         case "10":
@@ -238,73 +240,4 @@ void AfficherCAmensuel()
     double chiffremensuel = leconDAO.Chiffremensuel(anne, Mois);
     Console.WriteLine("\nLe chiffre d'affaire du mois " + Mois + " de l'année " + anne + " est de : " + chiffremensuel + "EUR");
     Thread.Sleep(2500);
-}
-
-void AfficherAjoutSuppEleve()
-{
-    EleveDAO dao = new EleveDAO(port, pwd);
-    Eleve e = new Eleve();
-    EleveService eleveService = new EleveService(port, pwd);
-
-    Console.WriteLine("Voulez-vous ajouter ou supprimer un élève ?");
-    Console.WriteLine("1 - Ajouter");
-    Console.WriteLine("2 - Supprimer");
-    string choix;
-    do
-    {
-        choix = Console.ReadLine();
-        if (choix != "1" && choix != "2")
-        {
-            Console.Write("Veuillez entrer un choix valide : ");
-        }
-    } while (choix != "1" && choix != "2");
-    if (choix == "1")
-    {
-        e = eleveService.CreerEleve();
-        eleveService.AjouterEleve(e);
-    }
-    else if (choix == "2")
-    {
-        eleveService.AfficherAllEleve();
-        List<Eleve> listeeleve = dao.GetAll();
-        Console.Write("Chosisissez le numéro de l'élève que vous souhaitez supprimer : ");
-        int ideleve;
-        do
-        {
-            if (!int.TryParse(Console.ReadLine(), out ideleve) || ideleve < 0)
-            {
-                Console.Write("Veuillez entrer un numéro valide : ");
-            }
-        } while (ideleve < 0 && ideleve > listeeleve.Count);
-        eleveService.SupprimerEleve(ideleve);
-    }
-}
-
-void AfficherAjoutSuppVehicule()
-{
-    VehiculeDAO dao = new VehiculeDAO(port, pwd);
-    Vehicule v = new Vehicule();
-    VehiculeServices vehiculeService = new VehiculeServices(port, pwd);
-    Console.WriteLine("Voulez-vous ajouter ou supprimer un véhicule ?");
-    Console.WriteLine("1 - Ajouter");
-    Console.WriteLine("2 - Supprimer");
-    string choix;
-    do
-    {
-        choix = Console.ReadLine();
-        if (choix != "1" && choix != "2")
-        {
-            Console.Write("Veuillez entrer un choix valide : ");
-        }
-    } while (choix != "1" && choix != "2");
-    if (choix == "1")
-    {
-        VehiculeServices ajvehicule = new VehiculeServices(port, pwd);
-        ajvehicule.AjouterVehicule(new Vehicule());
-    }
-    else if (choix == "2")
-    {
-        vehiculeService.SupprimerVehicule();
-    }
-    Thread.Sleep(5000);
 }
