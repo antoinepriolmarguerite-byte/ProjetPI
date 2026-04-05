@@ -98,14 +98,13 @@ namespace ProjetAutoEcoleS4.Data
             {
                 cn.Open();
 
-                string sql = "SELECT id_vehicule FROM Lecon " +
-                             "JOIN Vehicule ON Lecon.immatriculation = Vehicule.immatriculation " +
-                             "WHERE Vehicule.immatriculation = @immatriculation " +
-                             "AND Lecon.Date_ = @dateLecon " +
-                             "LIMIT 1";
+                string sql = @"SELECT 1 FROM Lecon 
+                            WHERE ID_Vehicule = @idVehicule 
+                            AND Date_ = @dateLecon 
+                            LIMIT 1";
 
                 MySqlCommand cmd = new MySqlCommand(sql, cn);
-                cmd.Parameters.AddWithValue("@immatriculation", vehicule);
+                cmd.Parameters.AddWithValue("@idVehicule", vehicule);
                 cmd.Parameters.AddWithValue("@dateLecon", dateLecon);
 
                 MySqlDataReader dr = cmd.ExecuteReader();
