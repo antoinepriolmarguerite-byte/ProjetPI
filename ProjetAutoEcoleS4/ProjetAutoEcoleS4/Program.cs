@@ -205,7 +205,6 @@ void AfficherHeureEleveMoni()
         eleve.AfficherAllEleve();
         List<Eleve> listeeleve = dao.GetAll();
         Console.Write("Choisissez le numéro de l'élève que vous souhaitez connaitre le nombre d'heures : ");
-        Console.Write("Choisissez le numéro de l'élève que vous souhaitez connaitre le nombre d'heures : ");
         do
         {
             if (!int.TryParse(Console.ReadLine(), out id) || id < 0)
