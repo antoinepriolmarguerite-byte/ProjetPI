@@ -31,6 +31,7 @@ namespace ProjetAutoEcoleS4.Data
             MoniteurDAO bddMoniteur = new MoniteurDAO(port, password);
             VehiculeServices VS = new VehiculeServices(port, password);
             VehiculeDAO bddVehicule = new VehiculeDAO(port, password);
+            IVehiculeServices IVS = new IVehiculeServices(port, password);
             List<int> idMoniteurList = new List<int>();
             List<Moniteur> ListeMoniteur = bddMoniteur.GetAll();
 
@@ -86,7 +87,7 @@ namespace ProjetAutoEcoleS4.Data
                 l.id_moniteur = idMoniteurSaisi;
 
                 // --- CHOIX VÉHICULE ---
-                VS.AfficherAllVehicule();
+                IVS.AfficherAllVehicule();
                 Console.Write("Donnez l'ID du véhicule pour la leçon : ");
                 int idVehiculeSaisi;
                 while (!int.TryParse(Console.ReadLine(), out idVehiculeSaisi) || idVehiculeSaisi < 0)

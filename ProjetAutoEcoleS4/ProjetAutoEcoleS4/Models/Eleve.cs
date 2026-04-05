@@ -46,7 +46,7 @@ namespace ProjetAutoEcoleS4.Models
         }
         public Eleve(IEleveService view,string port,string password)
         {
-            string[] attributs = view.AjouterEleve(port,password);
+            string[] attributs = view.CreerEleve();
             this.codeNeph = attributs[0];
             this.nomEleve = attributs[1];
             this.prenomEleve = attributs[2];
