@@ -32,8 +32,19 @@ namespace ProjetAutoEcoleS4.Data
             List<int> idMoniteur = new List<int>();
             List<Moniteur> ListeMoniteur = bddMoniteur.GetAll(port, password);
 
+            Console.Write("Donnez la date de la leçon : ");
+            DateTime date;
+            do
+            {
 
-            for(int i = 0; i < Eleveservice.list_eleve.Count(); i++)
+                if (!DateTime.TryParse(Console.ReadLine(), out date))
+                {
+                    Console.Write("Veuillez entrer une date valide (jj-mm-aaaa HH:mm:ss) :");
+                }
+            } while (date == default(DateTime));
+            l.dateLecon = date;
+
+            for (int i = 0; i < Eleveservice.list_eleve.Count(); i++)
             {
                 Console.WriteLine(Eleveservice.list_eleve[i].ToString());
             }
@@ -44,10 +55,19 @@ namespace ProjetAutoEcoleS4.Data
                 Console.Write("Veuillez entrer un nombre entier naturel : ");
             }
             Eleve e = Eleveservice.list_eleve[id-1];
+            
 
             if (Eleveservice.EleveExiste(e))
             {
+                
+
+                if (lecondao.VerifierLeconEleve(e.codeNeph, date))
+                {
+                    Console.WriteLine("Erreur : Cet élève a déjà une leçon prévue à cette date !");
+                    return;
+                }
                 l.eleve = e;
+
                 Console.WriteLine("== MONITEURS ==");
                 MS.AfficherAllMoniteur(port,password);
                 for(int i = 0; i < ListeMoniteur.Count(); i++)
@@ -61,25 +81,13 @@ namespace ProjetAutoEcoleS4.Data
                      Console.Write("Veuillez choisir l'id du moniteur : ");
                      entreeUtilisateur = int.Parse(Console.ReadLine())!; // Les ! permettent de caché les warnings
                 }
-                l.id_moniteur = entreeUtilisateur;
                 
-                Console.Write("Donnez la date de la leçon : ");
-                DateTime date;
-                do
+                if (lecondao.VerifierLeconMoniteur(e.codeNeph, date))
                 {
-
-                    if (!DateTime.TryParse(Console.ReadLine(), out date))
-                    {
-                        Console.Write("Veuillez entrer une date valide (jj-mm-aaaa HH:mm:ss) :");
-                    }
-                } while (date == default(DateTime));
-                l.dateLecon = date;
-
-                if (lecondao.VerifierLeconEleve(e.codeNeph, date))
-                {
-                    Console.WriteLine("Erreur : Cet élève a déjà une leçon prévue à cette date !");
+                    Console.WriteLine("Erreur : ce moniteur a déjà une leçon prévue à cette date !");
                     return;
                 }
+                l.id_moniteur = entreeUtilisateur;
 
                 Console.WriteLine("Donnez l'id du véhicule pour la leçon : ");
                 Vehicule vehicule = new Vehicule();
@@ -91,6 +99,13 @@ namespace ProjetAutoEcoleS4.Data
                         Console.WriteLine("L'id du véhicule ne peut pas être inférieur à 0. Veuillez réessayer : ");
                     }
                 } while (vehicule.id_vehicule<0);
+               
+
+                if (lecondao.VerifierLeconVehicule(vehicule.id_vehicule, date))
+                {
+                    Console.WriteLine("Erreur : ce véhicule a déjà une leçon prévue à cette date !");
+                    return;
+                }
                 l.vehicule.id_vehicule = vehicule.id_vehicule;
 
                 Console.WriteLine("Veuillez entrer le montant de la facture : ");
@@ -105,7 +120,7 @@ namespace ProjetAutoEcoleS4.Data
                 l.montantFacture = montantFacture;
                 e.nbHeuresAPayer++;
 
-                lecondao.AjouterLecon_DAO(l);//C'est utile aussi
+                lecondao.AjouterLecon_DAO(l); //C'est utile aussi
             }
         }
 
