@@ -63,7 +63,7 @@ namespace ProjetAutoEcoleS4.Services
             int i=1;
             foreach (Eleve e in liste)
             {
-                Console.WriteLine(i+e.ToString());
+                Console.WriteLine(e.ToString());
                 i++;
             }
         }
