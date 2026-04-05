@@ -71,7 +71,29 @@ namespace ProjetAutoEcoleS4.Data
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                MySqlCommand cmd = new MySqlCommand("DELETE FROM ELEVE WHERE id_eleve = @id", cn);
+                using (MySqlTransaction transaction = cn.BeginTransaction())
+                {
+                    try
+                    {
+                        ExecuteSimpleQuery("DELETE FROM Facture WHERE ID_Eleve = @id", id, cn, transaction);
+                        ExecuteSimpleQuery("UPDATE Planning SET ID_Lecon = NULL, ID_Eleve = NULL WHERE ID_Eleve = @id", id, cn, transaction);
+                        ExecuteSimpleQuery("DELETE FROM Lecon WHERE ID_Eleve = @id", id, cn, transaction);
+                        ExecuteSimpleQuery("DELETE FROM Eleve WHERE ID_Eleve = @id", id, cn, transaction);
+                        transaction.Commit();
+                        Console.WriteLine("Suppression réussie !");
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        Console.WriteLine("Erreur lors de la suppression : " + ex.Message);
+                    }
+                }
+            }
+        }
+        private void ExecuteSimpleQuery(string sql, int id, MySqlConnection cn, MySqlTransaction trans)
+        {
+            using (MySqlCommand cmd = new MySqlCommand(sql, cn, trans))
+            {
                 cmd.Parameters.AddWithValue("@id", id);
                 cmd.ExecuteNonQuery();
             }

@@ -101,6 +101,8 @@ CREATE TABLE KilometrageMois (
    FOREIGN KEY(Annee_mois) REFERENCES Mois(Annee_mois)
 );
 
+USE AutoEcole;
+
 INSERT INTO Moniteur (Nom, Prenom, Permis_Moniteur, Salaire_Moniteur) VALUES
 ('Martin', 'Lucas', 'B, BE, A', 2200.50),
 ('Bernard', 'Julie', 'B, BVA', 2100.00),
@@ -140,3 +142,6 @@ INSERT INTO KilometrageMois (ID_Vehicule, Annee_mois, Nbkilometre) VALUES
 (1, 202403, 1250.5),
 (2, 202403, 890.0),
 (3, 202403, 450.2);
+SELECT * FROM eleve;
+SELECT * FROM lecon;
+SELECT * FROM vehicule;

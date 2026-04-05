@@ -87,6 +87,8 @@ namespace ProjetAutoEcoleS4.Data
                 cmd.Parameters.AddWithValue("@boitevitesse", v.boitevitesse);
                 cmd.Parameters.AddWithValue("@marque", v.marque);
                 cmd.Parameters.AddWithValue("@modele", v.modele);
+
+                cmd.ExecuteNonQuery();
                 Console.WriteLine("Insertion réalisée");
                 cn.Dispose();
             }

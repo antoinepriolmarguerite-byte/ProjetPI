@@ -174,7 +174,7 @@ namespace ProjetAutoEcoleS4.Data
                     Console.WriteLine("Aucune leçon trouvée avec cet ID.");
             }
         }
-        public double Chiffremensuel(int anne, int mois)
+        public double Chiffremensuel(int anne, int mois) //c'est qui l'------ qui a écrit année avec un seul e
         {
             double chiffre = 0;
             using (MySqlConnection cn = conn.GetConnection())
@@ -192,7 +192,7 @@ namespace ProjetAutoEcoleS4.Data
         }
         public List<Lecon> GetAll(string port, string password)
         {
-            Database conn = new Database(port, password); //Ronan changera
+            Database conn = new Database(port, password);
             List<Lecon> liste = new List<Lecon>();
             using (MySqlConnection cn = conn.GetConnection())
             {
