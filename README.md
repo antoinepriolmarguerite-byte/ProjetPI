@@ -62,5 +62,5 @@ Le projet adopte une architecture **N-Tier** (DAO / Service) pour une séparatio
 ### Pour cloner le projet via HTTPS
 `git clone [https://github.com/RonanLEROUZIC/ProjetAutoEcole.git](https://github.com/RonanLEROUZIC/ProjetAutoEcole.git)`
 
-- note sur l'utilisation de l'ia, nous l'avons utiliser pour dupliquer les commentaires et pour nous aider sur la correction d'erreur
+<p font-size=12> - note sur l'utilisation de l'ia, nous l'avons utilisé pour dupliquer les commentaires et pour nous aider sur la correction d'erreur </p>
 <p align="center">© 2026 - Projet Informatique S4 - ESILV</p>
