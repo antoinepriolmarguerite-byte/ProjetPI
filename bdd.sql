@@ -2,6 +2,15 @@ DROP DATABASE IF EXISTS AutoEcole;
 CREATE DATABASE AutoEcole;
 USE AutoEcole;
 
+
+CREATE TABLE Moniteur (
+   ID_Moniteur INT AUTO_INCREMENT,
+   Nom VARCHAR(50) NOT NULL,
+   Prenom VARCHAR(50) NOT NULL,
+   Permis_Moniteur VARCHAR(50),
+   Salaire_Moniteur DECIMAL(10,2),
+   PRIMARY KEY(ID_Moniteur)
+);
 CREATE TABLE Eleve (
    ID_Eleve INT AUTO_INCREMENT,
    CodeNEPH VARCHAR(50),
@@ -15,20 +24,13 @@ CREATE TABLE Eleve (
    DateNaissance DATE NOT NULL,
    Permis VARCHAR(50) DEFAULT NULL,
    Boite VARCHAR(50) DEFAULT NULL,
-   MoniteurTitre VARCHAR(50) DEFAULT NULL,
+   idMoniteurReferent INT DEFAULT NULL,
    NbHeuresAPayer INT DEFAULT 0,
    MontantReglementRestant DECIMAL(10,2) DEFAULT 0.00,
-   PRIMARY KEY(ID_Eleve)
+   PRIMARY KEY(ID_Eleve),
+   FOREIGN KEY(idMoniteurReferent) REFERENCES Moniteur(ID_Moniteur)
 );
 
-CREATE TABLE Moniteur (
-   ID_Moniteur INT AUTO_INCREMENT,
-   Nom VARCHAR(50) NOT NULL,
-   Prenom VARCHAR(50) NOT NULL,
-   Permis_Moniteur VARCHAR(50),
-   Salaire_Moniteur DECIMAL(10,2),
-   PRIMARY KEY(ID_Moniteur)
-);
 
 CREATE TABLE Vehicule (
    ID_Vehicule INT AUTO_INCREMENT,
@@ -101,10 +103,10 @@ CREATE TABLE KilometrageMois (
 
 USE AutoEcole;
 
-INSERT INTO Eleve (CodeNEPH, NomEleve, PrenomEleve, Tel, Mail, TypeEleve, Adresse, RIB, DateNaissance, Permis, Boite, MoniteurTitre, NbHeuresAPayer, MontantReglementRestant) VALUES
-('123456789012', 'Dupont', 'Jean', '0601020304', 'jean.dupont@email.com', 'Traditionnel', '12 rue de la Paix, Paris', 'FR763000...', '2005-05-15', 'B', 'Manuelle', 'Martin Lucas', 5, 250.00),
-('987654321098', 'Martin', 'Sophie', '0708091011', 'sophie.martin@email.com', 'AAC', '5 avenue des Champs, Lyon', 'FR764000...', '2007-11-20', 'B', 'Automatique', NULL, 0, 0.00),
-('456123789456', 'Lefebvre', 'Thomas', '0611223344', 'thomas.lef@email.com', 'Candidat Libre', '30 rue du Port, Marseille', 'FR765000...', '1998-02-10', 'A2', 'Manuelle', NULL, 10, 500.00);
+INSERT INTO Eleve (CodeNEPH, NomEleve, PrenomEleve, Tel, Mail, TypeEleve, Adresse, RIB, DateNaissance, Permis, Boite, idMoniteurReferent, NbHeuresAPayer, MontantReglementRestant) VALUES
+('123456789012', 'Dupont', 'Jean', '0601020304', 'jean.dupont@email.com', 'Traditionnel', '12 rue de la Paix, Paris', 'FR763000...', '2005-05-15', 'B', 'Manuelle', 1, 5, 250.00),
+('987654321098', 'Martin', 'Sophie', '0708091011', 'sophie.martin@email.com', 'AAC', '5 avenue des Champs, Lyon', 'FR764000...', '2007-11-20', 'B', 'Automatique', 2, 0, 0.00),
+('456123789456', 'Lefebvre', 'Thomas', '0611223344', 'thomas.lef@email.com', 'Candidat Libre', '30 rue du Port, Marseille', 'FR765000...', '1998-02-10', 'A2', 'Manuelle', 1, 10, 500.00);
 
 INSERT INTO Moniteur (Nom, Prenom, Permis_Moniteur, Salaire_Moniteur) VALUES
 ('Martin', 'Lucas', 'B, BE, A', 2200.50),

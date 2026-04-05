@@ -17,7 +17,7 @@ namespace ProjetAutoEcoleS4.Data
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                string sql = "INSERT INTO ELEVE (CodeNEPH, nomEleve, prenomEleve, DateNaissance, Tel, Mail, TypeEleve, Adresse, RIB, Permis, Boite, MoniteurTitre, NbHeuresAPayer) " +
+                string sql = "INSERT INTO ELEVE (CodeNEPH, nomEleve, prenomEleve, DateNaissance, Tel, Mail, TypeEleve, Adresse, RIB, Permis, Boite, idMoniteurReferent, NbHeuresAPayer) " +
                             "VALUES (@code, @nom, @prenom, @date, @tel, @mail, @type, @adresse, @rib, @permis, @boite, @moniteur, @heures);";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, cn))
