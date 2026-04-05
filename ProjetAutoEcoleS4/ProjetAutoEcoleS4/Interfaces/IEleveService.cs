@@ -32,7 +32,7 @@ namespace ProjetAutoEcoleS4.Interfaces
             string codeNEPH = Console.ReadLine()!; long intNEPH;
             while (string.IsNullOrWhiteSpace(codeNEPH) || codeNEPH.Length != 12 || !long.TryParse(codeNEPH, out intNEPH))
             {
-                Console.Write("Mauvais format ! Veuillez recommencer : ");
+                Console.Write("Mauvais format ! Veuillez recommencer (Il faut 12 chiffre pour qu'il soit valide): ");
                 codeNEPH = Console.ReadLine()!;
             }
             retour[0] = codeNEPH;

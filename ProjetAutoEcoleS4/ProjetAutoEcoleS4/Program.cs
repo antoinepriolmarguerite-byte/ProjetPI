@@ -309,4 +309,5 @@ void AfficherAjoutSuppVehicule()
         Console.WriteLine("Suppression d'un véhicule ...");
         vehiculeService.SupprimerVehicule();
     }
+    Thread.Sleep(5000);
 }

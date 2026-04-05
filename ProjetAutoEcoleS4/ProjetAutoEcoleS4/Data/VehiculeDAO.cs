@@ -100,8 +100,19 @@ namespace ProjetAutoEcoleS4.Data
                 try
                 {
                     cn.Open();
+                    string sql = "DELETE FROM kilometragemois WHERE ID_Vehicule = @id_vehicule;";
+                    string fe = "DELETE FROM Planning WHERE ID_Vehicule = @id_vehicule;";
+                    MySqlCommand re = new MySqlCommand(fe, cn);
+                    re.Parameters.AddWithValue("@id_vehicule", id_vehicule);
+                    int h = re.ExecuteNonQuery();
+                    string ak = "DELETE FROM Lecon WHERE ID_Vehicule = @id_vehicule;";
+                    MySqlCommand ta = new MySqlCommand(ak, cn);
+                    ta.Parameters.AddWithValue("@id_vehicule", id_vehicule);
+                    int g = ta.ExecuteNonQuery();
                     string deleteQuery = "DELETE FROM Vehicule WHERE ID_Vehicule = @id_vehicule;";
-
+                    MySqlCommand a = new MySqlCommand(sql, cn);
+                    a.Parameters.AddWithValue("@id_vehicule", id_vehicule);
+                    int f = a.ExecuteNonQuery();
                     MySqlCommand cmd = new MySqlCommand(deleteQuery, cn);
                     cmd.Parameters.AddWithValue("@id_vehicule", id_vehicule);
 
