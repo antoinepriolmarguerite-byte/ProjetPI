@@ -13,11 +13,15 @@ namespace ProjetAutoEcoleS4.Services
     {
         List<Moniteur> list_moniteur;
         private MoniteurDAO bdd_Moniteur;
+        string port;
+        string password;
 
         public MoniteurService(string port, string password)
         {
             this.bdd_Moniteur = new MoniteurDAO(port,password);
-            list_moniteur = bdd_Moniteur.GetAll(port, password);
+            this.port = port;
+            this.password = password;
+            list_moniteur = bdd_Moniteur.GetAll();
         }
         public bool MoniteurExiste(int m)
         {
@@ -27,10 +31,10 @@ namespace ProjetAutoEcoleS4.Services
             }
             return false;
         }
-        public void AfficherAllMoniteur(string port, string password)
+        public void AfficherAllMoniteur()
         {
             MoniteurDAO moniteurDAO = new MoniteurDAO(port,password);
-            List<Moniteur> liste = moniteurDAO.GetAll(port, password);
+            List<Moniteur> liste = moniteurDAO.GetAll();
             foreach (Moniteur e in liste)
             {
                 Console.WriteLine(e.ToString());

@@ -16,6 +16,7 @@ namespace ProjetAutoEcoleS4.Data
         {
             conn = new Database(port, password);
         }
+
         public List<Vehicule> GetAll()
         {
             List<Vehicule> liste = new List<Vehicule>();

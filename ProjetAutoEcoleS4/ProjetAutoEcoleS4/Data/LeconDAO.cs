@@ -115,6 +115,7 @@ namespace ProjetAutoEcoleS4.Data
 
             return leconExiste;
         }
+
         public int Id_LeconFromDateAndEleve(string codeNEPH, DateTime dateLecon)
         {
             int id_lecon = 0;

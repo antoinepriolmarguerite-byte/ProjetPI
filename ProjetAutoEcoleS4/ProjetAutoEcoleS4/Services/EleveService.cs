@@ -19,8 +19,8 @@ namespace ProjetAutoEcoleS4.Services
 
         public EleveService(string port, string password)
         {
-            this.bdd_Eleve = new EleveDAO();
-            list_eleve = bdd_Eleve.GetAll(port,password);
+            this.bdd_Eleve = new EleveDAO(port, password);
+            list_eleve = bdd_Eleve.GetAll();
             this.port = port;
             this.password = password;
         }
@@ -28,7 +28,7 @@ namespace ProjetAutoEcoleS4.Services
         public void AjouterEleve(Eleve e)
         {
             list_eleve.Add(e);
-            bdd_Eleve.Ajouter(e, port, password);
+            bdd_Eleve.Ajouter(e);
         }
 
         public Eleve CreerEleve()
@@ -53,14 +53,14 @@ namespace ProjetAutoEcoleS4.Services
             {
                 if(id == list_eleve[i].id_eleve) {list_eleve.RemoveAt(i);break;}
             }
-            bdd_Eleve.Supprimer(id, port, password);
+            bdd_Eleve.Supprimer(id);
             Console.WriteLine("Eleve supprimé avec succès ! ");
         }
 
         public void AfficherAllEleve()
         {
-            EleveDAO elevedao = new EleveDAO();
-            List<Eleve> liste = elevedao.GetAll(port, password);
+            EleveDAO elevedao = new EleveDAO(port, password);
+            List<Eleve> liste = elevedao.GetAll();
             foreach (Eleve e in liste)
             {
                 Console.WriteLine(e.ToString());

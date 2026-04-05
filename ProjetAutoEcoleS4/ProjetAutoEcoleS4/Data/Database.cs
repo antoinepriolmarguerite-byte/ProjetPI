@@ -21,6 +21,7 @@ public class Database
         {
             return new MySqlConnection(connectionString);
         }
+
         //Methode de test
         public string TestConnection()
         {
@@ -45,7 +46,7 @@ public class Database
                     return(" ErreurConnexion : " + e.ToString());
                     break;
             }
-            return "chepa";
+            return "other";
         }
         }
     }

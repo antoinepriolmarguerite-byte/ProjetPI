@@ -17,8 +17,8 @@ namespace ProjetAutoEcoleS4.Interfaces
         
         public IEleveService(string port,string password)
         {
-            this.bdd_Eleve = new EleveDAO();
-            this.list_eleve = bdd_Eleve.GetAll(port,password);
+            this.bdd_Eleve = new EleveDAO(port, password);
+            this.list_eleve = bdd_Eleve.GetAll();
         }
         public string[] AjouterEleve(string port,string password)
         {
@@ -26,7 +26,7 @@ namespace ProjetAutoEcoleS4.Interfaces
             MoniteurService MS = new MoniteurService(port, password);
             MoniteurDAO bddMoniteur = new MoniteurDAO(port,password);
             List<int> idMoniteur = new List<int>();
-            List<Moniteur> ListeMoniteur = bddMoniteur.GetAll(port, password);
+            List<Moniteur> ListeMoniteur = bddMoniteur.GetAll();
 
             Console.Write("Veuillez écrire votre CodeNEPH : ");
             string codeNEPH = Console.ReadLine()!; long intNEPH;
@@ -129,7 +129,7 @@ namespace ProjetAutoEcoleS4.Interfaces
             retour[10] = EstBoiteManuelle; 
 
             Console.WriteLine("\n== MONITEURS ==");
-                MS.AfficherAllMoniteur(port,password);
+                MS.AfficherAllMoniteur();
                 for(int i = 0; i < ListeMoniteur.Count(); i++)
                 {
                     idMoniteur.Add(ListeMoniteur[i].id_moniteur); 

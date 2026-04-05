@@ -11,9 +11,13 @@ namespace ProjetAutoEcoleS4.Data
 {
     internal class EleveDAO
     {
-        public void Ajouter(Eleve e, string port, string password) //MON GROS CACA respectez ce commentaire, c'est le 1er push de Bastien
+        public Database conn;
+        public EleveDAO(string port, string password)
         {
-            Database conn = new Database(port, password);
+            conn = new Database(port, password);
+        }
+        public void Ajouter(Eleve e)
+        {
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
@@ -43,9 +47,8 @@ namespace ProjetAutoEcoleS4.Data
             }
         }
 
-        public List<Eleve> GetAll(string port, string password)
+        public List<Eleve> GetAll()
         {
-            Database conn = new Database(port, password); //Ronan changera
             List<Eleve> liste = new List<Eleve>();
             using (MySqlConnection cn = conn.GetConnection())
             {
@@ -65,9 +68,8 @@ namespace ProjetAutoEcoleS4.Data
             return liste;
         }
 
-        public void Supprimer(int id, string port, string password)
+        public void Supprimer(int id)
         {
-            Database conn = new Database(port, password);
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
@@ -98,10 +100,9 @@ namespace ProjetAutoEcoleS4.Data
                 cmd.ExecuteNonQuery();
             }
         }
-        public int NbrheureEleve(int id, string port, string password)
+        public int NbrheureEleve(int id)
         {
             int nbr = 0;
-            Database conn = new Database(port, password);
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
@@ -118,10 +119,9 @@ namespace ProjetAutoEcoleS4.Data
             }
             return nbr;
         }
-        public double MontantTotalEleve(int id, string port, string password)
+        public double MontantTotalEleve(int id)
         {
             double montant = 0;
-            Database conn = new Database(port, password);
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();

@@ -29,8 +29,10 @@ namespace ProjetAutoEcoleS4.Data
             LeconDAO lecondao = new LeconDAO(port, password);
             MoniteurService MS = new MoniteurService(port, password);
             MoniteurDAO bddMoniteur = new MoniteurDAO(port, password);
+            VehiculeServices VS = new VehiculeServices(port, password);
+            VehiculeDAO bddVehicule = new VehiculeDAO(port, password);
             List<int> idMoniteurList = new List<int>();
-            List<Moniteur> ListeMoniteur = bddMoniteur.GetAll(port, password);
+            List<Moniteur> ListeMoniteur = bddMoniteur.GetAll();
 
             // --- DATE ---
             Console.Write("Donnez la date de la leçon (jj-mm-aaaa HH:mm:ss) : ");
@@ -66,7 +68,7 @@ namespace ProjetAutoEcoleS4.Data
 
                 // --- CHOIX MONITEUR ---
                 Console.WriteLine("== MONITEURS ==");
-                MS.AfficherAllMoniteur(port, password);
+                MS.AfficherAllMoniteur();
                 foreach (var m in ListeMoniteur) { idMoniteurList.Add(m.id_moniteur); }
 
                 Console.Write("Veuillez entrer l'ID du moniteur : ");
@@ -84,6 +86,7 @@ namespace ProjetAutoEcoleS4.Data
                 l.id_moniteur = idMoniteurSaisi;
 
                 // --- CHOIX VÉHICULE ---
+                VS.AfficherAllVehicule();
                 Console.Write("Donnez l'ID du véhicule pour la leçon : ");
                 int idVehiculeSaisi;
                 while (!int.TryParse(Console.ReadLine(), out idVehiculeSaisi) || idVehiculeSaisi < 0)
@@ -99,7 +102,7 @@ namespace ProjetAutoEcoleS4.Data
                 l.vehicule.id_vehicule = idVehiculeSaisi;
 
                 // --- MONTANT FACTURE ---
-                Console.Write("Veuillez entrer le montant de la facture : ");
+                Console.Write("Veuillez entrer le montant de la facture (en €) : ");
                 double montantFacture;
                 while (!double.TryParse(Console.ReadLine(), out montantFacture) || montantFacture < 0)
                 {
