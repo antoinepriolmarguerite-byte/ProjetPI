@@ -57,8 +57,8 @@ namespace ProjetAutoEcoleS4.Models
             this.rib = attributs[7];
             this.dateNaissance = DateTime.Parse(attributs[8]);
             this.permis = attributs[9];
-            this.estBoiteManuelle = bool.Parse(attributs[9]);
-            this.moniteurTitre = attributs[10];
+            this.estBoiteManuelle = bool.Parse(attributs[10]);
+            this.moniteurTitre = attributs[11];
             this.nbHeuresAPayer = 0;
         }
         public override string ToString()

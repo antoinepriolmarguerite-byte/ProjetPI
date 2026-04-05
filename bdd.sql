@@ -140,3 +140,5 @@ INSERT INTO KilometrageMois (ID_Vehicule, Annee_mois, Nbkilometre) VALUES
 (1, 202403, 1250.5),
 (2, 202403, 890.0),
 (3, 202403, 450.2);
+SELECT * FROM eleve;
+SELECT * FROM lecon;
