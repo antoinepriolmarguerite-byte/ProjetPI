@@ -100,7 +100,7 @@ void AfficherVoirMontant()
 
     eleve.AfficherAllEleve();
     List<Eleve> liste = dao.GetAll();
-    Console.WriteLine("Choisissez le numéro de l'élève dont vous souhaitez connaitre le montant qu'il doit régler");
+    Console.Write("Choisissez le numéro de l'élève dont vous souhaitez connaitre le montant qu'il doit régler : ");
     int id;
     do
     {
@@ -122,16 +122,16 @@ void AfficherKiloVehicule()
 
     vehicule.afficherallvehicule(port, pwd);
     List<Vehicule> listeVehicules = vehiculeDAO.GetAll();
-    Console.WriteLine("Chosisissez le numéro du véhicule que vous souhaitez connaitre le kilométrage");
+    Console.Write("Chosisissez le numéro du véhicule que vous souhaitez connaitre le kilométrage : ");
     int idv;
     do
     {
         if (!int.TryParse(Console.ReadLine(), out idv) || idv < 0)
         {
-            Console.WriteLine("Veuillez entrer un numéro valide :");
+            Console.WriteLine("Veuillez entrer un numéro valide : ");
         }
     } while (idv < 0 && idv > listeVehicules.Count - 1);
-    Console.WriteLine("Donnez le mois que vous souhaitez regarder le kilométrage :");
+    Console.Write("Donnez le mois que vous souhaitez regarder le kilométrage : ");
     int Moiskilo;
     do
     {
@@ -140,7 +140,7 @@ void AfficherKiloVehicule()
             Console.Write("Veuillez entrer un nombre valide : ");
         }
     } while (Moiskilo < 1 || Moiskilo > 12);
-    Console.WriteLine("Donnez l'année que vous souhaitez regarder le kilométrage :");
+    Console.Write("Donnez l'année que vous souhaitez regarder le kilométrage : ");
     int annekilo;
     do
     {
@@ -181,7 +181,7 @@ void AfficherHeureEleveMoni()
         MoniteurService moniteurService = new MoniteurService(port, pwd);
         moniteurService.AfficherAllMoniteur();
         List<Moniteur> listmon = moniteurDAO.GetAll();
-        Console.WriteLine("Chosisissez le numéro du moniteur que vous souhaitez connaitre le nombre d'heures");
+        Console.Write("Choisissez le numéro du moniteur que vous souhaitez connaitre le nombre d'heures : ");
         int idmon;
         do
         {
@@ -199,7 +199,7 @@ void AfficherHeureEleveMoni()
     {
         eleve.AfficherAllEleve();
         List<Eleve> listeeleve = dao.GetAll();
-        Console.WriteLine("Choisissez le numéro de l'élève que vous souhaitez connaitre le nombre d'heures");
+        Console.Write("Choisissez le numéro de l'élève que vous souhaitez connaitre le nombre d'heures : ");
         do
         {
             if (!int.TryParse(Console.ReadLine(), out id) || id < 0)
@@ -217,7 +217,7 @@ void AfficherHeureEleveMoni()
 void AfficherCAmensuel()
 {     
     LeconDAO leconDAO = new LeconDAO(port, pwd);
-    Console.WriteLine("Donnez le mois que vous souhaitez regarder le chiffre d'affaire");
+    Console.Write("Donnez le mois que vous souhaitez regarder le chiffre d'affaire : ");
     int Mois;
     do
     {
@@ -226,7 +226,7 @@ void AfficherCAmensuel()
             Console.Write("Veuillez entrer un nombre valide : ");
         }
     } while (Mois < 1 || Mois > 12);
-    Console.WriteLine("Donnez l'année que vous souhaitez regarder le chiffre d'affaire :");
+    Console.Write("Donnez l'année que vous souhaitez regarder le chiffre d'affaire : ");
     int anne;
     do
     {
@@ -260,16 +260,14 @@ void AfficherAjoutSuppEleve()
     } while (choix != "1" && choix != "2");
     if (choix == "1")
     {
-        Console.WriteLine("Ajout d'un élève ...");
         e = eleveService.CreerEleve();
         eleveService.AjouterEleve(e);
     }
     else if (choix == "2")
     {
-        Console.WriteLine("Suppression d'un élève ...");
         eleveService.AfficherAllEleve();
         List<Eleve> listeeleve = dao.GetAll();
-        Console.Write("Chosisissez le numéro de l'élève que vous souhaitez supprimer");
+        Console.Write("Chosisissez le numéro de l'élève que vous souhaitez supprimer : ");
         int ideleve;
         do
         {
@@ -306,7 +304,6 @@ void AfficherAjoutSuppVehicule()
     }
     else if (choix == "2")
     {
-        Console.WriteLine("Suppression d'un véhicule ...");
         vehiculeService.SupprimerVehicule();
     }
     Thread.Sleep(5000);

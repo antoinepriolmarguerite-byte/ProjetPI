@@ -99,7 +99,7 @@ namespace ProjetAutoEcoleS4.Data
             Console.Clear();
             VehiculeDAO vehiculedao = new VehiculeDAO(port, password);
             AfficherAllVehicule();
-            Console.WriteLine("Donnez l'immatriculation du véhicule à supprimer : ");
+            Console.Write("Donnez l'immatriculation du véhicule à supprimer : ");
             string immatriculation;
             do
             {
