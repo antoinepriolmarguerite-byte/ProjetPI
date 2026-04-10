@@ -18,10 +18,22 @@ namespace ProjetAutoEcoleS4.Data
         }
         public void AfficherPlanning()
         {
+            Console.Write("Donnez la date de la leçon (jj-mm-aaaa) : ");
+            DateTime date;
+            while (!DateTime.TryParse(Console.ReadLine(), out date))
+            {
+                Console.Write("Format invalide. Veuillez entrer une date valide : ");
+            }
+            Console.Write("Veuillez entrer l'ID du moniteur : ");
+            int idMoniteurSaisi;
+            while (!int.TryParse(Console.ReadLine(), out idMoniteurSaisi))
+            {
+                Console.Write("ID inconnu ou invalide. Veuillez choisir un ID présent dans la liste : ");
+            }
             Console.Clear();
             Console.WriteLine("\n--- PLANNING DE L'AUTO-ÉCOLE ---");
             PlanningDAO planningDAO = new PlanningDAO(port, password);
-            List<string> lecons = planningDAO.RecupererPlanningDAO();
+            List<string> lecons = planningDAO.RecupererPlanningDAO(date, idMoniteurSaisi);
 
             if (lecons.Count == 0)
             {
