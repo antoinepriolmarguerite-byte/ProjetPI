@@ -22,7 +22,7 @@ namespace ProjetAutoEcoleS4.Data
             conn = database;
         }
 
-        public List<string> RecupererPlanningDAO()
+        public List<string> RecupererPlanningDAO(DateTime date, int id)
         {
             List<string> liste = new List<string>();
 
