@@ -16,37 +16,52 @@ namespace ProjetAutoEcoleS4.Data
         {
             conn = new Database(port, password);
         }
+
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : aucune
+        // TRAITEMENT : Récupère tous les véhicules avec leur état et immatriculation
+        // SORTIE     : List<Vehicule>
+        // ==========================================
         public List<Vehicule> GetAll()
         {
             List<Vehicule> liste = new List<Vehicule>();
+
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                MySqlCommand cmd = new MySqlCommand("SELECT * FROM VEHICULE order by id_vehicule", cn);
-                MySqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
+                string sql = "SELECT ID_Vehicule, Marque, Modele, Immatriculation, Etat FROM Vehicule ORDER BY ID_Vehicule";
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, cn))
                 {
-                    liste.Add(new Vehicule
+                    using (MySqlDataReader dr = cmd.ExecuteReader())
                     {
-                        id_vehicule = dr.GetInt32("id_vehicule"),
-                        marque = dr.GetString("marque"),
-                        modele = dr.GetString("modele"),
-                        immatriculation = dr.GetString("immatriculation"),
-                        etat = dr.GetBoolean("etat")
-                    });
+                        while (dr.Read())
+                        {
+                            liste.Add(new Vehicule
+                            {
+                                id_vehicule = dr.GetInt32("ID_Vehicule"),
+                                marque = dr.IsDBNull(dr.GetOrdinal("Marque")) ? "" : dr.GetString("Marque"),
+                                modele = dr.IsDBNull(dr.GetOrdinal("Modele")) ? "" : dr.GetString("Modele"),
+                                immatriculation = dr.GetString("Immatriculation"),
+                                etat = dr.GetBoolean("Etat")
+                            });
+                        }
+                    }
                 }
             }
             return liste;
         }
 
-        public int FindVehicule(string immatriculation)
+
+        public int FindVehicule(int idvehicule)
         {
             int id_vehicule = 0;
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                MySqlCommand cmd = new MySqlCommand("SELECT id_vehicule FROM VEHICULE WHERE immatriculation = @immat", cn);
-                cmd.Parameters.AddWithValue("@immat", immatriculation);
+                MySqlCommand cmd = new MySqlCommand("SELECT id_vehicule FROM VEHICULE WHERE id_vehicule = @immat", cn);
+                cmd.Parameters.AddWithValue("@immat", idvehicule);
                 object result = cmd.ExecuteScalar();
                 if (result != null && result != DBNull.Value)
                 {
@@ -56,6 +71,12 @@ namespace ProjetAutoEcoleS4.Data
             return id_vehicule;
         }
 
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : int idvehicule, int anne, int Mois
+        // TRAITEMENT : Récupère le kilométrage enregistré pour un véhicule sur une période donnée
+        // SORTIE     : double (nombre de kilomètres)
+        // ==========================================
         public double Nbrkilometre(int idvehicule, int anne, int Mois)
         {
             double nbr = 0;
@@ -74,6 +95,7 @@ namespace ProjetAutoEcoleS4.Data
             }
             return nbr;
         }
+
         public void Ajouter(Vehicule v)
         {
             using (MySqlConnection cn = conn.GetConnection())
@@ -86,11 +108,20 @@ namespace ProjetAutoEcoleS4.Data
                 cmd.Parameters.AddWithValue("@boitevitesse", v.boitevitesse);
                 cmd.Parameters.AddWithValue("@marque", v.marque);
                 cmd.Parameters.AddWithValue("@modele", v.modele);
+
+                cmd.ExecuteNonQuery();
                 Console.WriteLine("Insertion réalisée");
                 cn.Dispose();
             }
             Thread.Sleep(1000);
         }
+
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : int id_vehicule
+        // TRAITEMENT : Supprime les données liées (kilométrage, planning, leçons) avant de supprimer le véhicule
+        // SORTIE     : aucune
+        // ==========================================
         public void Supprimer(int id_vehicule)
         {
             using (MySqlConnection cn = conn.GetConnection())

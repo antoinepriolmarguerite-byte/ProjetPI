@@ -12,21 +12,35 @@ namespace ProjetAutoEcoleS4.Interfaces
     internal class IEleveService
     {
         private List<Eleve> list_eleve;
-        //private EleveService services;
         private EleveDAO bdd_Eleve;
-        
+        string port;
+        string password;
+
         public IEleveService(string port,string password)
         {
-            this.bdd_Eleve = new EleveDAO();
-            this.list_eleve = bdd_Eleve.GetAll(port,password);
+            this.bdd_Eleve = new EleveDAO(port, password);
+            this.list_eleve = bdd_Eleve.GetAll();
+            this.port = port;
+            this.password = password;
         }
-        public string[] AjouterEleve(string port,string password)
+
+// ==========================================
+// TYPE       : Méthode d'INSTANCE
+// ENTRÉE     : aucune
+// TRAITEMENT : 
+//   - Affiche un formulaire de saisie complet dans la console
+//   - Valide le format du CodeNEPH (12 chiffres)
+//   - Propose une sélection interactive du moniteur référent
+//   - Récupère les informations personnelles (Nom, Prénom, Mail, etc.)
+// SORTIE     : string[] (tableau contenant toutes les données de l'élève saisies)
+// ==========================================
+        public string[] CreerEleve()
         {
             string[] retour = new string[13];
             MoniteurService MS = new MoniteurService(port, password);
             MoniteurDAO bddMoniteur = new MoniteurDAO(port,password);
             List<int> idMoniteur = new List<int>();
-            List<Moniteur> ListeMoniteur = bddMoniteur.GetAll(port, password);
+            List<Moniteur> ListeMoniteur = bddMoniteur.GetAll();
 
             Console.Write("Veuillez écrire votre CodeNEPH : ");
             string codeNEPH = Console.ReadLine()!; long intNEPH;
@@ -129,7 +143,7 @@ namespace ProjetAutoEcoleS4.Interfaces
             retour[10] = EstBoiteManuelle; 
 
             Console.WriteLine("\n== MONITEURS ==");
-                MS.AfficherAllMoniteur(port,password);
+                MS.AfficherAllMoniteur();
                 for(int i = 0; i < ListeMoniteur.Count(); i++)
                 {
                     idMoniteur.Add(ListeMoniteur[i].id_moniteur); 
@@ -153,23 +167,53 @@ namespace ProjetAutoEcoleS4.Interfaces
 
         }
 
+// ==========================================
+// TYPE       : Méthode d'INSTANCE
+// ENTRÉE     : aucune
+// TRAITEMENT : 
+//   - Affiche un menu de choix (Ajouter ou Supprimer)
+//   - En cas d'ajout : appelle la création et l'insertion d'un élève
+//   - En cas de suppression : affiche la liste et valide l'ID à supprimer
+// SORTIE     : aucune
+// ==========================================
+        public void AfficherAjoutSuppEleve()
+        {
+            EleveDAO dao = new EleveDAO(port, password);
+            Eleve e = new Eleve();
+            EleveService eleveService = new EleveService(port, password);
 
-
-        /*
-        //bool VerifierEligibilite(Client client);
-        // Récupérer tous les clients (pour les afficher dans la console)
-        List<Eleve> RecupEleve();
-
-        // Récupérer un seul Eleve par son code NEPH
-        Eleve RecupEleveParNEPH(string codeNeph); 
-
-        // Ajouter un nouveau Eleve
-        bool AjouterEleve(Eleve Eleve);
-
-        // Mettre à jour les infos d'un Eleve
-        bool ModifierEleve(Eleve Eleve);
-
-        // Supprimer un Eleve
-        bool SupprimerEleve(string codeNeph); */
+            Console.WriteLine("Voulez-vous ajouter ou supprimer un élève ?");
+            Console.WriteLine("1 - Ajouter");
+            Console.WriteLine("2 - Supprimer");
+            string choix;
+            do
+            {
+                choix = Console.ReadLine();
+                if (choix != "1" && choix != "2")
+                {
+                    Console.Write("Veuillez entrer un choix valide : ");
+                }
+            } while (choix != "1" && choix != "2");
+            if (choix == "1")
+            {
+                e = eleveService.CreerEleve();
+                eleveService.AjouterEleve(e);
+            }
+            else if (choix == "2")
+            {
+                eleveService.AfficherAllEleve();
+                List<Eleve> listeeleve = dao.GetAll();
+                Console.Write("Chosisissez le numéro de l'élève que vous souhaitez supprimer : ");
+                int ideleve;
+                do
+                {
+                    if (!int.TryParse(Console.ReadLine(), out ideleve) || ideleve < 0)
+                    {
+                        Console.Write("Veuillez entrer un numéro valide : ");
+                    }
+                } while (ideleve < 0 && ideleve > listeeleve.Count);
+                eleveService.SupprimerEleve(ideleve);
+            }
+        }
     }
 }

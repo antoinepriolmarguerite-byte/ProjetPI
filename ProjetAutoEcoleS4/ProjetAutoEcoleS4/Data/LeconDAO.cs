@@ -17,29 +17,49 @@ namespace ProjetAutoEcoleS4.Data
         {
             conn = new Database(port, password);
         }
+
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : Lecon c
+        // TRAITEMENT : Insère une leçon, récupère son ID auto-généré et met à jour le Planning et la Facturation
+        // SORTIE     : aucune
+        // ==========================================
         public void AjouterLecon_DAO(Lecon c)
         {
+            PlanningDAO planningDAO = new PlanningDAO(conn);
+            FactureDAO factureDAO = new FactureDAO(conn);
+
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                string insertTable = "ALTER TABLE Lecon MODIFY COLUMN ID_Lecon INT AUTO_INCREMENT;" +
-                                    "INSERT INTO Lecon(Date_, ID_Eleve, ID_Moniteur, ID_Vehicule, MontantFacture) " +
-                                     "VALUES (@date, @idEleve, @idMoniteur, @idVehicule, @montant)";
+
+                string insertTable = "INSERT INTO Lecon(Date_, ID_Eleve, ID_Moniteur, ID_Vehicule, MontantFacture) " +
+                                     "VALUES (@date, @idEleve, @idMoniteur, @idVehicule, @montant); " +
+                                     "SELECT LAST_INSERT_ID();";
 
                 using (MySqlCommand cmd = new MySqlCommand(insertTable, cn))
                 {
-                    //cmd.Parameters.AddWithValue("@id", c.id_Lecon);
                     cmd.Parameters.AddWithValue("@date", c.dateLecon);
                     cmd.Parameters.AddWithValue("@idEleve", c.eleve.id_eleve);
                     cmd.Parameters.AddWithValue("@idMoniteur", c.id_moniteur);
                     cmd.Parameters.AddWithValue("@idVehicule", c.vehicule.id_vehicule);
                     cmd.Parameters.AddWithValue("@montant", c.montantFacture);
-                    cmd.ExecuteNonQuery(); //N'oubliez pas cette ligne sinon ça marche pas!
+                    object result = cmd.ExecuteScalar();
+                    if (result != null)
+                    {
+                        c.id_lecon = Convert.ToInt32(result);
+                    }
                 }
-
-                Console.WriteLine("Insertion réalisée avec succès dans la base !");
+                planningDAO.AjouterLeconDansPlanning(c);
+                factureDAO.AjouterLeconDansFacture(c);
             }
         }
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : string codeNEPH, DateTime dateLecon
+        // TRAITEMENT : Vérifie si un élève a déjà une leçon programmée à une date précise
+        // SORTIE     : bool (true si une leçon existe déjà)
+        // ==========================================
         public bool VerifierLeconEleve(string codeNEPH, DateTime dateLecon)
         {
             bool leconExiste = false;
@@ -65,6 +85,7 @@ namespace ProjetAutoEcoleS4.Data
 
             return leconExiste;
         }
+
         public bool VerifierLeconMoniteur(string moniteur, DateTime dateLecon)
         {
             bool leconExiste = false;
@@ -90,6 +111,8 @@ namespace ProjetAutoEcoleS4.Data
 
             return leconExiste;
         }
+
+
         public bool VerifierLeconVehicule(int vehicule, DateTime dateLecon)
         {
             bool leconExiste = false;
@@ -100,12 +123,12 @@ namespace ProjetAutoEcoleS4.Data
 
                 string sql = "SELECT Vehicule.id_vehicule FROM Lecon " +
                              "JOIN Vehicule ON Lecon.id_vehicule = Vehicule.id_vehicule " +
-                             "WHERE Vehicule.immatriculation = @immatriculation " +
+                             "WHERE Vehicule.immatriculation = @idvehicule " +
                              "AND Lecon.Date_ = @dateLecon " +
                              "LIMIT 1";
 
                 MySqlCommand cmd = new MySqlCommand(sql, cn);
-                cmd.Parameters.AddWithValue("@immatriculation", vehicule);
+                cmd.Parameters.AddWithValue("@idVehicule", vehicule);
                 cmd.Parameters.AddWithValue("@dateLecon", dateLecon);
 
                 MySqlDataReader dr = cmd.ExecuteReader();
@@ -138,6 +161,12 @@ namespace ProjetAutoEcoleS4.Data
             return id_lecon;
         }
 
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : int idlecon
+        // TRAITEMENT : Détache la leçon du planning puis supprime l'enregistrement de la table Lecon
+        // SORTIE     : aucune
+        // ==========================================
         public void SupprimerLecon_DAO(int idlecon)
         {
             //int idLecon = Id_LeconFromDateAndEleve(codeNEPH, dateLecon);
@@ -170,6 +199,12 @@ namespace ProjetAutoEcoleS4.Data
                     Console.WriteLine("Aucune leçon trouvée avec cet ID.");
             }
         }
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : int anne, int mois
+        // TRAITEMENT : Calcule la somme des montants facturés pour un mois et une année donnés
+        // SORTIE     : double (chiffre d'affaires mensuel)
+        // ==========================================
         public double Chiffremensuel(int anne, int mois)
         {
             double chiffre = 0;
@@ -187,9 +222,10 @@ namespace ProjetAutoEcoleS4.Data
             return chiffre;
         }
 
+
         public List<Lecon> GetAll(string port, string password)
         {
-            Database conn = new Database(port, password); //Ronan changera
+            Database conn = new Database(port, password);
             List<Lecon> liste = new List<Lecon>();
             using (MySqlConnection cn = conn.GetConnection())
             {

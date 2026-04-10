@@ -11,8 +11,8 @@ namespace ProjetAutoEcoleS4.Models
 {
     internal class Lecon
     {
-        private static int idCounter = 1; // Compteur pour générer des ID uniques
-        public int id_lecon  { get; set; }// Clé primaire
+        private static int idCounter = 1; 
+        public int id_lecon  { get; set; } // Clé primaire
         public DateTime dateLecon { get; set; }
         public Eleve eleve { get; set; } 
         public int id_moniteur { get; set; }

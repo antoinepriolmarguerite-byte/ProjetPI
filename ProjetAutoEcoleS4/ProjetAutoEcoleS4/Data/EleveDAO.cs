@@ -11,9 +11,20 @@ namespace ProjetAutoEcoleS4.Data
 {
     internal class EleveDAO
     {
-        public void Ajouter(Eleve e, string port, string password) //MON GROS CACA respectez ce commentaire, c'est le 1er push de Bastien
+        public Database conn;
+        public EleveDAO(string port, string password)
         {
-            Database conn = new Database(port, password);
+            conn = new Database(port, password);
+        }
+
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : Eleve e
+        // TRAITEMENT : Exécute une requête INSERT pour sauvegarder un nouvel élève en base de données
+        // SORTIE     : aucune (affiche un message de succès en console)
+        // ==========================================
+        public void Ajouter(Eleve e)
+        {
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
@@ -43,9 +54,14 @@ namespace ProjetAutoEcoleS4.Data
             }
         }
 
-        public List<Eleve> GetAll(string port, string password)
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : aucune
+        // TRAITEMENT : Récupère tous les enregistrements de la table ELEVE
+        // SORTIE     : List<Eleve> (liste des objets élèves avec ID, Nom et Prénom)
+        // ==========================================
+        public List<Eleve> GetAll()
         {
-            Database conn = new Database(port, password); //Ronan changera
             List<Eleve> liste = new List<Eleve>();
             using (MySqlConnection cn = conn.GetConnection())
             {
@@ -65,21 +81,55 @@ namespace ProjetAutoEcoleS4.Data
             return liste;
         }
 
-        public void Supprimer(int id, string port, string password)
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : int id
+        // TRAITEMENT : Supprime en cascade les factures, plannings, leçons et l'élève via une transaction
+        // SORTIE     : aucune (commit si succès, rollback en cas d'erreur)
+        // ==========================================
+        public void Supprimer(int id)
         {
-            Database conn = new Database(port, password);
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
-                MySqlCommand cmd = new MySqlCommand("DELETE FROM ELEVE WHERE id_eleve = @id", cn);
+                using (MySqlTransaction transaction = cn.BeginTransaction())
+                {
+                    try
+                    {
+                        ExecuteSimpleQuery("DELETE FROM Facture WHERE ID_Eleve = @id", id, cn, transaction);
+                        ExecuteSimpleQuery("UPDATE Planning SET ID_Lecon = NULL, ID_Eleve = NULL WHERE ID_Eleve = @id", id, cn, transaction);
+                        ExecuteSimpleQuery("DELETE FROM Lecon WHERE ID_Eleve = @id", id, cn, transaction);
+                        ExecuteSimpleQuery("DELETE FROM Eleve WHERE ID_Eleve = @id", id, cn, transaction);
+                        transaction.Commit();
+                        Console.WriteLine("Suppression réussie !");
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        Console.WriteLine("Erreur lors de la suppression : " + ex.Message);
+                    }
+                }
+            }
+        }
+
+        private void ExecuteSimpleQuery(string sql, int id, MySqlConnection cn, MySqlTransaction trans)
+        {
+            using (MySqlCommand cmd = new MySqlCommand(sql, cn, trans))
+            {
                 cmd.Parameters.AddWithValue("@id", id);
                 cmd.ExecuteNonQuery();
             }
         }
-        public int NbrheureEleve(int id, string port, string password)
+
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : int id
+        // TRAITEMENT : Compte le nombre d'entrées dans la table Lecon pour un élève spécifique
+        // SORTIE     : int (nombre d'heures effectuées)
+        // ==========================================
+        public int NbrheureEleve(int id)
         {
             int nbr = 0;
-            Database conn = new Database(port, password);
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
@@ -96,10 +146,16 @@ namespace ProjetAutoEcoleS4.Data
             }
             return nbr;
         }
-        public double MontantTotalEleve(int id, string port, string password)
+
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : int id
+        // TRAITEMENT : Récupère la valeur de la colonne MontantReglementRestant pour un élève
+        // SORTIE     : double (montant financier restant dû)
+        // ==========================================
+        public double MontantTotalEleve(int id)
         {
             double montant = 0;
-            Database conn = new Database(port, password);
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();

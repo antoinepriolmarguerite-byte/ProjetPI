@@ -8,13 +8,40 @@ namespace ProjetAutoEcoleS4.Models
 {
     internal class Facture
     {
-        private int id_facture; //Clé primaire
-        private string destinataire;
-        private string nomEleve;
-        private int montant;
-        private DateTime deadlineReglement;
-        private DateTime dateseance;
-        private string typeReglement;
-        private string id_eleve; //Clé étrangère
+        public string id_facture { get; set; } //Clé primaire
+        public string destinataire { get; set; }
+        public string nomEleve { get; set; }
+        public int montant { get; set; }
+        public DateTime? deadlineReglement { get; set; }
+        public DateTime? dateSeance { get; set; }
+        public string typeReglement { get; set; }
+        public int id_eleve { get; set; } //Clé étrangère
+
+        public Facture(int id_eleve, DateTime date)
+        {
+            string dateFormat = "yyyyMMddHHmmss";
+            this.id_facture = "FAC-" + DateTime.Now.ToString(dateFormat);
+
+            this.destinataire = "";
+            this.nomEleve = "";
+            this.montant = 0;
+            this.deadlineReglement = DateTime.Now.AddMonths(1);
+            this.dateSeance = date;
+            this.typeReglement = "En attente";
+            this.id_eleve = id_eleve;
+        }
+        public Facture()
+        {
+            string dateFormat = "yyyyMMddHHmmss";
+            this.id_facture = "";
+
+            this.destinataire = "";
+            this.nomEleve = "";
+            this.montant = 0;
+            this.deadlineReglement = DateTime.Now.AddMonths(1);
+            this.dateSeance = new DateTime();
+            this.typeReglement = "En attente";
+            this.id_eleve = id_eleve;
+        }
     }
 }

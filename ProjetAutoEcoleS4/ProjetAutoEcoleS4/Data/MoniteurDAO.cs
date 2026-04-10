@@ -17,32 +17,14 @@ namespace ProjetAutoEcoleS4.Data
             conn = new Database(port, password);
         }
 
-        public List<string> RecupererPlanningDAO() //A supprimé, les moniteurs sont ajoutés manuellement et si on a le temps on ajoutera ptêtre l'option
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : aucune
+        // TRAITEMENT : Récupère la liste de tous les moniteurs enregistrés
+        // SORTIE     : List<Moniteur> (objets moniteurs avec ID, Nom, Prénom)
+        // ==========================================
+        public List<Moniteur> GetAll()
         {
-            List<string> liste = new List<string>();
-
-            using (MySqlConnection cn = conn.GetConnection())
-            {
-                cn.Open();
-                string sql = @"SELECT p.DateHeureDebut, e.Nom, m.Nom as MoniteurNom 
-                           FROM Planning p
-                           JOIN Eleve e ON p.CodeNEPH = e.CodeNEPH
-                           JOIN Moniteur m ON p.ID_Moniteur = m.ID_Moniteur";
-
-                MySqlCommand cmd = new MySqlCommand(sql, cn);
-                using (MySqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        liste.Add($"{dr.GetDateTime("DateHeureDebut")} | {dr.GetString("Nom")} avec {dr.GetString("MoniteurNom")}");
-                    }
-                }
-            }
-            return liste;
-        }
-         public List<Moniteur> GetAll(string port,string password)
-        {
-            Database conn = new Database(port,password); 
             List<Moniteur> liste = new List<Moniteur>();
             using (MySqlConnection cn = conn.GetConnection())
             {
@@ -61,6 +43,13 @@ namespace ProjetAutoEcoleS4.Data
             }
             return liste;
         }
+
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : int id, string port, string password
+        // TRAITEMENT : Compte le nombre de leçons effectuées par un moniteur spécifique
+        // SORTIE     : int (total d'heures travaillées)
+        // ==========================================
         public int NbrheureMoniteur(int id, string port, string password)
         {
             int nbr = 0;

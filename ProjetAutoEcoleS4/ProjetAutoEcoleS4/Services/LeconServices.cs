@@ -23,14 +23,27 @@ namespace ProjetAutoEcoleS4.Data
             this.password = password;
         }
 
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : Lecon l
+        // TRAITEMENT : 
+        //   - Gère le formulaire complet de création d'une leçon en console
+        //   - Sélectionne l'élève, le moniteur et le véhicule
+        //   - Valide la date, l'heure et le montant saisi
+        //   - Met à jour le compteur d'heures et déclenche l'ajout en base
+        // SORTIE     : aucune
+        // ==========================================
         public void AjouterLeconAEleve(Lecon l)
         {
             EleveService Eleveservice = new EleveService(port, password);
             LeconDAO lecondao = new LeconDAO(port, password);
             MoniteurService MS = new MoniteurService(port, password);
             MoniteurDAO bddMoniteur = new MoniteurDAO(port, password);
+            VehiculeServices VS = new VehiculeServices(port, password);
+            VehiculeDAO bddVehicule = new VehiculeDAO(port, password);
+            IVehiculeServices IVS = new IVehiculeServices(port, password);
             List<int> idMoniteurList = new List<int>();
-            List<Moniteur> ListeMoniteur = bddMoniteur.GetAll(port, password);
+            List<Moniteur> ListeMoniteur = bddMoniteur.GetAll();
 
             // --- DATE ---
             Console.Write("Donnez la date de la leçon (jj-mm-aaaa HH:mm:ss) : ");
@@ -66,7 +79,7 @@ namespace ProjetAutoEcoleS4.Data
 
                 // --- CHOIX MONITEUR ---
                 Console.WriteLine("== MONITEURS ==");
-                MS.AfficherAllMoniteur(port, password);
+                MS.AfficherAllMoniteur();
                 foreach (var m in ListeMoniteur) { idMoniteurList.Add(m.id_moniteur); }
 
                 Console.Write("Veuillez entrer l'ID du moniteur : ");
@@ -84,6 +97,7 @@ namespace ProjetAutoEcoleS4.Data
                 l.id_moniteur = idMoniteurSaisi;
 
                 // --- CHOIX VÉHICULE ---
+                IVS.AfficherAllVehicule();
                 Console.Write("Donnez l'ID du véhicule pour la leçon : ");
                 int idVehiculeSaisi;
                 while (!int.TryParse(Console.ReadLine(), out idVehiculeSaisi) || idVehiculeSaisi < 0)
@@ -99,7 +113,7 @@ namespace ProjetAutoEcoleS4.Data
                 l.vehicule.id_vehicule = idVehiculeSaisi;
 
                 // --- MONTANT FACTURE ---
-                Console.Write("Veuillez entrer le montant de la facture : ");
+                Console.Write("Veuillez entrer le montant de la facture (en €) : ");
                 double montantFacture;
                 while (!double.TryParse(Console.ReadLine(), out montantFacture) || montantFacture < 0)
                 {
@@ -113,6 +127,16 @@ namespace ProjetAutoEcoleS4.Data
                 Console.WriteLine("Leçon ajoutée avec succès !");
             }
         }
+        
+        // ==========================================
+        // TYPE       : Méthode d'INSTANCE
+        // ENTRÉE     : aucune
+        // TRAITEMENT : 
+        //   - Affiche la liste de toutes les leçons existantes
+        //   - Demande la saisie d'un identifiant de leçon
+        //   - Appelle le DAO pour supprimer la leçon sélectionnée
+        // SORTIE     : aucune
+        // ==========================================        
         public void SupprimerLeçon()
         {
             LeconDAO leconbdd = new LeconDAO(port,password);

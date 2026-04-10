@@ -23,6 +23,16 @@ namespace ProjetAutoEcoleS4.Data
             this.password = password;
         }
 
+// ==========================================
+// TYPE       : Méthode d'INSTANCE
+// ENTRÉE     : Vehicule v
+// TRAITEMENT : 
+//   - Affiche un formulaire de saisie console pour un nouveau véhicule
+//   - Valide la saisie de l'immatriculation, du type, de la marque et du modèle
+//   - Empêche les saisies vides ou blanches (IsNullOrWhiteSpace)
+//   - Enregistre le véhicule via le VehiculeDAO
+// SORTIE     : aucune
+// ==========================================
         public void AjouterVehicule(Vehicule v)
         {
             Console.Clear();
@@ -94,43 +104,41 @@ namespace ProjetAutoEcoleS4.Data
             vehiculedao.Ajouter(v);
         }
 
+// ==========================================
+// TYPE       : Méthode d'INSTANCE
+// ENTRÉE     : aucune
+// TRAITEMENT : 
+//   - Affiche la liste des véhicules disponibles
+//   - Demande la saisie de l'ID du véhicule à retirer
+//   - Vérifie l'existence du véhicule avant de lancer la suppression SQL
+// SORTIE     : aucune
+// ==========================================
         public void SupprimerVehicule()
         {
             Console.Clear();
             VehiculeDAO vehiculedao = new VehiculeDAO(port, password);
-            AfficherAllVehicule();
-            Console.WriteLine("Donnez l'immatriculation du véhicule à supprimer : ");
-            string immatriculation;
+            IVehiculeServices IVS = new IVehiculeServices(port, password);
+            IVS.AfficherAllVehicule();
+            Console.Write("Donnez l'id du véhicule à supprimer : ");
+            int id;
             do
             {
 
-                immatriculation = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(immatriculation))
+                id = int.Parse(Console.ReadLine());
+                if (id==0)
                 {
-                    Console.Write("L'immatriculation du véhicule ne peut pas être vide. Veuillez réessayer : ");
+                    Console.Write("L'id du véhicule ne peut pas être vide. Veuillez réessayer : ");
                 }
-            } while (string.IsNullOrWhiteSpace(immatriculation));
-            int id_vehicule = vehiculedao.FindVehicule(immatriculation);
+            } while (id==0);
+            int id_vehicule = vehiculedao.FindVehicule(id);
             if (id_vehicule != 0)
             {
                 vehiculedao.Supprimer(id_vehicule);
-                Console.WriteLine("Le véhicule avec l'immatriculation " + immatriculation + " a été supprimé.");
+                Console.WriteLine("Le véhicule avec l'id " + id + " a été supprimé.");
             }
             else
             {
-                Console.WriteLine("Aucun véhicule trouvé avec l'immatriculation " + immatriculation + ".");
-            }
-        }
-
-        public void AfficherAllVehicule()
-        {
-            Console.Clear();
-            VehiculeDAO vehiculedao = new VehiculeDAO(port, password);
-            List<Vehicule> list_vehicule = vehiculedao.GetAll();
-            Console.WriteLine("Voici la liste de tous les véhicules : ");
-            foreach (Vehicule v in list_vehicule)
-            {
-                Console.WriteLine("ID : " + v.id_vehicule + " | Immatriculation : " + v.immatriculation + " | Type : " + v.typevehicule + " | Boite de vitesse : " + (v.boitevitesse ? "Automatique" : "Manuelle") + " | Marque : " + v.marque + " | Modèle : " + v.modele);
+                Console.WriteLine("Aucun véhicule trouvé avec l'id " + id + ".");
             }
         }
     }

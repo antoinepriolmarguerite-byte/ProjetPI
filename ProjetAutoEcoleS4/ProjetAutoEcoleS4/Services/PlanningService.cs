@@ -16,6 +16,17 @@ namespace ProjetAutoEcoleS4.Data
             this.port = port;
             this.password = password;
         }
+
+// ==========================================
+// TYPE       : Méthode d'INSTANCE
+// ENTRÉE     : aucune
+// TRAITEMENT : 
+//   - Efface la console et affiche l'en-tête du planning
+//   - Récupère les données formatées (Date | Elève | Moniteur) depuis le PlanningDAO
+//   - Gère l'affichage des messages si le planning est vide
+//   - Marque une pause de 10 secondes pour la lecture
+// SORTIE     : aucune
+// ==========================================
         public void AfficherPlanning()
         {
             Console.Write("Donnez la date de la leçon (jj-mm-aaaa) : ");
@@ -47,7 +58,7 @@ namespace ProjetAutoEcoleS4.Data
                 }
             }
             Console.WriteLine("--------------------------------\n");
-            Thread.Sleep(10000);
+            Thread.Sleep(2500);
         }
     }
 }

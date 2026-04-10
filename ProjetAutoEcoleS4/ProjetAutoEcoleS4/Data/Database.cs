@@ -12,6 +12,12 @@ public class Database
     {
         private string connectionString;
 
+        // ==========================================
+        // TYPE       : Constructeur d'INSTANCE
+        // ENTRÉE     : string port, string password
+        // TRAITEMENT : Initialise la chaîne de connexion MySQL avec les identifiants fournis
+        // SORTIE     : aucune (initialise l'objet Database)
+        // ==========================================
         public Database(string port, string password)
         {
             connectionString = $"server=localhost;port={port};database=AutoEcole;uid=root;pwd={password};";
@@ -21,6 +27,7 @@ public class Database
         {
             return new MySqlConnection(connectionString);
         }
+
         //Methode de test
         public string TestConnection()
         {
@@ -45,7 +52,7 @@ public class Database
                     return(" ErreurConnexion : " + e.ToString());
                     break;
             }
-            return "chepa";
+            return "other";
         }
         }
     }

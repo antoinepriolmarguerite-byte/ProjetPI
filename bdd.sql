@@ -101,16 +101,17 @@ CREATE TABLE KilometrageMois (
    FOREIGN KEY(Annee_mois) REFERENCES Mois(Annee_mois)
 );
 
+USE AutoEcole;
+
 INSERT INTO Moniteur (Nom, Prenom, Permis_Moniteur, Salaire_Moniteur) VALUES
 ('Martin', 'Lucas', 'B, BE, A', 2200.50),
 ('Bernard', 'Julie', 'B, BVA', 2100.00),
-('Petit', 'Nicolas', 'A, A1, A2', 2300.00);
+('Petit', 'Nicolas', 'A, A1, A2', 2300.00); -- ok c'est drôle
 
 INSERT INTO Eleve (CodeNEPH, NomEleve, PrenomEleve, Tel, Mail, TypeEleve, Adresse, RIB, DateNaissance, Permis, Boite, idMoniteurReferent, NbHeuresAPayer, MontantReglementRestant) VALUES
 ('123456789012', 'Dupont', 'Jean', '0601020304', 'jean.dupont@email.com', 'Traditionnel', '12 rue de la Paix, Paris', 'FR763000...', '2005-05-15', 'B', 'Manuelle', 1, 5, 250.00),
 ('987654321098', 'Martin', 'Sophie', '0708091011', 'sophie.martin@email.com', 'AAC', '5 avenue des Champs, Lyon', 'FR764000...', '2007-11-20', 'B', 'Automatique', 2, 0, 0.00),
 ('456123789456', 'Lefebvre', 'Thomas', '0611223344', 'thomas.lef@email.com', 'Candidat Libre', '30 rue du Port, Marseille', 'FR765000...', '1998-02-10', 'A2', 'Manuelle', 1, 10, 500.00);
-
 
 INSERT INTO Vehicule (Immatriculation, TypeVehicule, Boite, Historique, CoutAssurance, Marque, Modele, Etat) VALUES
 ('AB-123-CD', 'Voiture', 0, 'Révision faite en Janvier', 450.00, 'Renault', 'Clio 5', 1),
@@ -141,3 +142,7 @@ INSERT INTO KilometrageMois (ID_Vehicule, Annee_mois, Nbkilometre) VALUES
 (1, 202403, 1250.5),
 (2, 202403, 890.0),
 (3, 202403, 450.2);
+SELECT * FROM eleve;
+SELECT * FROM lecon;
+SELECT * FROM vehicule;
+Select * FROM facture;

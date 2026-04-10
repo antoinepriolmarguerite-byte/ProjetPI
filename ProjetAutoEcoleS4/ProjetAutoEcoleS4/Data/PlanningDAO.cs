@@ -1,4 +1,5 @@
 using MySql.Data.MySqlClient;
+using ProjetAutoEcoleS4.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,12 @@ namespace ProjetAutoEcoleS4.Data
             conn = new Database(port, password);
         }
 
-        public List<string> RecupererPlanningDAO(DateTime date, int id)
+        public PlanningDAO(Database database)
+        {
+            conn = database;
+        }
+
+        public List<string> RecupererPlanningDAO()
         {
             List<string> liste = new List<string>();
 
@@ -40,6 +46,27 @@ namespace ProjetAutoEcoleS4.Data
                     }
                 }
                 return liste;
+            }
+        }
+
+        public void AjouterLeconDansPlanning(Lecon lecon)
+        {
+            using (MySqlConnection cn = conn.GetConnection())
+            {
+                cn.Open();
+                string sql = "INSERT INTO Planning (DateHeureDebut, DateHeureFin, ID_Eleve, ID_Moniteur, ID_Vehicule, ID_Lecon) " +
+                             "VALUES (@dateDebut, @dateFin, @idEleve, @idMoniteur, @idVehicule, @idLecon)";
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, cn))
+                {
+                    cmd.Parameters.AddWithValue("@dateDebut", lecon.dateLecon);
+                    cmd.Parameters.AddWithValue("@dateFin", lecon.dateLecon.AddHours(1));
+                    cmd.Parameters.AddWithValue("@idEleve", lecon.eleve.id_eleve);
+                    cmd.Parameters.AddWithValue("@idMoniteur", lecon.id_moniteur);
+                    cmd.Parameters.AddWithValue("@idVehicule", lecon.vehicule.id_vehicule);
+                    cmd.Parameters.AddWithValue("@idLecon", lecon.id_lecon);
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
     }
