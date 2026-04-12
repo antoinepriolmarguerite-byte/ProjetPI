@@ -1,3 +1,4 @@
+using ProjetAutoEcoleS4.Models;
 using ProjetAutoEcoleS4.Services;
 using System;
 using System.Collections.Generic;
@@ -44,24 +45,46 @@ namespace ProjetAutoEcoleS4.Data
             {
                 Console.Write("ID inconnu ou invalide. Veuillez choisir un ID présent dans la liste : ");
             }
+            Console.WriteLine("Souhaitez vous avoir le planing hebdomadaire ou journalier ?");
+            Console.WriteLine("1 - Planing Journalier");
+            Console.WriteLine("2 - Planing Hebdomadaire");
+            string choix;
+            do
+            { 
+                choix = Console.ReadLine()!;
+                if (choix != "1" && choix != "2")
+                {
+                    Console.Write("Veuillez entrer un choix valide : ");
+                }
+            } while (choix != "1" && choix != "2");
             Console.Clear();
             Console.WriteLine("\n--- PLANNING DE L'AUTO-ÉCOLE ---");
             PlanningDAO planningDAO = new PlanningDAO(port, password);
-            List<string> lecons = planningDAO.RecupererPlanningDAO(date, idMoniteurSaisi);
-
-            if (lecons.Count == 0)
+            List<string> lecons = new List<string>();
+            string leconne;
+            if (choix == "1")
             {
-                Console.WriteLine("Aucune leçon de planifiée pour le moment.");
-            }
-            else
-            {
-                foreach (string lecon in lecons)
+                lecons = planningDAO.RecupererPlanningDAOJournalier(date, idMoniteurSaisi);
+                if (lecons.Count == 0)
                 {
-                    Console.WriteLine(lecon);
+                    Console.WriteLine("Aucune leçon de planifiée pour le moment.");
+                }
+                else
+                {
+                    foreach (string lecon in lecons)
+                    {
+                        Console.WriteLine(lecon);
+                    }
                 }
             }
+            else if (choix == "2")
+            {
+                leconne = planningDAO.RecupererPlanningDAOHebdomadaire(date, idMoniteurSaisi);
+                Console.WriteLine(leconne);
+            }
+           
             Console.WriteLine("--------------------------------\n");
-            Thread.Sleep(4000);
+            Thread.Sleep(5000);
         }
     }
 }

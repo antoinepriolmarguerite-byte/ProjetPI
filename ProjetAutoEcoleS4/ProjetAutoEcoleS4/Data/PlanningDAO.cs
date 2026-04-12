@@ -22,7 +22,7 @@ namespace ProjetAutoEcoleS4.Data
             conn = database;
         }
 
-        public List<string> RecupererPlanningDAO(DateTime date, int id)
+        public List<string> RecupererPlanningDAOJournalier(DateTime date, int id)
         {
             List<string> liste = new List<string>();
 
@@ -47,6 +47,86 @@ namespace ProjetAutoEcoleS4.Data
                 }
                 return liste;
             }
+        }
+
+        public string RecupererPlanningDAOHebdomadaire(DateTime date, int id)
+        {
+            string result = "";
+            Dictionary<string, List<string>> planning = new Dictionary<string, List<string>>()
+            {
+                { "Lundi", new List<string>() },
+                { "Mardi", new List<string>() },
+                { "Mercredi", new List<string>() },
+                { "Jeudi", new List<string>() },
+                { "Vendredi", new List<string>() },
+                { "Samedi", new List<string>() },
+                { "Dimanche", new List<string>() },
+            };
+        
+            using (MySqlConnection cn = conn.GetConnection())
+            {
+                cn.Open();
+
+                string sql = @"
+        SELECT 
+            DAYOFWEEK(DateHeureDebut) as Jour,
+            HOUR(DateHeureDebut) as H1, 
+            MINUTE(DateHeureDebut) as M1,
+            HOUR(DateHeureFin) as H2, 
+            MINUTE(DateHeureFin) as M2,
+            e.PrenomEleve,
+            e.NomEleve
+        FROM Planning p
+        LEFT JOIN Eleve e ON p.ID_Eleve = e.ID_Eleve
+        JOIN Moniteur m ON p.ID_Moniteur = m.ID_Moniteur 
+        WHERE WEEK(DateHeureDebut, 1) = WEEK(@date, 1) 
+        AND m.ID_Moniteur = @id
+        ORDER BY DateHeureDebut";
+
+                MySqlCommand cmd = new MySqlCommand(sql, cn);
+                cmd.Parameters.AddWithValue("@date", date);
+                cmd.Parameters.AddWithValue("@id", id);
+
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        int jour = dr.GetInt32("Jour");
+
+                        // MySQL : 1=Dimanche, 2=Lundi, ..., 7=Samedi
+                        string jourNom = jour switch
+                        {
+                            2 => "Lundi",
+                            3 => "Mardi",
+                            4 => "Mercredi",
+                            5 => "Jeudi",
+                            6 => "Vendredi",
+                            7 => "Samedi",
+                            1 => "Dimanche",
+                            _ => "Inconnu"
+                        };
+
+                        string cours = $"De {dr.GetInt32("H1")}:{dr.GetInt32("M1")} à {dr.GetInt32("H2")}:{dr.GetInt32("M2")} | Avec {dr.GetString("PrenomEleve")} {dr.GetString("NomEleve")}";
+
+                        planning[jourNom].Add(cours);
+                        for (int i = 0; i < planning[jourNom].Count; i++)
+                        {
+                            result = result + jourNom + " : \n";
+                            if (planning[jourNom][i] == "")
+                            {
+                                result = result +"Aucun cours prévu";
+                            }
+                            else
+                            { 
+                                result = result +planning[jourNom][i]+ "\n" ;
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            return result;
         }
 
         public void AjouterLeconDansPlanning(Lecon lecon)

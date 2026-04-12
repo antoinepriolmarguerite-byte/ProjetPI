@@ -119,15 +119,42 @@ INSERT INTO Vehicule (Immatriculation, TypeVehicule, Boite, Historique, CoutAssu
 ('IJ-789-KL', 'Moto', 0, 'Changement pneus Mars', 300.00, 'Yamaha', 'MT-07', 1);
 
 INSERT INTO Lecon (Date_, ID_Eleve, ID_Moniteur, ID_Vehicule, MontantFacture) VALUES
-('2024-03-20 10:00:00', 1, 1, 1, 50.00),
-('2024-03-20 14:00:00', 2, 2, 2, 55.00),
-('2024-03-21 09:00:00', 3, 3, 3, 60.00);
+('2024-03-22 08:00:00', 2, 1, 1, 50.00),
+('2024-03-22 11:00:00', 3, 2, 2, 55.00),
+('2024-03-22 16:00:00', 1, 3, 3, 60.00),
+('2024-03-23 09:00:00', 1, 1, 1, 50.00),
+('2024-03-23 13:00:00', 2, 2, 2, 55.00),
+('2024-03-23 17:00:00', 3, 3, 3, 60.00),
+('2024-03-24 10:00:00', 3, 1, 1, 50.00),
+('2024-03-24 14:00:00', 1, 2, 2, 55.00),
+('2024-03-26 08:30:00', 2, 1, 1, 50.00),
+('2024-03-26 15:30:00', 3, 3, 3, 60.00),
+('2024-03-27 09:30:00', 1, 2, 2, 55.00),
+('2024-03-27 14:00:00', 2, 1, 1, 50.00);
 
 INSERT INTO Planning (DateHeureDebut, DateHeureFin, Formule, ID_Vehicule, ID_Lecon, ID_Moniteur, ID_Eleve) VALUES
-('2024-03-20 10:00:00', '2024-03-20 11:00:00', 'Heure Conduite', 1, 1, 1, 1),
-('2024-03-20 14:00:00', '2024-03-20 15:00:00', 'Heure Conduite BVA', 2, 2, 2, 2),
-('2024-03-21 09:00:00', '2024-03-21 11:00:00', 'Plateau Moto', 3, 3, 3, 3),
-('2024-03-25 15:00:00', '2024-03-25 16:00:00', 'Evaluation', 1, NULL, 1, 1); -- Créneau prévu mais pas encore facturé (leçon NULL)
+
+-- 22 mars
+('2024-03-22 08:00:00', '2024-03-22 09:00:00', 'Heure Conduite', 1, 5, 1, 2),
+('2024-03-22 11:00:00', '2024-03-22 12:00:00', 'Heure Conduite BVA', 2, 6, 2, 3),
+('2024-03-22 16:00:00', '2024-03-22 17:30:00', 'Plateau Moto', 3, 7, 3, 1),
+
+-- 23 mars
+('2024-03-23 09:00:00', '2024-03-23 10:00:00', 'Heure Conduite', 1, 8, 1, 1),
+('2024-03-23 13:00:00', '2024-03-23 14:00:00', 'Heure Conduite BVA', 2, 9, 2, 2),
+('2024-03-23 17:00:00', '2024-03-23 18:30:00', 'Plateau Moto', 3, 10, 3, 3),
+
+-- 24 mars
+('2024-03-24 10:00:00', '2024-03-24 11:00:00', 'Evaluation', 1, 11, 1, 3),
+('2024-03-24 14:00:00', '2024-03-24 15:00:00', 'Heure Conduite BVA', 2, 12, 2, 1),
+
+-- 26 mars
+('2024-03-26 08:30:00', '2024-03-26 09:30:00', 'Heure Conduite', 1, 4, 1, 2),
+('2024-03-26 15:30:00', '2024-03-26 17:00:00', 'Plateau Moto', 3, 3, 3, 3),
+
+-- 27 mars
+('2024-03-27 09:30:00', '2024-03-27 10:30:00', 'Heure Conduite BVA', 2, 2, 2, 1),
+('2024-03-27 14:00:00', '2024-03-27 15:00:00', 'Evaluation', 1, 1, 1, 2); -- Créneau prévu mais pas encore facturé (leçon NULL)
 
 INSERT INTO Facture (ID_Facture, Destinataire, NomEleve, Montant, DeadlineReglement, DateSeance, TypeReglement, ID_Eleve) VALUES
 ('FAC-2024-001', 'Jean Dupont', 'Jean Dupont', 50.00, '2024-04-20', '2024-03-20', 'Carte Bancaire', 1),
