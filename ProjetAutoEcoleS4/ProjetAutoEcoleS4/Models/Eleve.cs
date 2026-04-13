@@ -22,7 +22,7 @@ namespace ProjetAutoEcoleS4.Models
         public string rib { get; set; }
         public DateTime dateNaissance { get; set; }
         public string permis { get; set; }
-        public bool estBoiteManuelle { get; set; } //true = Boite manuelle
+        public string estBoiteManuelle { get; set; } //true = Boite manuelle
         public int moniteurTitre { get; set; }
         public int nbHeuresAPayer { get; set; }
         public double montantReglementRestant { get; set; }
@@ -39,7 +39,7 @@ namespace ProjetAutoEcoleS4.Models
             rib = "";
             dateNaissance = new DateTime();
             permis = "";
-            estBoiteManuelle = false;
+            estBoiteManuelle = "";
             moniteurTitre = 0;
             nbHeuresAPayer = 0;
             montantReglementRestant = 0;
@@ -57,7 +57,7 @@ namespace ProjetAutoEcoleS4.Models
             this.rib = attributs[7];
             this.dateNaissance = DateTime.Parse(attributs[8]);
             this.permis = attributs[9];
-            this.estBoiteManuelle = bool.Parse(attributs[10]);
+            this.estBoiteManuelle = attributs[10];
             this.moniteurTitre = int.Parse(attributs[11]);
             this.nbHeuresAPayer = 0;
         }
@@ -85,7 +85,7 @@ namespace ProjetAutoEcoleS4.Models
             rib = "";
             dateNaissance = new DateTime();
             permis = "";
-            estBoiteManuelle = false;
+            estBoiteManuelle = "";
             moniteurTitre = 0;
             nbHeuresAPayer = 0;
             montantReglementRestant = 0;

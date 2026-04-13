@@ -133,13 +133,15 @@ namespace ProjetAutoEcoleS4.Interfaces
             }   
             retour[9] = Permis;
 
-            Console.Write("Veuillez écrire EstBoiteManuelle de l'élève (true/false) : ");
+            Console.Write("Est-ce une boite manuelle ?(true/false) : ");
             string EstBoiteManuelle = Console.ReadLine()!.ToLower();
             while (string.IsNullOrWhiteSpace(EstBoiteManuelle)|| EstBoiteManuelle != "true" && EstBoiteManuelle != "false") 
             {
-                Console.Write(EstBoiteManuelle);
+                Console.Write("Est-ce une boite manuelle ?(true/false) : ");
                 EstBoiteManuelle = Console.ReadLine()!;
-            }   
+            }
+            if(EstBoiteManuelle=="true") EstBoiteManuelle = "Manuelle";
+            else EstBoiteManuelle = "Automatique";  
             retour[10] = EstBoiteManuelle; 
 
             Console.WriteLine("\n== MONITEURS ==");
