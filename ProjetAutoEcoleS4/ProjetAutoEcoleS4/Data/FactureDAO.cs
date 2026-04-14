@@ -25,8 +25,8 @@ namespace ProjetAutoEcoleS4.Services
         // ==========================================
         // TYPE       : Méthode d'INSTANCE
         // ENTRÉE     : Lecon lecon
-        // TRAITEMENT : Calcule le prochain numéro de facture et insère une nouvelle ligne dans la table Facture
-        // SORTIE     : aucune (affiche le numéro de facture généré)
+        // TRAITEMENT : Ajoute une nouvelle facture dans la base de donnée
+        // SORTIE     : aucune
         // ==========================================
         public void AjouterLeconDansFacture(Lecon lecon)
         {

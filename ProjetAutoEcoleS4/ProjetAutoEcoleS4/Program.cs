@@ -85,6 +85,17 @@ while (continuer)
             continuer = false;
             Console.Clear();
             break;
+        case "11":
+            ConsoleSQL CSQL = new ConsoleSQL(port,pwd);
+            Console.WriteLine("=======CONSOLE INTEGRÉE=======");
+            Console.WriteLine("ici vous pouvez écrire toutes les commandes SQL et pour quitter la console, il suffit d'écrire 'exit'");
+            string commande = Console.ReadLine()!;
+            while(commande != "exit")
+            {
+                CSQL.Executer(commande,CSQL.RecupererTypeCommande(commande));
+                commande = Console.ReadLine()!;
+            }
+            break;
         default:
             Console.WriteLine("Option invalide, veuillez réessayer.");
             break;
