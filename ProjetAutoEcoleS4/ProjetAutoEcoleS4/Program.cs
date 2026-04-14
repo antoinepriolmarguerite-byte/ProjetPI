@@ -116,6 +116,7 @@ void AfficherMenu()
     Console.WriteLine("8 - Ajoutez/Supprimer Eleve");
     Console.WriteLine("9 - Ajoutez/Supprimer Véhicule");
     Console.WriteLine("10 - Quitter");
+    Console.WriteLine("11 - Console de test/vérification");
 }
 
 
