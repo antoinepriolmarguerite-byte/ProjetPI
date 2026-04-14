@@ -113,7 +113,7 @@ namespace ProjetAutoEcoleS4.Data
                 Console.WriteLine("Insertion réalisée");
                 cn.Dispose();
             }
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
         }
 
         // ==========================================

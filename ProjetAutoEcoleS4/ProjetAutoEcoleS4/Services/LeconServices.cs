@@ -113,7 +113,7 @@ namespace ProjetAutoEcoleS4.Data
                 l.vehicule.id_vehicule = idVehiculeSaisi;
 
                 // --- MONTANT FACTURE ---
-                Console.Write("Veuillez entrer le montant de la facture (en €) : ");
+                Console.Write("Veuillez entrer le montant de la facture (en euros) : ");
                 double montantFacture;
                 while (!double.TryParse(Console.ReadLine(), out montantFacture) || montantFacture < 0)
                 {
