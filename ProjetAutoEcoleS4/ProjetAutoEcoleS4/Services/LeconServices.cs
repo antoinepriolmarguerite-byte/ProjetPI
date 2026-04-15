@@ -132,7 +132,7 @@ namespace ProjetAutoEcoleS4.Data
                 Console.WriteLine("Leçon ajoutée avec succès !");
             }
         }
-        
+
         // ==========================================
         // TYPE       : Méthode d'INSTANCE
         // ENTRÉE     : aucune
@@ -144,10 +144,10 @@ namespace ProjetAutoEcoleS4.Data
         // ==========================================        
         public void SupprimerLeçon()
         {
-            LeconDAO leconbdd = new LeconDAO(port,password);
-            List<string> ListeLecon = leconbdd.GetAll(port,password);
+            LeconDAO leconbdd = new LeconDAO(port, password);
+            List<Lecon> ListeLecon = leconbdd.GetAll(port, password);
 
-            for(int i = 0; i < ListeLecon.Count(); i++)
+            for (int i = 0; i < ListeLecon.Count(); i++)
             {
                 Console.WriteLine(ListeLecon[i].ToString());
             }

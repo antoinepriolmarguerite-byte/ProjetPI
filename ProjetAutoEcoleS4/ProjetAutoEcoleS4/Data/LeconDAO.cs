@@ -227,37 +227,38 @@ namespace ProjetAutoEcoleS4.Data
         {
             Database conn = new Database(port, password);
             List<Lecon> liste = new List<Lecon>();
-            using (MySqlConnection cn = conn.GetConnection())
-            {
-                cn.Open();
-                
-                MySqlCommand cmd = new MySqlCommand("SELECT * FROM LECON", cn);
-                MySqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
-                {
-                    liste.Add(new Lecon
-                    {
-                        id_lecon = dr.GetInt32("id_lecon"),
-                        dateLecon = dr.GetDateTime("date_"),
-                        id_moniteur = dr.GetInt32("ID_Moniteur"),
-                    });
-                }
-            }
-            return liste;
-        }
-        public List<string> GetAllsuppr(string port, string password)
-        {
-            Database conn = new Database(port, password);
-            List<string> liste = new List<string>();
-            using (MySqlConnection cn = conn.GetConnection())
-            {
-                cn.Open();
 
-                MySqlCommand cmd = new MySqlCommand("SELECT * FROM LECON left join eleve on lecon.id_eleve=eleve.id_eleve left join moniteur on moniteur.id_moniteur=lecon.id_moniteur order by id_lecon", cn);
-                MySqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
+            using (MySqlConnection cn = conn.GetConnection())
+            {
+                cn.Open();
+                // Utilisation d'un LEFT JOIN au cas où un élève lié aurait été supprimé par erreur
+                string sql = @"SELECT l.id_lecon, l.date_, l.ID_Moniteur, 
+                                    e.ID_Eleve, e.CodeNEPH, e.nomEleve, e.prenomEleve
+                            FROM LECON l
+                            LEFT JOIN ELEVE e ON l.ID_Eleve = e.ID_Eleve";
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, cn))
                 {
-                    liste.Add($"{dr.GetInt32("id_lecon")} | Nom de l'élève : {dr.GetString("nomeleve")} | Prénom de l'élève : {dr.GetString("prenomeleve")} | Nom du moniteur : {dr.GetString("Nom")} | Prénom du moniteur : {dr.GetString("prenom")} | Date : {dr.GetDateTime("date_")}");
+                    using (MySqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            Lecon l = new Lecon
+                            {
+                                id_lecon = dr.GetInt32("id_lecon"),
+                                dateLecon = dr.GetDateTime("date_"),
+                                id_moniteur = dr.GetInt32("ID_Moniteur"),
+                                eleve = new Eleve
+                                {
+                                    id_eleve = dr.IsDBNull(dr.GetOrdinal("ID_Eleve")) ? 0 : dr.GetInt32("ID_Eleve"),//j'ai pas compris pourquoi on avait des nulls mais bon.
+                                    codeNeph = dr.IsDBNull(dr.GetOrdinal("CodeNEPH")) ? "" : dr.GetString("CodeNEPH"),
+                                    nomEleve = dr.IsDBNull(dr.GetOrdinal("nomEleve")) ? "Inconnu" : dr.GetString("nomEleve"),
+                                    prenomEleve = dr.IsDBNull(dr.GetOrdinal("prenomEleve")) ? "" : dr.GetString("prenomEleve")
+                                }
+                            };
+                            liste.Add(l);
+                        }
+                    }
                 }
             }
             return liste;
