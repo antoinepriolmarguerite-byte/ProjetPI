@@ -110,6 +110,11 @@ namespace ProjetAutoEcoleS4.Data
                     Console.WriteLine("Erreur : ce véhicule a déjà une leçon prévue à cette date !");
                     return;
                 }
+                else if(!bddVehicule.VerifmodeleVehicule(idVehiculeSaisi, e.id_eleve))
+                {
+                    Console.WriteLine("Erreur : ce véhicule n'est pas adapté au type de permis de l'élève !");
+                    return;
+                }
                 l.vehicule.id_vehicule = idVehiculeSaisi;
 
                 // --- MONTANT FACTURE ---
@@ -140,7 +145,7 @@ namespace ProjetAutoEcoleS4.Data
         public void SupprimerLeçon()
         {
             LeconDAO leconbdd = new LeconDAO(port,password);
-            List<Lecon> ListeLecon = leconbdd.GetAll(port,password);
+            List<string> ListeLecon = leconbdd.GetAll(port,password);
 
             for(int i = 0; i < ListeLecon.Count(); i++)
             {

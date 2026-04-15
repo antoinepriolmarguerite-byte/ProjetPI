@@ -162,6 +162,40 @@ namespace ProjetAutoEcoleS4.Data
                 }
             }
         }
+        public bool VerifmodeleVehicule(int idvehicule, int ideleve)
+        {
+            bool verif = false;
+
+            using (MySqlConnection cn = conn.GetConnection())
+            {
+                cn.Open();
+                MySqlCommand cmd = new MySqlCommand(
+                    "SELECT vehicule.boite, eleve.boite " +
+                    "FROM eleve " +
+                    "JOIN lecon ON eleve.id_eleve = lecon.id_eleve " +
+                    "JOIN vehicule ON lecon.id_vehicule = vehicule.id_vehicule " +
+                    "WHERE vehicule.id_vehicule = @idvehicule AND eleve.id_eleve = @ideleve", cn);
+
+                cmd.Parameters.AddWithValue("@idvehicule", idvehicule);
+                cmd.Parameters.AddWithValue("@ideleve", ideleve);
+
+                MySqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    bool boiteVehicule = dr.GetBoolean(0); // true = auto, false = manuelle
+                    string boiteEleve = dr.GetString(1).ToLower();
+
+                    if ((boiteVehicule && boiteEleve == "auto") ||
+                        (!boiteVehicule && boiteEleve == "manuelle"))
+                    {
+                        verif = true;
+                    }
+                }
+            }
+
+            return verif;
+        }
 
     }
 }

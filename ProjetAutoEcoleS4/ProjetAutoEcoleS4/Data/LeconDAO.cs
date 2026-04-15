@@ -223,24 +223,19 @@ namespace ProjetAutoEcoleS4.Data
         }
 
 
-        public List<Lecon> GetAll(string port, string password)
+        public List<string> GetAll(string port, string password)
         {
             Database conn = new Database(port, password);
-            List<Lecon> liste = new List<Lecon>();
+            List<string> liste = new List<string>();
             using (MySqlConnection cn = conn.GetConnection())
             {
                 cn.Open();
                 
-                MySqlCommand cmd = new MySqlCommand("SELECT * FROM LECON", cn);
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM LECON left join eleve on lecon.id_eleve=eleve.id_eleve left join moniteur on moniteur.id_moniteur=lecon.id_moniteur order by id_lecon", cn);
                 MySqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    liste.Add(new Lecon
-                    {
-                        id_lecon = dr.GetInt32("id_lecon"),
-                        dateLecon = dr.GetDateTime("date_"),
-                        id_moniteur = dr.GetInt32("ID_Moniteur"),
-                    });
+                    liste.Add($"{dr.GetInt32("id_lecon")} | Nom de l'élève : {dr.GetString("nomeleve")} | Prénom de l'élève : {dr.GetString("prenomeleve")} | Nom du moniteur : {dr.GetString("Nom")} | Prénom du moniteur : {dr.GetString("prenom")} | Date : {dr.GetDateTime("date_")}");
                 }
             }
             return liste;
